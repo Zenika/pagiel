@@ -1,0 +1,15 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+before_script:
+
+check:
+  stage: check-run
+    name: docker:stable
+    entrypoint: ["/bin/sh", "-c"]
+  script: docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor:lastest -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
+  after_script: 
+    - cat /tmp/powerapi-sensor-reporting/rapl
+    
