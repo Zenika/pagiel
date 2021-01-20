@@ -1,0 +1,38 @@
+{ "accounts": [
+  {
+    "num": "001",
+    "owner": "Michel Dupont",
+    "balance": "321,37",
+    "lastoperations": [
+      { "type": "debit", "date": "14-01-2021", "description": "Cheque 123456", "value": "124,30" },
+      { "type": "debit", "date": "14-01-2021", "description": "Achat CB", "value": "30" },
+      { "type": "credit", "date": "14-01-2021", "description": "Virement CAF", "value": "138,50" },
+      { "type": "debit", "date": "13-01-2021", "description": "Cheque 123455", "value": "28,30" },
+      { "type": "credit", "date": "13-01-2021", "description": "Salaire", "value": "2450,32" }
+    ]
+  },
+  {
+    "num": "002",
+    "owner": "Monique Durand",
+    "balance": "1245,67",
+    "lastoperations": [
+      { "type": "credit", "date": "12-01-2021", "description": "Remboursement CB", "value": "310" },
+      { "type": "debit", "date": "11-01-2021", "description": "Cheque 123452", "value": "34,90" },
+      { "type": "debit", "date": "10-01-2021", "description": "Cheque 123451", "value": "30" },
+      { "type": "debit", "date": "10-01-2021", "description": "Cheque 123450", "value": "12" },
+      { "type": "debit", "date": "09-01-2021", "description": "Cheque 123454", "value": "24,83" }
+    ]
+  },
+  {
+    "num": "003",
+    "owner": "Sebastien Pierre",
+    "balance": "-521,13",
+    "lastoperations": [
+      { "type": "debit", "date": "14-01-2021", "description": "Retrait DAB", "value": "130" },
+      { "type": "debit", "date": "14-01-2021", "description": "Cheque 123416", "value": "21,45" },
+      { "type": "debit", "date": "14-01-2021", "description": "Cheque 123412", "value": "124,30" },
+      { "type": "debit", "date": "14-01-2021", "description": "Cheque 123410", "value": "180" },
+      { "type": "credit", "date": "13-01-2021", "description": "Virement", "value": "1000" }
+    ]
+  }
+]}
