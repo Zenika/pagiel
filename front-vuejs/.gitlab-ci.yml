@@ -1,8 +1,11 @@
+stages:
+  - e2e_tests
+
 e2e test:chrome:
   image: node:10
   services:
     - selenium/standalone-chrome
-  stage: test
+  stage: e2e_tests
   script:
     - npm install --frozen-lockfile
     - npm teste2e --env chrome --headless
