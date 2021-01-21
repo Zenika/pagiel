@@ -6,15 +6,15 @@ services:
   - docker:dind
 
 before_script:
-  - docker rm powerapi-sensor-ubuntu 
+  - sudo docker rm powerapi-sensor-ubuntu 
 
 after_script:
-  - docker rm powerapi-sensor-ubuntu 
+  - sudo docker rm powerapi-sensor-ubuntu 
 
 prepare:
   stage: run_sensor
     #name: docker:stable
     #entrypoint: ["/bin/sh", "-c"]
-  script: docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
+  script: sudo docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
   after_script: 
-    - cat /tmp/powerapi-sensor-reporting/rapl
+    - sudo cat /tmp/powerapi-sensor-reporting/rapl
