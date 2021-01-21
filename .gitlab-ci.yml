@@ -1,5 +1,5 @@
 include:
-  - "/front-vuejs/.gitlab-ci.yml"
+  - "./front-vuejs/.gitlab-ci.yml"
 
 stages:
   - run_sensor
@@ -15,11 +15,11 @@ services:
 after_script:
   - sudo docker stop powerapi-sensor-ubuntu 
   - sudo docker rm powerapi-sensor-ubuntu 
+  - sudo cat /tmp/powerapi-sensor-reporting/rapl
 
-prepare:
+run_sensor:
   stage: run_sensor
     #name: docker:stable
     #entrypoint: ["/bin/sh", "-c"]
   script: sudo docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
-  after_script: 
-    - sudo cat /tmp/powerapi-sensor-reporting/rapl
+
