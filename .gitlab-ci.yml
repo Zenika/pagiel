@@ -3,6 +3,7 @@ include:
 
 stages:
   - run_sensor
+  - e2e_tests
 
 services:
   - docker:dind

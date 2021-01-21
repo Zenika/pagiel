@@ -1,7 +1,7 @@
 stages:
   - e2e_tests
 
-e2e test:chrome:
+vuejs_e2e_test:chrome:
   image: node:10
   services:
     - selenium/standalone-chrome
