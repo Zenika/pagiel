@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3031
 
 app.get('/', (req, res) => {
     if (req.query.account === undefined ) {
