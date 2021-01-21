@@ -6,9 +6,11 @@ services:
   - docker:dind
 
 before_script:
+  - sudo docker stop powerapi-sensor-ubuntu
   - sudo docker rm powerapi-sensor-ubuntu 
 
 after_script:
+  - sudo docker stop powerapi-sensor-ubuntu 
   - sudo docker rm powerapi-sensor-ubuntu 
 
 prepare:
