@@ -8,4 +8,4 @@ vuejs_e2e_test:chrome:
   stage: e2e_tests
   script:
     - npm install --frozen-lockfile
-    - npm teste2e --env chrome --headless
+    - npm ci-teste2e --env chrome --headless

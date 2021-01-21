@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "teste2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "ci-teste2e": "front-vuejs/vue-cli-service test:e2e"
   },
   "dependencies": {
     "core-js": "^3.6.5",
