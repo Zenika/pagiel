@@ -3,18 +3,19 @@ const fs = require('fs');
 const express = require('express')
 const app = express()
 const port = 3031
+const cors = require('cors');
+app.use(cors())
 
 app.get('/', (req, res) => {
-    if (req.query.account === undefined ) {
+    if (req.query.account === undefined) {
         res.send('Usage : http://host:port/?account=number');
-    }
-    else {
+    } else {
         let rawData = fs.readFileSync('./account.json');
         let accountsMock = JSON.parse(rawData);
-        var results = {};
-        var searchField = "num";
-        for (var i=0 ; i < accountsMock.accounts.length ; i++) {
-            if (accountsMock.accounts[i][searchField] == req.query.account) {
+        let results = {};
+        const searchField = "num";
+        for (let i = 0; i < accountsMock.accounts.length; i++) {
+            if (accountsMock.accounts[i][searchField] === req.query.account) {
                 results = accountsMock.accounts[i];
             }
         }
