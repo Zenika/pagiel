@@ -7,5 +7,6 @@ vuejs_e2e_test:chrome:
     - selenium/standalone-chrome
   stage: e2e_tests
   script:
+    - cd front-vuejs
     - npm install --frozen-lockfile
     - npm run teste2e --env chrome --headless
