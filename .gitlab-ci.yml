@@ -1,5 +1,5 @@
 include:
-  - "./front-vuejs/.gitlab-ci.yml"
+  - "/front-vuejs/.gitlab-ci.yml"
 
 stages:
   - run_sensor
