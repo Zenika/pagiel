@@ -20,9 +20,17 @@ initialize_hwpc_sensor:
     #entrypoint: ["/bin/sh", "-c"]
   script: sudo docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
 
-clean_environment:
+clean_environment_failure:
   stage: clean_env
-  when: always  
+  when: on_failure
+  script:
+  - sudo docker stop powerapi-sensor-ubuntu 
+  - sudo docker rm powerapi-sensor-ubuntu 
+  - sudo cat /tmp/powerapi-sensor-reporting/rapl
+
+clean_environment_success:
+  stage: clean_env
+  when: on_success
   script:
   - sudo docker stop powerapi-sensor-ubuntu 
   - sudo docker rm powerapi-sensor-ubuntu 
