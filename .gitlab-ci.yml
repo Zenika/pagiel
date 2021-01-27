@@ -8,10 +8,8 @@ stages:
 services:
   - docker:dind
 
-#before_script:
+before_script:
   - yarn install
-#  - sudo docker stop powerapi-sensor-ubuntu
-#  - sudo docker rm powerapi-sensor-ubuntu 
 
 after_script:
   - sudo docker stop powerapi-sensor-ubuntu 
