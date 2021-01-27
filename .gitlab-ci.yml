@@ -2,23 +2,27 @@ include:
   - "/front-vuejs/.gitlab-ci.yml"
 
 stages:
-  - run_sensor
+  - init_env
+  - init_hwpc_sensor
   - e2e_tests
+  - clean_env
 
 services:
   - docker:dind
 
-before_script:
-  - yarn install
+initialize_env:
+  stage: init_env
+  script: yarn install
 
-after_script:
-  - sudo docker stop powerapi-sensor-ubuntu 
-  - sudo docker rm powerapi-sensor-ubuntu 
-  - sudo cat /tmp/powerapi-sensor-reporting/rapl
-
-run_sensor:
-  stage: run_sensor
+initialize_hwpc_sensor:
+  stage: init_hwpc_sensor
     #name: docker:stable
     #entrypoint: ["/bin/sh", "-c"]
   script: sudo docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
 
+clean_environment:
+  stage: clean_env
+  script:
+  - sudo docker stop powerapi-sensor-ubuntu 
+  - sudo docker rm powerapi-sensor-ubuntu 
+  - sudo cat /tmp/powerapi-sensor-reporting/rapl
