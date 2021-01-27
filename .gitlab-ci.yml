@@ -22,8 +22,7 @@ initialize_hwpc_sensor:
 
 clean_environment_failure:
   stage: clean_env
-  when: delayed
-  start_in: 2 minutes
+  when: on_failure
   script:
   - sudo docker stop powerapi-sensor-ubuntu 
   - sudo docker rm powerapi-sensor-ubuntu 
@@ -31,8 +30,7 @@ clean_environment_failure:
 
 clean_environment_success:
   stage: clean_env
-  when: delayed
-  start_in: 2 minutes
+  when: on_success
   script:
   - sudo docker stop powerapi-sensor-ubuntu 
   - sudo docker rm powerapi-sensor-ubuntu 
