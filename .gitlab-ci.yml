@@ -22,6 +22,7 @@ initialize_hwpc_sensor:
 
 clean_environment:
   stage: clean_env
+  when: always  
   script:
   - sudo docker stop powerapi-sensor-ubuntu 
   - sudo docker rm powerapi-sensor-ubuntu 
