@@ -9,6 +9,7 @@ services:
   - docker:dind
 
 #before_script:
+  - yarn install
 #  - sudo docker stop powerapi-sensor-ubuntu
 #  - sudo docker rm powerapi-sensor-ubuntu 
 
