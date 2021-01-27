@@ -2,8 +2,10 @@
   <div id="app">
     <Header />
     <div id="nav">
-      <router-link to="#">Nos métiers</router-link> | <a href="#">Nous connaître</a> |
-      <router-link to="#">Développement responsable</router-link> | <router-link to="/login">Login</router-link>
+      <router-link to="#">Nos métiers</router-link> |
+      <a href="#">Nous connaître</a> |
+      <router-link to="#">Développement responsable</router-link> |
+      <router-link to="/login">Login</router-link>
     </div>
     <router-view />
     <Footer />

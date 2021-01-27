@@ -5,7 +5,10 @@
     <div>Balance: {{ accountData.balance }}</div>
     <h3>Dernières opérations</h3>
     <ul id="example-2">
-      <li v-for="(operation, index) in accountData.lastoperations">
+      <li
+        v-for="(operation, index) in accountData.lastoperations"
+        v-bind:key="index"
+      >
         {{ index }} - {{ operation.date }} - {{ operation.type }} -
         {{ operation.value }} - {{ operation.description }}
       </li>
