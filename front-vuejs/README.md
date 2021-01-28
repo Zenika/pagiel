@@ -27,3 +27,20 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Docker
+
+Build
+
+```shell
+docker build -t zgreen/front-vuejs .
+
+```
+
+Run
+
+```shell
+docker run --name zgreen_vuejs_front -p 8091:8080 -d zgreen/front-vuejs
+```
+
