@@ -1,28 +1,60 @@
-version: "2"
-services:
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    ports:
-      - 3000:3000
-    volumes:
-      - grafana-volume:/var/lib/grafana
-  influxdb:
-    image: influxdb
-    container_name: influxdb
-    restart: always
-    ports:
-      - 8086:8086
-    volumes:
-      - influxdb-volume:/var/lib/influx
-    environment:
-      - INFLUXDB_DB=powerapi
-      - INFLUXDB_USER=powerapi
-      - INFLUXDB_ADMIN_ENABLED=false 
+version: "3.3"
 
-volumes:
-  grafana-volume:
-    driver: local
-  influxdb-volume:
-    driver: local
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    volumes:
+      - ./mongo/data:/data/db
+      - ./mongo/config:/data/configdb
+    ports:
+      - "27017:27017"
+      - "27018:27018"
+  
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    depends_on: 
+      - mongo   
+    restart: always
+    ports:
+      - 8081:8081
+  
+      # https://gist.github.com/Tallic/9486fb03a1425398be3091f320d23a06
+      
+  powerapi-hwpc-sensor:
+    image: 'powerapi/hwpc-sensor:latest'
+    container_name: hwpc-sensor
+    privileged: true
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    volumes:
+      - '/sys:/sys'
+      - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
+      - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
+    command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
+  
+  formula:
+    image: powerapi/smartwatts-formula
+    container_name: formula
+    depends_on:
+      - mongo
+    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
+
+  front-vue:
+    build: ./front-vuejs
+    container_name: front-vue
+    ports:
+      - 8090:8080
+    environment:
+      - VUE_APP_API_URL="http://localhost:3040"
+
+  api-node:
+    build: ./api-nodejs
+    container_name: api_node
+    ports: 
+      - 3040:3031

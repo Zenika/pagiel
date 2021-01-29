@@ -23,11 +23,13 @@ export default {
   },
   data() {
     return {
+      apiUrl: process.env.VUE_APP_API_URL ?? "http://localhost:3031",
       accountData: []
     };
   },
   created() {
-    fetch("http://localhost:3031/?account=001")
+    console.log("fetch: " + this.apiUrl + "/?account=001");
+    fetch(this.apiUrl + "/?account=001")
       .then(response => response.json())
       .then(data => (this.accountData = data))
       .catch(error => console.log(error));

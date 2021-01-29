@@ -7,3 +7,4 @@ dist
 *.iml
 npm-debug.log
 Exercices/solutions/target
+/mongo
