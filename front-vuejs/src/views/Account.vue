@@ -29,7 +29,7 @@ export default {
   },
   created() {
     console.log("fetch: " + this.apiUrl + "/?account=001");
-    fetch(this.apiUrl + "/?account=001")
+    fetch("http://localhost:3040/?account=001")
       .then(response => response.json())
       .then(data => (this.accountData = data))
       .catch(error => console.log(error));
