@@ -58,7 +58,7 @@ docker run --net=host --privileged --name hwpc-sensor -d
 -r "csv" -U "/reporting powerapi/hwpc-sensor" \
 
 * ssh into container
-sudo docker exec –it powerapi-sensor /bin/bash
+docker exec -it front-vue /bin/sh
 
 
 

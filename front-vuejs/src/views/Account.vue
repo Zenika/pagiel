@@ -28,6 +28,7 @@ export default {
     };
   },
   created() {
+    document.title = "Mon compte";
     console.log("fetch: " + this.apiUrl + "/?account=001");
     fetch("http://localhost:3040/?account=001")
       .then(response => response.json())

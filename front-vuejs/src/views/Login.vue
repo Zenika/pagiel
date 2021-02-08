@@ -13,6 +13,9 @@ export default {
   name: "Login",
   props: {
     msg: String
+  },
+  created() {
+    document.title = "Login";
   }
 };
 </script>

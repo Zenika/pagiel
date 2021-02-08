@@ -12,7 +12,9 @@ services:
     ports:
       - "27017:27017"
       - "27018:27018"
-  
+    networks:
+      - ecoplatform
+
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -21,40 +23,90 @@ services:
     restart: always
     ports:
       - 8081:8081
-  
+    networks:
+      - ecoplatform
+
       # https://gist.github.com/Tallic/9486fb03a1425398be3091f320d23a06
       
-  powerapi-hwpc-sensor:
-    image: 'powerapi/hwpc-sensor:latest'
-    container_name: hwpc-sensor
-    privileged: true
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    volumes:
-      - '/sys:/sys'
-      - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
-      - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
-    command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
+  # powerapi-hwpc-sensor:
+  #   image: 'powerapi/hwpc-sensor:latest'
+  #   container_name: hwpc-sensor
+  #   privileged: true
+  #   depends_on:
+  #     - mongo
+  #   links:
+  #     - mongo
+  #   volumes:
+  #     - '/sys:/sys'
+  #     - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
+  #     - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
+  #   command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
   
-  formula:
-    image: powerapi/smartwatts-formula
-    container_name: formula
-    depends_on:
-      - mongo
-    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
+  # formula:
+  #   image: powerapi/smartwatts-formula
+  #   container_name: formula
+  #   depends_on:
+  #     - mongo
+  #   command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
 
   front-vue:
     build: ./front-vuejs
     container_name: front-vue
     ports:
       - 8090:8080
+    depends_on:
+      - api-node
     environment:
       - VUE_APP_API_URL="http://localhost:3040"
+    networks:
+      - ecoplatform
 
   api-node:
     build: ./api-nodejs
-    container_name: api_node
+    container_name: api-node
     ports: 
       - 3040:3031
+    networks:
+      - ecoplatform
+
+  selenium-hub:
+    image: selenium/hub:4.0.0-beta-1-prerelease-20210207
+    container_name: selenium-hub
+    expose:
+      - 4444    
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    networks:
+      - ecoplatform
+
+  chrome:
+    image: selenium/node-chrome:4.0.0-beta-1-prerelease-20210207
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "6900:5900"
+    networks:
+      - ecoplatform
+
+  test-gc:
+    build: robot
+    command: -v BROWSER:gc --outputdir /out /tests
+    volumes:
+      - ./robot/tests:/tests:ro
+      - ./results/gc:/out:rw
+    depends_on:
+      - front-vue
+      - chrome
+    networks:
+      - ecoplatform
+
+networks:
+  ecoplatform:
