@@ -57,7 +57,7 @@ services:
     depends_on:
       - api-node
     environment:
-      - VUE_APP_API_URL="http://localhost:3040"
+      - VUE_APP_API_URL="http://api-node:3031"
     networks:
       - ecoplatform
 
@@ -83,6 +83,7 @@ services:
 
   chrome:
     image: selenium/node-chrome:4.0.0-beta-1-prerelease-20210207
+    container_name: selenium-node-chrome
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -99,12 +100,14 @@ services:
   test-gc:
     build: robot
     command: -v BROWSER:gc --outputdir /out /tests
+    container_name: robot-chrome-test
     volumes:
       - ./robot/tests:/tests:ro
       - ./results/gc:/out:rw
     depends_on:
-      - front-vue
+      - selenium-hub
       - chrome
+      - front-vue
     networks:
       - ecoplatform
 

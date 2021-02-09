@@ -7,8 +7,8 @@ Documentation     A resource file with reusable keywords and variables.
 Library           SeleniumLibrary
 
 *** Variables ***
-${SELENIUM}          http://localhost:4444/wd/hub
-${APPLICATION}       http://localhost:8090
+${SELENIUM}          http://selenium-hub:4444/wd/hub
+${APPLICATION}       http://front-vue:8080
 ${BROWSER}           Chrome
 ${DELAY}             0
 ${VALID USER}        demo
