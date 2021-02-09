@@ -39,4 +39,4 @@ Login Page Should Be Open
 
 Account Page Should Be Open
     Location Should Be      ${ACCOUNT URL}
-    Title Should Be         Account
+    Title Should Be         Mon compte

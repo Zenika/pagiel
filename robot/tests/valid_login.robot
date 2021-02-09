@@ -9,6 +9,6 @@ Resource          resource.robot
 Valid Login
     Open Browser To Login Page
     Login Page Should Be Open
-    Click Button data-v-26084dc2
+    Click Button    Connexion
     Account Page Should Be Open
     [Teardown]    Close Browser

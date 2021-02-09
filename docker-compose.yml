@@ -97,7 +97,7 @@ services:
     networks:
       - ecoplatform
 
-  test-gc:
+  robot-chrome-test:
     build: robot
     command: -v BROWSER:gc --outputdir /out /tests
     container_name: robot-chrome-test
