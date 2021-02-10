@@ -25,30 +25,32 @@ services:
       - 8081:8081
     networks:
       - ecoplatform
-
-      # https://gist.github.com/Tallic/9486fb03a1425398be3091f320d23a06
       
-  # powerapi-hwpc-sensor:
-  #   image: 'powerapi/hwpc-sensor:latest'
-  #   container_name: hwpc-sensor
-  #   privileged: true
-  #   depends_on:
-  #     - mongo
-  #   links:
-  #     - mongo
-  #   volumes:
-  #     - '/sys:/sys'
-  #     - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
-  #     - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
-  #   command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
+  powerapi-hwpc-sensor:
+    image: 'powerapi/hwpc-sensor:latest'
+    container_name: hwpc-sensor
+    privileged: true
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    volumes:
+      - '/sys:/sys'
+      - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
+      - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
+    command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
+    networks:
+      - ecoplatform
+    
+  formula:
+    image: powerapi/smartwatts-formula
+    container_name: formula
+    depends_on:
+      - mongo
+    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --output influxdb --name influx --uri $INFLUXDB_HOST --port $INFLUXDB_PORT --db $INFLUXDB_DB_NAME --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
+    networks:
+      - ecoplatform
   
-  # formula:
-  #   image: powerapi/smartwatts-formula
-  #   container_name: formula
-  #   depends_on:
-  #     - mongo
-  #   command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
-
   front-vue:
     build: ./front-vuejs
     container_name: front-vue
@@ -100,16 +102,53 @@ services:
   robot-chrome-test:
     build: robot
     command: -v BROWSER:gc --outputdir /out /tests
+    restart: always
     container_name: robot-chrome-test
     volumes:
       - ./robot/tests:/tests:ro
       - ./results/gc:/out:rw
     depends_on:
       - selenium-hub
-      - chrome
       - front-vue
+      - chrome
+      # network_mode: host
     networks:
       - ecoplatform
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+    networks:
+      - ecoplatform
+ 
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana-provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    networks:
+      - ecoplatform
+
+volumes:
+  influxdb-storage:
+  chronograf-storage:
+  grafana-storage:
 
 networks:
   ecoplatform:
