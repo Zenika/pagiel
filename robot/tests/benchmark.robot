@@ -7,21 +7,21 @@ Resource          resource.robot
 
 *** Test Cases ***
 LowTechMazine
-    Open Browser https://www.lowtechmagazine.com/ browser=Chrome remote_url=http://selenium-hub:4444/wd/hub
+    Open Browser To LowTechMagazine
     sleep  5s
     Click Link High-Tech Problems
     sleep  5s
     [Teardown]    Close Browser
 
 Amazon
-    Open Browser https://www.amazon.fr/ browser=Chrome remote_url=http://selenium-hub:4444/wd/hub
+    Open Browser To Amazon
     sleep  5s
     Click Link AmazonBasics
     sleep  5s
     [Teardown]    Close Browser
 
 Nike
-    Open Browser https://www.nike.com/fr/ browser=Chrome remote_url=http://selenium-hub:4444/wd/hub
+    Open Browser To Nike
     sleep  5s
     Click Link Homme
     sleep  5s

@@ -40,3 +40,21 @@ Login Page Should Be Open
 Account Page Should Be Open
     Location Should Be      ${ACCOUNT URL}
     Title Should Be         Mon compte
+
+Open Browser To LowTechMagazine
+    Open Browser    https://www.lowtechmagazine.com/    browser=${BROWSER}    remote_url=${SELENIUM}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Location Should Be      https://www.lowtechmagazine.com/
+
+Open Browser To Amazon
+    Open Browser    https://www.amazon.fr/    browser=${BROWSER}    remote_url=${SELENIUM}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Location Should Be      https://www.amazon.fr/
+
+Open Browser To Nike
+    Open Browser    https://www.nike.com/fr/    browser=${BROWSER}    remote_url=${SELENIUM}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Location Should Be      https://www.nike.com/fr/
