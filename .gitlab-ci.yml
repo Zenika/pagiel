@@ -7,8 +7,8 @@ services:
 
 run_robot_test:
   stage: run_robot_test
-  script: docker build -f robot/Dockerfile -t robot . && docker run --name robot-chrome-test --network=web-powerapi_ecoplatform -v /robot/tests:/tests:ro -v /results-robot/gc:/out:rw robot -v BROWSER:gc --outputdir /out /robot/tests
+  script: sudo docker build -f robot/Dockerfile -t robot . && docker run --name robot-chrome-test --network=web-powerapi_ecoplatform -v /robot/tests:/tests:ro -v /results-robot/gc:/out:rw robot -v BROWSER:gc --outputdir /out /robot/tests
 
 run_sitespeed:
   stage: run_sitespeed
-  script: docker run --name sitespeed --network=web-powerapi_ecoplatform --rm -v result_sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox
+  script: sudo docker run --name sitespeed --network=web-powerapi_ecoplatform --rm -v result_sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox
