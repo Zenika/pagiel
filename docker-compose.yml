@@ -22,7 +22,7 @@ services:
       - mongo   
     restart: always
     ports:
-      - 8081:8081
+      - 8091:8081
     networks:
       - ecoplatform
       
@@ -99,21 +99,21 @@ services:
     networks:
       - ecoplatform
 
-  robot-chrome-test:
-    build: robot
-    command: -v BROWSER:gc --outputdir /out /tests
-   # restart: always
-    container_name: robot-chrome-test
-    volumes:
-      - ./robot/tests:/tests:ro
-      - ./results/gc:/out:rw
-    depends_on:
-      - selenium-hub
-      - front-vue
-      - chrome
-      # network_mode: host
-    networks:
-      - ecoplatform
+  # robot-chrome-test:
+  #   build: robot
+  #   command: -v BROWSER:gc --outputdir /out /tests
+  #  # restart: always
+  #   container_name: robot-chrome-test
+  #   volumes:
+  #     - ./robot/tests:/tests:ro
+  #     - ./results-robot/gc:/out:rw
+  #   depends_on:
+  #     - selenium-hub
+  #     - front-vue
+  #     - chrome
+  #     # network_mode: host
+  #   networks:
+  #     - ecoplatform
 
   influxdb:
     image: influxdb:latest
@@ -145,10 +145,22 @@ services:
     networks:
       - ecoplatform
 
+  graphite:
+    image: sitespeedio/graphite:1.1.7-9
+    ports:
+      - "2003:2003"
+      - "8092:80"
+    restart: always
+    volumes:
+      - whisper:/opt/graphite/storage/whisper
+    networks:
+      - ecoplatform
+
 volumes:
   influxdb-storage:
   chronograf-storage:
   grafana-storage:
+  whisper:
 
 networks:
   ecoplatform:

@@ -1,37 +1,14 @@
-include:
-  - "/front-vuejs/.gitlab-ci.yml"
-
 stages:
-  - init_env
-  - init_hwpc_sensor
-  - e2e_tests
-  - clean_env
+  - run_robot_test
+  - run_sitespeed
 
 services:
   - docker:dind
 
-initialize_env:
-  stage: init_env
-  script: yarn install
+run_robot_test:
+  stage: run_robot_test
+  script: docker build -f robot/Dockerfile -t robot . && docker run --name robot-chrome-test --network=web-powerapi_ecoplatform -v /robot/tests:/tests:ro -v /results-robot/gc:/out:rw robot -v BROWSER:gc --outputdir /out /robot/tests
 
-initialize_hwpc_sensor:
-  stage: init_hwpc_sensor
-    #name: docker:stable
-    #entrypoint: ["/bin/sh", "-c"]
-  script: sudo docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td -v /sys:/sys -v /var/lib/docker/containers:/var/lib/docker/containers:ro -v /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor -U /reporting powerapi/hwpc-sensor -n "ubuntu-sensor" -s "rapl" -o -e RAPL_ENERGY_PKG
-
-clean_environment_failure:
-  stage: clean_env
-  when: on_failure
-  script:
-  - sudo docker stop powerapi-sensor-ubuntu 
-  - sudo docker rm powerapi-sensor-ubuntu 
-  - sudo cat /tmp/powerapi-sensor-reporting/rapl
-
-clean_environment_success:
-  stage: clean_env
-  when: on_success
-  script:
-  - sudo docker stop powerapi-sensor-ubuntu 
-  - sudo docker rm powerapi-sensor-ubuntu 
-  - sudo cat /tmp/powerapi-sensor-reporting/rapl
+run_sitespeed:
+  stage: run_sitespeed
+  script: docker run --name sitespeed --network=web-powerapi_ecoplatform --rm -v result_sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox
