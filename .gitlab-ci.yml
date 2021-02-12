@@ -7,7 +7,7 @@ services:
 
 run_robot_test:
   stage: run_robot_test
-  script: sudo docker build -f robot/Dockerfile -t robot . && docker run --name robot-chrome-test --network=web-powerapi_ecoplatform -v /robot/tests:/tests:ro -v /results-robot/gc:/out:rw robot -v BROWSER:gc --outputdir /out /robot/tests
+  script: sudo docker build -f robot/Dockerfile -t robot . && sudo docker run --name robot-chrome-test --network=web-powerapi_ecoplatform -v /robot/tests:/tests:ro -v /results-robot/gc:/out:rw robot -v BROWSER:gc --outputdir /out /robot/tests
 
 run_sitespeed:
   stage: run_sitespeed
