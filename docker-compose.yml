@@ -102,7 +102,7 @@ services:
   robot-chrome-test:
     build: robot
     command: -v BROWSER:gc --outputdir /out /tests
-    restart: always
+   # restart: always
     container_name: robot-chrome-test
     volumes:
       - ./robot/tests:/tests:ro
