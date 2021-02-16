@@ -12,8 +12,8 @@ whoami:
 
 run_robot_test:
   stage: run_robot_test
-  script: sudo docker restart robot-chrome-test
+  script: docker restart robot-chrome-test
 
 run_sitespeed:
   stage: run_sitespeed
-  script: sudo docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v /home/user/workspace/eco-platform-analyzer/results-sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox
+  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v /home/user/workspace/eco-platform-analyzer/results-sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox --influxdb.host influxdb --influxdb.port 8086 --influxdb.username admin --influxdb.password admin --influxdb.database sitespeed

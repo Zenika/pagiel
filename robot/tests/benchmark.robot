@@ -10,43 +10,50 @@ Resource          resource.robot
 Valid Login
     Open Browser To Login Page
     Login Page Should Be Open
+    sleep  5s
     Click Button    Connexion
     Account Page Should Be Open
-    sleep  20s
+    sleep  5s
     [Teardown]    Close Browser
 
 LowTechMazine
+    sleep  30s
     Open Browser To LowTechMagazine
     sleep  5s
     Click Link      High-Tech Problems
-    sleep  20s
+    sleep  5s
     [Teardown]    Close Browser
 
 Amazon
+    sleep  30s
     Open Browser To Amazon
     sleep  5s
     Click Link      AmazonBasics
-    sleep  20s
+    sleep  5s
     [Teardown]    Close Browser
 
 Nike
+    sleep  30s
     Open Browser To Nike
     sleep  5s
     Click Link      Homme
-    sleep  20s
+    sleep  5s
     [Teardown]    Close Browser
 
 Arkea
+    sleep  30s
     Open Browser To Arkea
     sleep  5s
     Click Link      About us
-    sleep  20s
+    sleep  5s
     [Teardown]    Close Browser
 
 Valid Login
+    sleep  30s
     Open Browser To Login Page
     Login Page Should Be Open
+    sleep  5s
     Click Button    Connexion
     Account Page Should Be Open
-    sleep  20s
+    sleep  30s
     [Teardown]    Close Browser
