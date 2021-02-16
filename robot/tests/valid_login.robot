@@ -11,4 +11,5 @@ Valid Login
     Login Page Should Be Open
     Click Button    Connexion
     Account Page Should Be Open
+    sleep  10s
     [Teardown]    Close Browser

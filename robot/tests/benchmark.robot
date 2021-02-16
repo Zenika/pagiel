@@ -26,3 +26,17 @@ Nike
     Click Link      Homme
     sleep  10s
     [Teardown]    Close Browser
+
+Arkea
+    Open Browser To Arkea
+    sleep  5s
+    Click Link      About us
+    sleep  10s
+    [Teardown]    Close Browser
+
+LowTechMazine2
+    Open Browser To LowTechMagazine
+    sleep  5s
+    Click Link      High-Tech Problems
+    sleep  10s
+    [Teardown]    Close Browser

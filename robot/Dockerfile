@@ -1,9 +1,9 @@
 FROM python:alpine
 
-COPY robot/requirements.txt /tmp/requirements.txt
+COPY requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r /tmp/requirements.txt
 
-COPY robot/tests /tests
+COPY tests /tests
 
 ENTRYPOINT [ "robot" ]

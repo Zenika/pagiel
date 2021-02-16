@@ -6,5 +6,4 @@ dist
 /build
 *.iml
 npm-debug.log
-Exercices/solutions/target
 /mongo

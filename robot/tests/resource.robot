@@ -58,3 +58,9 @@ Open Browser To Nike
     Maximize Browser Window
     Set Selenium Speed    ${DELAY}
     Location Should Be      https://www.nike.com/fr/
+
+Open Browser To Arkea
+    Open Browser    https://www.arkea.com/fr/    browser=${BROWSER}    remote_url=${SELENIUM}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Location Should Be      https://www.arkea.com/banque/assurance/credit/accueil

@@ -1,14 +1,19 @@
 stages:
+  - whoami
   - run_robot_test
   - run_sitespeed
 
 services:
   - docker:dind
 
+whoami:
+  stage: whoami
+  script: whoami
+
 run_robot_test:
   stage: run_robot_test
-  script: sudo docker build -f robot/Dockerfile -t robot . && sudo docker run --name robot-chrome-test --network=web-powerapi_ecoplatform -v /robot/tests:/tests:ro -v /results-robot/gc:/out:rw robot -v BROWSER:gc --outputdir /out /robot/tests
+  script: sudo docker restart robot-chrome-test
 
 run_sitespeed:
   stage: run_sitespeed
-  script: sudo docker run --name sitespeed --network=web-powerapi_ecoplatform --rm -v result_sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox
+  script: sudo docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v /home/user/workspace/eco-platform-analyzer/results-sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox
