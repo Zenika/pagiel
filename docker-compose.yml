@@ -144,23 +144,10 @@ services:
     networks:
       - epa-network
 
-  graphite:
-    container_name: graphite
-    image: sitespeedio/graphite:1.1.7-9
-    ports:
-      - "2003:2003"
-      - "8092:80"
-    restart: always
-    volumes:
-      - whisper:/opt/graphite/storage/whisper
-    networks:
-      - epa-network
-
 volumes:
   influxdb-storage:
   chronograf-storage:
   grafana-storage:
-  whisper:
 
 networks:
   epa-network:
