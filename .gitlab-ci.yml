@@ -16,4 +16,4 @@ run_robot_test:
 
 run_sitespeed:
   stage: run_sitespeed
-  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v /home/user/workspace/eco-platform-analyzer/results-sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox --influxdb.host influxdb --influxdb.port 8086 --influxdb.username admin --influxdb.password admin --influxdb.database sitespeed
+  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v /home/user/workspace/eco-platform-analyzer/results-sitespeed:/sitespeed.io sitespeedio/sitespeed.io http://front-vue:8080 -b firefox --influxdb.host influxdb --influxdb.port 8086 --influxdb.username admin --influxdb.password admin --influxdb.database db0
