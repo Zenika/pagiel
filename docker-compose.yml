@@ -127,6 +127,16 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
     networks:
       - epa-network
+    
+  graphite:
+    image: sitespeedio/graphite:1.1.7-9
+    container_name: graphite
+    ports:
+      - "2003:2003"
+      - "8092:80"
+    restart: always
+    volumes:
+      - whisper:/opt/graphite/storage/whisper
 
   grafana:
     container_name: grafana
@@ -146,6 +156,7 @@ services:
 
 volumes:
   influxdb-storage:
+  whisper:
   chronograf-storage:
   grafana-storage:
 
