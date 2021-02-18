@@ -9,4 +9,3 @@ datasources:
     url: http://influxdb:8086
     isDefault: true
     editable: true
-
