@@ -16,4 +16,4 @@ run_robot_test:
 
 run_sitespeed:
   stage: run_sitespeed
-  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io http://front-vue:8080 -b firefox --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
+  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1 http://front-vue:8080 -b firefox --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest

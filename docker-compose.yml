@@ -69,7 +69,7 @@ services:
       - epa-network
     
   formula:
-    image: powerapi/smartwatts-formula
+    image: 'powerapi/smartwatts-formula:latest'
     container_name: formula
     depends_on:
       - mongo
