@@ -53,7 +53,7 @@ services:
       - epa-network
       
   powerapi-hwpc-sensor:
-    image: 'powerapi/hwpc-sensor:latest'
+    image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
     container_name: hwpc-sensor
     privileged: true
     depends_on:
@@ -69,7 +69,7 @@ services:
       - epa-network
     
   formula:
-    image: 'powerapi/smartwatts-formula:latest'
+    image: ${POWER_API_FORMULA_IMAGE_VERSION}
     container_name: formula
     depends_on:
       - mongo
