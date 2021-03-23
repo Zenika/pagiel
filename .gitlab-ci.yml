@@ -31,7 +31,7 @@ run_robot_test:
 # --browsertime.selenium.url      
 run_sitespeed:
   stage: run_sitespeed
-  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1-plus1 http://localhost:8090/ --cpu --sustainability.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest 
+  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1-plus1 http://front-vue:8080/ --cpu --sustainability.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest 
 
 run_ecoindex:
   stage: run_ecoindex
