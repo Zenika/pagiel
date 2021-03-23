@@ -31,9 +31,11 @@ run_robot_test:
 # --browsertime.selenium.url      
 run_sitespeed:
   stage: run_sitespeed
-  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1-plus1 http://localhos:8090/ --cpu --sustainability.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest 
+  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1-plus1 http://localhost:8090/ --cpu --sustainability.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest 
 
 run_ecoindex:
   stage: run_ecoindex
-  script: docker build -t ecoindex . && docker run -it --init --rm --cap-add=SYS_ADMIN --name ecoindex ecoindex --ci --influxdb --influxdb_hostname http://influxdb:8086 --influxdb_login admin --influxdb_password admin --influxdb_database db0
+  script: docker restart eco-index
+
+  # script: docker build -t ecoindex . && docker run -it --init --rm --cap-add=SYS_ADMIN --name ecoindex ecoindex --ci --influxdb --influxdb_hostname http://influxdb:8086 --influxdb_login admin --influxdb_password admin --influxdb_database db0
 
