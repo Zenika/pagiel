@@ -140,6 +140,19 @@ services:
     networks:
       - epa-network
 
+  eco-index:
+    build: ./GreenIT-Analysis-cli
+    command: -v 
+    container_name: eco-index
+    environment:
+      - INFLUXDB_DB=${INFLUXDB_DB_NAME}
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+    volumes: 
+      - ./results:/eco-index-results
+    networks:
+      - epa-network    
+
   grafana:
     container_name: grafana
     image: ${GRAFANA_IMAGE_VERSION}

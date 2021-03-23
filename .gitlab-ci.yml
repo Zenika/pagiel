@@ -1,19 +1,39 @@
 stages:
-  - whoami
   - run_robot_test
   - run_sitespeed
+  - run_ecoindex
 
 services:
   - docker:dind
-
-whoami:
-  stage: whoami
-  script: whoami
 
 run_robot_test:
   stage: run_robot_test
   script: docker restart robot-chrome-test
 
+# Run in host mode
+#docker run --name sitespeed --rm --net=host -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1 http://localhost:9092/ -b chrome --cpu #--graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
+
+# Configuration doc : https://www.sitespeed.io/documentation/sitespeed.io/configuration
+
+# analyze CPU only for chrome
+# --cpu 
+
+# Changer le nombre d'itération
+# --browsertime.iterations, -n    
+
+# Si SPA 
+# --browsertime.spa, --spa     
+
+# Permttrait de simuler différents niveaux de connexion 
+# --browsertime.connectivity.alias                     
+
+# Permets d'utiliser l'instance de slenium hub 
+# --browsertime.selenium.url      
 run_sitespeed:
   stage: run_sitespeed
-  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1 http://front-vue:8080 -b firefox --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
+  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1-plus1 http://localhos:8090/ --cpu --sustainability.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest 
+
+run_ecoindex:
+  stage: run_ecoindex
+  script: docker build -t ecoindex . && docker run -it --init --rm --cap-add=SYS_ADMIN --name ecoindex ecoindex --ci --influxdb --influxdb_hostname http://influxdb:8086 --influxdb_login admin --influxdb_password admin --influxdb_database db0
+
