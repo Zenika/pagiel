@@ -19,13 +19,13 @@ Ces métriques sont exposées
 
 Cet outil peut être utilisé en standalone en local 
 
-```shell
+```console
 docker run --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.10.3 https://www.sitespeed.io/
 ```
 
 ou dans une CI, il faudra passer la configuration du endpoint de sortie, ici graphite.
 
-```shell
+```console
 docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1 https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
 ```
 
@@ -62,7 +62,7 @@ Nous avons pour l'occasion réalisée une contribution sur ce projet, la contrib
 
 Voici un exemple de l'usage de cet outils via docker :
 
-```shell
+```console
 cd GreenIT-Analysis-cli && docker build -t ecoindex -f . && docker run -it --init --rm --cap-add=SYS_ADMIN --network=eco-platform-analyzer_epa-network  --name ecoindex ecoindex --ci --influxdb --influxdb_hostname http://influxdb:8086 --influxdb_login admin --influxdb_password admin --influxdb_database db0
 ```
 
@@ -174,9 +174,9 @@ Pour la réalisation du POC l'ensemble des outils sont centralisés sur une seul
 
 Pour un usage des outils en local il est possible de démarrer la stack au complet via un fichier `docker-compose.yml`. 
 
-> Résultat du démarrage du docker-compose.yml
+> Résultat du démarrage du `docker-compose.yml`
 
-```shell
+```console
 conteneur ID   IMAGE                                                   COMMAND                  CREATED             STATUS                         PORTS                                                                                                                     NAMES
 1f745f2edae2   ecoindex                                                "/app/greenit analys…"   About an hour ago   Exited (0) About an hour ago                                                                                                                             ecoindex
 832e96f2932f   eco-platform-analyzer_robot-chrome-test                 "robot -v BROWSER:gc…"   2 days ago          Exited (1) 47 hours ago                                                                                                                                  robot-chrome-test
@@ -195,7 +195,7 @@ e48287d27b04   selenium/node-chrome:4.0.0-beta-1-prerelease-20210207   "/opt/bin
 
 ### Usage en CLI via un pipeline Gitlab
 
-> Exemple d'un pipeline Gitlab exécuté sur le GitlabRunner Shell.
+> Exemple d'un pipeline Gitlab exécuté sur le GitlabRunner Shell via un fichier `.gitlab-ci.yml`
 
 ```yml
 stages:
@@ -219,6 +219,25 @@ run_ecoindex:
   script: docker restart eco-index
 ```
 
+> Déclaration du runner dans Gitlab via un fichier `config.toml`
+
+```toml
+oncurrent = 1
+check_interval = 0
+
+[session_server]
+    session_timeout = 1000
+
+[[runners]]
+    name = "runner-name"
+    url = "https://gitlab.com/"
+    token = "my_token"
+    executor = "shell"
+    [[runner.cache]]
+        [runners.cache.s3]
+        [runners.cache.gcs]
+```
+
 Chaque outil ayant sa propre configuration, il faudra tendre à une variabilisation des url's utilisées dans les différents outils.
   
 
@@ -232,7 +251,7 @@ https://docs.docker.com/compose/install/
 
 2. node 14
 
-```shell
+```console
 sudo apt-get update
 sudo apt-get install nodejs npm
 ```
@@ -244,15 +263,16 @@ https://docs.gitlab.com/runner/install/linux-manually.html
 Vous devez ajouter le runner à la configuration de votre repository gitlab https://gitlab.com/your_project/-/settings/ci_cd,
 en spécifiant le registration token et l'url du gitlab à votre runner local.
 
-> Donner les droits docker au daemon gitlab runner
-```shell
+> Donner les droits du process docker au daemon gitlab runner
+
+```console
 sudo usermod -aG docker gitlab-runner
 ```
 
 
-4. Cgroup
+4. Installation du package Cgroup
 
-```shell
+```console
 sudo apt-get install cgroup-bin
 ```
 
