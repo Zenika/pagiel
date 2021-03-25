@@ -1,0 +1,174 @@
+version: "3.3"
+
+services:
+
+  # mongodb
+  mongo:
+    image: ${MONGO_IMAGE_VERSION}
+    container_name: mongo
+    restart: always
+    volumes:
+      - ./mongo/data:/data/db
+      - ./mongo/config:/data/configdb
+    ports:
+      - "27017:27017"
+      - "27018:27018"
+    networks:
+      - epa-network
+
+  # time series influxdb 
+  influxdb:
+    image: ${INFLUXDB_IMAGE_VERSION}
+    container_name: influxdb
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=${INFLUXDB_DB_NAME}
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+    networks:
+      - epa-network
+
+  # graphite metrics database
+  graphite:
+    image: ${GRAPHITE_IMAGE_VERSION}
+    container_name: graphite
+    ports:
+      - "2003:2003"
+      - "8092:80"
+    restart: always
+    volumes:
+      - graphite-storage:/opt/graphite/storage/whisper
+    networks:
+      - epa-network
+      
+  # Sensor Hardware Performance Counter from PowerAPI
+  powerapi-hwpc-sensor:
+    image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
+    container_name: hwpc-sensor
+    privileged: true
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    volumes:
+    # to access of RAPL path
+      - '/sys:/sys'
+      - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
+    # to write csv data in a specific path
+      - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
+    # command args
+    # -r : storage output type (CSV, mongo)
+    # -U : mongodb uri
+    # -D : mongodb database name
+    # -C : input collection name
+    # -s : system events group
+    # -o : type of events group
+    # -c : containers events group
+    # -e : event 
+    command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
+    networks:
+      - epa-network
+    
+  # Formula from PowerAPI  
+  formula:
+    image: ${POWER_API_FORMULA_IMAGE_VERSION}
+    container_name: formula
+    depends_on:
+      - mongo
+    # command args
+    # 
+    # 
+    #
+    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --output influxdb --name influx --uri $INFLUXDB_HOST --port $INFLUXDB_PORT --db $INFLUXDB_DB_NAME --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
+    networks:
+      - epa-network
+
+  # selenium-hub
+  selenium-hub:
+    image: ${SELENIUM_HUB_IMAGE_VERSION}
+    container_name: selenium-hub
+    expose:
+      - 4444    
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    networks:
+      - epa-network
+
+  # selenium-node-chrome
+  chrome:
+    image: ${SELENIUM_NODE_CHROME_IMAGE_VERSION}
+    container_name: selenium-node-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "6900:5900"
+    networks:
+      - epa-network
+
+  # 
+  robot-chrome-test:
+    build: robot
+    command: -v BROWSER:gc --outputdir /out /tests
+    container_name: robot-chrome-test
+    volumes:
+      - ./robot/tests:/tests:ro
+      - ./robot-results/gc:/out:rw
+    depends_on:
+      - selenium-hub
+      - front-vue
+      - chrome
+    networks:
+      - epa-network
+
+  # 
+  grafana:
+    container_name: grafana
+    image: ${GRAFANA_IMAGE_VERSION}
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana-provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_USERS_ALLOW_ORG_CREATE=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    networks:
+      - epa-network
+
+  # 
+  grafana-setup:
+    container_name: grafana_setup
+    image: ${GRAFANA_SETUP_IMAGE_VERSION}
+    links:
+      - grafana
+    environment:
+      - GF_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USER=${GRAFANA_USERNAME}
+    networks:
+      - epa-network
+
+volumes:
+  influxdb-storage:
+  graphite-storage:
+  chronograf-storage:
+  grafana-storage:
+
+networks:
+  epa-network:
