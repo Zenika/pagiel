@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip
