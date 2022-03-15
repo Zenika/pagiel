@@ -49,6 +49,7 @@ services:
     restart: always
     volumes:
       - graphite-storage:/opt/graphite/storage/whisper
+      - ./graphite/conf/carbon.conf:/opt/graphite/conf/carbon.conf:ro
     networks:
       - epa-network
       
