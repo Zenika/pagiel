@@ -63,4 +63,4 @@ Open Browser To Arkea
     Open Browser    https://www.arkea.com/fr/    browser=${BROWSER}    remote_url=${SELENIUM}
     Maximize Browser Window
     Set Selenium Speed    ${DELAY}
-    Location Should Be      https://www.arkea.com/banque/assurance/credit/accueil
+    Location Should Be      https://www.cm-arkea.com/banque/assurance/credit/accueil
