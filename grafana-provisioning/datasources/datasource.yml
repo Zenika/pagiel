@@ -11,3 +11,10 @@ datasources:
       organization: ${INFLUXDB_ORG_ID}
       defaultBucket: ${INFLUXDB_BUCKET_NAME}
     editable: true
+  - name: Graphite2
+    type: graphite
+    url: http://${GRAPHITE_HOST}:${GRAPHITE_PORT}
+    user: ${GRAPHITE_USERNAME}
+    secureJsonData:
+      token: ${GRAPHITE_PASSWORD}
+    editable: true
