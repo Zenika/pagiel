@@ -298,7 +298,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"ecoindex\")\n    |> last()\n",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"ges\")\n    |> last()\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
