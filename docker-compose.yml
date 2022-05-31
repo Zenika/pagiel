@@ -49,6 +49,7 @@ services:
     restart: always
     volumes:
       - graphite-storage:/opt/graphite/storage/whisper
+      - ./graphite/conf/carbon.conf:/opt/graphite/conf/carbon.conf:ro
     networks:
       - epa-network
       
@@ -140,9 +141,20 @@ services:
     networks:
       - epa-network
 
+  sitespeed:
+    container_name: sitespeed
+    image: ${SITESPEED_IMAGE_VERSION}
+    shm_size: '1g'
+    command: https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome --graphite.host graphite --graphite.webHost http://graphite --graphite.port ${GRAPHITE_PORT} --graphite.httpPort 8092 --graphite.auth user:password --graphite.username ${GRAPHITE_USERNAME} --graphite.password ${GRAPHITE_PASSWORD}
+    volumes:
+      - ./sitespeed-result:/sitespeed.io/sitespeed-result:rw
+    networks:
+      - epa-network
+
   grafana:
     container_name: grafana
     image: ${GRAFANA_IMAGE_VERSION}
+    restart: always
     ports:
       - '3000:3000'
     volumes:
