@@ -74,7 +74,7 @@ services:
       - epa-network
 
   smartwatts:
-    build: ./powerapi/smartwatts-formula
+    build: ./powerapi
     container_name: smartwatts
     depends_on:
       - mongo
