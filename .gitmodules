@@ -1,0 +1,3 @@
+[submodule "eco-index/GreenIT-Analysis-cli"]
+	path = eco-index/GreenIT-Analysis-cli
+	url = https://github.com/Zenika/GreenIT-Analysis-cli

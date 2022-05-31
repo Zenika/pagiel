@@ -151,6 +151,20 @@ services:
     networks:
       - epa-network
 
+  eco-index:
+    build: eco-index/GreenIT-Analysis-cli
+    container_name: eco-index
+    depends_on:
+      - influxdb
+    command: greenit analyse url.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://influxdb:${INFLUXDB_PORT} --influxdb_login ${INFLUXDB_USERNAME} --influxdb_password ${INFLUXDB_PASSWORD} --influxdb_database ${INFLUXDB_DB_NAME}
+    networks:
+      - epa-network
+    volumes:
+      - ./eco-index/url.yaml:/app/url.yaml:ro
+      - ./eco-index/results:/app/output:rw
+    environment:
+      - TZ:Europe/Paris
+
   grafana:
     container_name: grafana
     image: ${GRAFANA_IMAGE_VERSION}
