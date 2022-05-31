@@ -7,3 +7,4 @@ dist
 *.iml
 npm-debug.log
 /mongo
+eco-index/results/**/*

@@ -1,7 +1,0 @@
-.git
-.gitignore
-dist/
-script/
-node_modules/
-results/
-results.xlsx
