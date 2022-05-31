@@ -28,13 +28,15 @@ Amazon
     sleep  30s
     Open Browser To Amazon
     sleep  5s
-    Click Link      AmazonBasics
+    Click Link      Amazon Basics
     sleep  5s
     [Teardown]    Close Browser
 
 Nike
     sleep  30s
     Open Browser To Nike
+    sleep  5s
+    Click Element   data:var:rejectBtn
     sleep  5s
     Click Link      Homme
     sleep  5s
@@ -44,11 +46,11 @@ Arkea
     sleep  30s
     Open Browser To Arkea
     sleep  5s
-    Click Link      About us
+    Click Link      Plus d'infos
     sleep  5s
     [Teardown]    Close Browser
 
-Valid Login
+Valid Login 2
     sleep  30s
     Open Browser To Login Page
     Login Page Should Be Open
