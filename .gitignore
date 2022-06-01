@@ -8,7 +8,7 @@ dist
 npm-debug.log
 /mongo
 eco-index/results/**/*
-sitespeed/urls.txt
 robot/tests/generated-ping.robot
 robot/tests/generated-resource.resource
-eco-index/url.yaml
+smartwatts/config.json
+.env

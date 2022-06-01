@@ -14,10 +14,10 @@
             "type": "influxdb2",
             "model": "PowerReport",
             "uri": "influxdb",
-            "port": 8086,
-            "bucket": "db0",
-            "org": "test",
-            "token": "8_SnUEi5ZxDh_qIFB1Bbvhbr5OtbKUJARyWfNT24dOPovfS71AhLf30tgImlCgQcF7sHgG9kqqA3XHUYD8ljnw=="
+            "port": 0,
+            "bucket": "",
+            "org": "",
+            "token": ""
         }
     },
     "cpu-frequency-base": 19,
