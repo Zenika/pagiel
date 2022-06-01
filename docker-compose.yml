@@ -17,8 +17,6 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG_NAME}
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET_NAME}
       - DOCKER_INFLUXDB_INIT_RETENTION=${INFLUXDB_RETENTION}
-    networks:
-      - epa-network
 
   graphite:
     image: ${GRAPHITE_IMAGE_VERSION}
@@ -30,8 +28,6 @@ services:
     volumes:
       - graphite-storage:/opt/graphite/storage/whisper
       - ./graphite/conf/carbon.conf:/opt/graphite/conf/carbon.conf:ro
-    networks:
-      - epa-network
       
   powerapi-hwpc-sensor:
     image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
@@ -43,8 +39,6 @@ services:
       - /tmp/powerapi-sensor-reporting-firefox:/reporting
       - ./hwpc/config.json:/config.json:ro
     command: --config-file /config.json
-    networks:
-      - epa-network
     profiles:
       - preconso
 
@@ -55,8 +49,6 @@ services:
       - influxdb
       - powerapi-hwpc-sensor
     command: --config-file /config.json
-    networks:
-      - epa-network
     profiles:
       - preconso
     volumes:
@@ -95,8 +87,6 @@ services:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
-    networks:
-      - epa-network
     profiles:
       - preconso
 
@@ -113,8 +103,6 @@ services:
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     ports:
       - "6900:5900"
-    networks:
-      - epa-network
     profiles:
       - preconso
 
@@ -125,12 +113,6 @@ services:
     volumes:
       - ./robot/tests:/tests:ro
       - ./robot-results/gc:/out:rw
-    depends_on:
-      - selenium-hub
-      - chrome
-      # network_mode: host
-    networks:
-      - epa-network
     profiles:
       - conso
 
@@ -140,8 +122,6 @@ services:
     depends_on:
       - influxdb
     command: greenit analyse input/urls.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://${INFLUXDB_HOST}:${INFLUXDB_PORT} --influxdb_token ${INFLUXDB_TOKEN} --influxdb_bucket ${INFLUXDB_BUCKET_NAME} --influxdb_org=${INFLUXDB_ORG_NAME}
-    networks:
-      - epa-network
     volumes:
       - tmp-storage:/app/input:ro
       - ./eco-index/results:/app/output:rw
@@ -160,8 +140,6 @@ services:
     volumes:
       - ./sitespeed/results:/sitespeed.io/sitespeed-result:rw
       - tmp-storage:/input:ro
-    networks:
-      - epa-network
     profiles:
       - test
 
@@ -189,8 +167,6 @@ services:
       - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
       - INFLUXDB_HOST=${INFLUXDB_HOST}
       - INFLUXDB_PORT=${INFLUXDB_PORT}
-    networks:
-      - epa-network
 
   grafana-setup:
     container_name: grafana_setup
@@ -200,8 +176,6 @@ services:
     environment:
       - GF_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USER=${GRAFANA_USERNAME}
-    networks:
-      - epa-network
     profiles:
       - setup
   
@@ -224,6 +198,3 @@ volumes:
   chronograf-storage:
   grafana-storage:
   tmp-storage:
-
-networks:
-  epa-network:
