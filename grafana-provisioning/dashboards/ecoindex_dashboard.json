@@ -21,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1647505533732,
+  "iteration": 1649665107917,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -103,7 +103,7 @@
           "measurement": "eco_index",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"ecoindex\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"ecoindex\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -197,7 +197,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"grade\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"grade\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -220,15 +220,10 @@
       ],
       "transformations": [
         {
-          "id": "organize",
+          "id": "renameByRegex",
           "options": {
-            "excludeByName": {
-              "Time": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "grade collectif.greenit.fr": "Grade"
-            }
+            "regex": "grade .*",
+            "renamePattern": "Grade"
           }
         }
       ],
@@ -303,7 +298,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"ecoindex\")\n    |> last()\n",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"ecoindex\")\n    |> last()\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -395,7 +390,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"water\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"water\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -525,7 +520,7 @@
           "measurement": "eco_index",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field =~ /^[A-Z]\\w*$/ )\n    |> last()\n    |> group()\n    |> drop(columns: [\"_start\", \"_stop\", \"_time\", \"_measurement\", \"hostname\"])",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field =~ /^[A-Z]\\w*$/ )\n    |> last()\n    |> group()\n    |> drop(columns: [\"_start\", \"_stop\", \"_time\", \"_measurement\", \"hostname\", \"pageName\"])",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -551,7 +546,9 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "pageName": true
+            },
             "indexByName": {
               "_field": 0,
               "_value": 1
@@ -634,7 +631,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"domSize\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"domSize\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -730,7 +727,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"responsesSize\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"responsesSize\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -827,7 +824,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"responsesSizeUncompress\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"responsesSizeUncompress\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -923,7 +920,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"nbRequest\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"nbRequest\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1019,7 +1016,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"nbPlugins\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"nbPlugins\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1115,7 +1112,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"inlineJsScriptsNumber\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"inlineJsScriptsNumber\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1211,7 +1208,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"cssInlineNumber\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"cssInlineNumber\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1307,7 +1304,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"cssFilesNumber\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"cssFilesNumber\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1403,7 +1400,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: -1w)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.hostname == \"${hostname}\" and r._field == \"emptySrcTagNumber\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"eco_index\" and r.pageName == \"${pagename}\" and r._field == \"emptySrcTagNumber\")\n    |> last()",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1435,22 +1432,23 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "collectif.greenit.fr",
-          "value": "collectif.greenit.fr"
+          "selected": true,
+          "text": "Liollury",
+          "value": "Liollury"
         },
         "datasource": {
           "type": "influxdb",
           "uid": "PC003803D09A91473"
         },
-        "definition": "from(bucket: \"db0\")\n  |> range(start: -1y)\n  |> filter(fn: (r) => r._measurement == \"eco_index\" and r._field == \"hostname\")\n  |> group()\n  |> distinct(column: \"hostname\")",
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(\n    bucket: v.defaultBucket,\n    tag: \"pageName\",\n    start: -1y\n)\n",
         "hide": 0,
         "includeAll": false,
+        "label": "Nom de la page",
         "multi": false,
-        "name": "hostname",
+        "name": "pagename",
         "options": [],
-        "query": "from(bucket: \"db0\")\n  |> range(start: -1y)\n  |> filter(fn: (r) => r._measurement == \"eco_index\" and r._field == \"hostname\")\n  |> group()\n  |> distinct(column: \"hostname\")",
-        "refresh": 1,
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(\n    bucket: v.defaultBucket,\n    tag: \"pageName\",\n    start: -1y\n)\n",
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -1462,13 +1460,13 @@
     ]
   },
   "time": {
-    "from": "2022-03-15T08:10:19.175Z",
-    "to": "2022-03-17T08:10:19.175Z"
+    "from": "now-7d",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "EcoIndex",
   "uid": "kLmqUTyGk",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }

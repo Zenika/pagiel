@@ -25,48 +25,76 @@
   "liveNow": false,
   "panels": [
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "influxdb",
         "uid": "PC003803D09A91473"
       },
-      "fill": 1,
-      "fillGradient": 0,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 23,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "hiddenSeries": false,
       "id": 2,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
-      "percentage": false,
       "pluginVersion": "8.4.3",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "datasource": {
@@ -89,7 +117,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"db0\")\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"power_consumption\" and r._field == \"power\")",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"power_consumption\" and r._field == \"power\")\n    |> limit(offset: 20, n: 100000)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -110,46 +138,17 @@
           "tags": []
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Process power consumption",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "power {sensor=\"hwpc-sensor\", target=\"(.*)\"}",
+            "regex": "power {sensor=\"sensor\", target=\"(.*)\"}",
             "renamePattern": "$1"
           }
         }
       ],
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:33",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:34",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -160,13 +159,13 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Power process consumption",
   "uid": "AdpluNEMz",
-  "version": 3,
+  "version": 6,
   "weekStart": ""
 }
