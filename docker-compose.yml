@@ -118,6 +118,16 @@ services:
       - tmp-storage:/input:ro
     profiles:
       - test
+  
+  yellowlabtools:
+    container_name: yellowlabtools
+    build: ./yellowLabTools/src
+    command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME}
+    volumes:
+      - tmp-storage:/input
+    privileged: true
+    profiles:
+      - test
 
   grafana:
     container_name: grafana
@@ -158,7 +168,7 @@ services:
   url-converter:
     container_name: url-converter
     build: ./input/url-file-converter
-    command: /home/urlconverter/urls.yaml /home/urlconverter/results/urls.yaml /home/urlconverter/results/urls.txt /home/urlconverter/tests/
+    command: /home/urlconverter/urls.yaml /home/urlconverter/results/urls.yaml /home/urlconverter/results/urls.txt /home/urlconverter/results/urls-yellowlabtools.yaml /home/urlconverter/tests/
     volumes: 
       - ./input/urls.yaml:/home/urlconverter/urls.yaml:ro
       - tmp-storage:/home/urlconverter/results:rw

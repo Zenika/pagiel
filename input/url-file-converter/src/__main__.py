@@ -6,6 +6,8 @@ import shutil
 RESOURCE_FILES = "/home/urlconverter/templates/{file}"
 
 GREENIT_INPUT_FILE_ARGS = ["url", "name", "waitForSelector", "waitForXPath", "waitforNavigation", "screenshot", "actions"] 
+YELLOWLABTOOLS_INPUT_FILE_ARGS = ["url", "name", "device"]
+
 ROBOT_RESOURCE_TEMPLATE = """
 Open Browser To {name}
     Open Browser    {url}    browser=${{BROWSER}}     remote_url=${{SELENIUM}}
@@ -35,6 +37,9 @@ with open(sys.argv[1]) as url_input_file:
     with open(sys.argv[3], 'w') as sitespeed_urls:
         sitespeed_urls.write("\n".join([url["url"] for url in url_list]))
 
+    with open(sys.argv[4], 'w') as yellowlabtoolsUrlFile:
+        documents = yaml.dump([{k: v for k,v in url.items() if k in YELLOWLABTOOLS_INPUT_FILE_ARGS} for url in url_list], yellowlabtoolsUrlFile)
+
     robot_resources = [ROBOT_RESOURCE_TEMPLATE.format(url=url["url"], name=url["name"], final_url=url.get("final_url", url["url"])) for url in url_list ]
     robot_tests = []
     for url in url_list:
@@ -44,12 +49,12 @@ with open(sys.argv[1]) as url_input_file:
         robot_tests.append(test)
 
 
-    robot_resource_file_name = os.path.join(sys.argv[4], "generated-resource.resource")
+    robot_resource_file_name = os.path.join(sys.argv[5], "generated-resource.resource")
     shutil.copyfile(RESOURCE_FILES.format(file="resource.resource"), robot_resource_file_name)
     with open(robot_resource_file_name, "a") as robot_resource_file:
         robot_resource_file.write("\n".join(robot_resources))
     
-    robot_test_file_name = os.path.join(sys.argv[4], "generated-ping.robot")
+    robot_test_file_name = os.path.join(sys.argv[5], "generated-ping.robot")
     shutil.copyfile(RESOURCE_FILES.format(file="tests.robot"), robot_test_file_name)
     with open(robot_test_file_name, "a") as robot_test_file:
         robot_test_file.write("\n".join(robot_tests))

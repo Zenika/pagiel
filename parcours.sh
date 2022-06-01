@@ -46,6 +46,14 @@ process () {
         echo "sitespeed failed"
         exit 1
     fi
+    echo "run YellowLabTools"
+    docker-compose --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools 
+    errCode=$?
+    if [ $errCode -ne 0 ];
+    then
+        echo "YellowLabTools failed"
+        exit 1
+    fi
     echo "run robot-chrome-test"
     docker-compose --profile conso up --abort-on-container-exit --exit-code-from robot-chrome-test robot-chrome-test
     errCode=$?

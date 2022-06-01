@@ -7,3 +7,6 @@
 [submodule "powerapi/smartwatts"]
 	path = powerapi/smartwatts
 	url = git@github.com:Zenika/smartwatts-formula.git
+[submodule "yellowLabTools/src"]
+	path = yellowLabTools/src
+	url = git@github.com:Zenika/YellowLabTools.git
