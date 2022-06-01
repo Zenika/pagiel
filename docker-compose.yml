@@ -4,6 +4,7 @@ services:
   influxdb:
     image: ${INFLUXDB_IMAGE_VERSION}
     container_name: influxdb
+    restart: always
     ports:
       - '8086:8086'
     volumes:
@@ -44,6 +45,8 @@ services:
     command: --config-file /config.json
     networks:
       - epa-network
+    profiles:
+      - preconso
 
   smartwatts:
     build: ./powerapi
@@ -54,6 +57,8 @@ services:
     command: --config-file /config.json
     networks:
       - epa-network
+    profiles:
+      - preconso
     volumes:
       - ./smartwatts/config.json:/config.json:ro
   
@@ -68,6 +73,8 @@ services:
       - VUE_APP_API_URL="http://api-node:3031"
     networks:
       - epa-network
+    profiles:
+      - delete
 
   api-node:
     build: ./api-nodejs
@@ -76,6 +83,8 @@ services:
       - 3040:3031
     networks:
       - epa-network
+    profiles:
+      - delete
 
   selenium-hub:
     image: ${SELENIUM_HUB_IMAGE_VERSION}
@@ -88,6 +97,8 @@ services:
       - "4444:4444"
     networks:
       - epa-network
+    profiles:
+      - preconso
 
   chrome:
     image: ${SELENIUM_NODE_CHROME_IMAGE_VERSION}
@@ -104,6 +115,8 @@ services:
       - "6900:5900"
     networks:
       - epa-network
+    profiles:
+      - preconso
 
   robot-chrome-test:
     build: robot
@@ -114,21 +127,12 @@ services:
       - ./robot-results/gc:/out:rw
     depends_on:
       - selenium-hub
-      - front-vue
       - chrome
       # network_mode: host
     networks:
       - epa-network
-
-  sitespeed:
-    container_name: sitespeed
-    image: ${SITESPEED_IMAGE_VERSION}
-    shm_size: '1g'
-    command: https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome --graphite.host graphite --graphite.webHost http://graphite --graphite.port ${GRAPHITE_PORT} --graphite.httpPort 8092 --graphite.auth user:password --graphite.username ${GRAPHITE_USERNAME} --graphite.password ${GRAPHITE_PASSWORD}
-    volumes:
-      - ./sitespeed-result:/sitespeed.io/sitespeed-result:rw
-    networks:
-      - epa-network
+    profiles:
+      - conso
 
   eco-index:
     build: eco-index/GreenIT-Analysis-cli
@@ -143,6 +147,23 @@ services:
       - ./eco-index/results:/app/output:rw
     environment:
       - TZ:Europe/Paris
+    profiles:
+      - test
+
+  sitespeed:
+    container_name: sitespeed
+    image: ${SITESPEED_IMAGE_VERSION}
+    shm_size: '1g'
+    depends_on:
+      - graphite
+    command: /urls.txt --cpu --sustainable.enable --axe.enable -b chrome --chrome.args no-sandbox --graphite.host graphite --graphite.webHost http://graphite --graphite.port ${GRAPHITE_PORT} --graphite.httpPort 8092 --graphite.auth user:password --graphite.username ${GRAPHITE_USERNAME} --graphite.password ${GRAPHITE_PASSWORD}
+    volumes:
+      - ./sitespeed/results:/sitespeed.io/sitespeed-result:rw
+      - ./sitespeed/urls.txt:/urls.txt:ro
+    networks:
+      - epa-network
+    profiles:
+      - test
 
   grafana:
     container_name: grafana
@@ -181,6 +202,8 @@ services:
       - GF_USER=${GRAFANA_USERNAME}
     networks:
       - epa-network
+    profiles:
+      - setup
   
   url-converter:
     container_name: url-converter
@@ -192,6 +215,8 @@ services:
       - ./input/templates/:/home/urlconverter/templates/:ro
       - ./robot/tests/:/home/urlconverter/tests/:rw
       - ./sitespeed/urls.txt:/home/urlconverter/urls.txt:rw
+    profiles:
+      - pretest
 
 
 volumes:
