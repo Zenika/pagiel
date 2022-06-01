@@ -1,5 +1,89 @@
 # Eco Platform Analyzer 
 
+
+## Installation
+
+### Prérequis 
+
+- docker-compose
+- python (script d'installation uniquement)
+
+### Préparation
+
+- Cloner le répo en ligne
+- Copier le fichier `.env.exemple` vers le fichier `.env`.
+- Changer les couples nom d'utilisateur/mot de passe.
+- Lancer `docker-compose up`, cela lancera les conteneurs influxdb, graphite et grafana qui sont prévu pour fonctionner en permanance.
+- Se connecter à influxdb (`http://localhost:8086` par défault) pour récuperer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connection (data -> API Token), et renseigner les variables d'environnement correspondantes
+- Executer le script setup.sh, il va créer certains fichiers de configurations nécéssaire pour les autres conteneurs à partir du fichier `.env`.
+
+### Runner gitlab
+
+Le runner est installé directement sur la machine (cf. https://docs.gitlab.com/runner/register/#linux).
+
+Exemple de configuration de runner gitlab
+```
+concurrent = 1
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "eco-runner"
+  url = "https://gitlab.com"
+  token = "token"
+  executor = "shell"
+```
+
+## Utilisation
+
+### Fichier input/urls.yaml
+
+Construire le fichier input/urls.yaml qui liste les URL à analyser. Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
+
+Sa structure est la suivante :
+
+| Paramètre           | Type   | Obligatoire | Description                                                         |
+| ------------------- | ------ | ----------- | ------------------------------------------------------------------- |
+| `url`               | string | Oui         | URL de la page à analyser                                           |
+| `name`              | string | Oui         | Nom de la page à analyser, affiché dans le rapport                   |
+| `waitForSelector`   | string | Non         | Attend que l'élément HTML définit par le sélecteur CSS soit visible |
+| `waitForXPath`      | string | Non         | Attend que l'élément HTML définit par le XPath soit visible         |
+| `waitForNavigation` | string | Non         | Attend la fin du chargement de la page. 4 valeurs possibles : `load`, `domcontentloaded`, `networkidle0`, `networkidle2` |
+| `screenshot`        | string | Non         | Réalise une capture d'écran de la page à analyser. La valeur à renseigner est le nom de la capture d'écran. La capture d'écran est réalisée même si le chargement de la page est en erreur. |
+| `actions`           | list   | Non         | Réalise une suite d'actions avant d'analyser la page                |
+| `final_url`               | string | Non         | URL final de la page après chargement                              |
+| `cookie_btn`               | string | Non         | Selecteur pour fermer le popup des cookies       |
+
+Pour plus de détails sur la configuration des actions voir https://github.com/cnumr/GreenIT-Analysis-cli#actions
+
+### Utilisation seule
+
+- Remplir le fichier input/urls.yaml avec une liste d'url à tester
+- Lancer le script parcours.sh
+
+### Via les CI/CD
+
+Voici un exemple de script d'une pipeline gitlab
+```
+eco test:
+  stage: eco
+  tags: 
+    - eco
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd /home/eco-runner/draft-green-it-toolbox
+    - cat $URLS > ./input/urls.yaml
+    - ./parcours.sh
+```
+Ou :
+ - `stage: eco` est un stage personnalisé
+ - le tag `eco` est le tag du runner
+ - le `cd` en début de script met le runner dans le répertoire du projet
+   
+
 ## Outillage
 
 
