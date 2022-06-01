@@ -1,3 +1,4 @@
+# check if files exist
 if [ ! -f .env ]
 then
     echo "Env file is missing"
@@ -10,6 +11,7 @@ then
     exit 1
 fi
 
+# grep variable from .env
 token=`grep INFLUXDB_TOKEN .env`
 token=${token#*=}
 org=`grep INFLUXDB_ORG_NAME .env`
@@ -21,6 +23,9 @@ bucket=${bucket#*=}
 host=`grep INFLUXDB_HOST .env`
 host=${host#*=}
 
+# dealing with json is easier with python
 python3 setup-script/smartwatts-conf.py $host $port $org $token $bucket
 
+# starting setup profile
+# -> push sitespeed dashboard in grafana
 docker-compose --profile setup up -d
