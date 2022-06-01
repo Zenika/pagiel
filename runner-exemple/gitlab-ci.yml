@@ -1,0 +1,20 @@
+# this exemple is for an online target
+
+stages:
+  - eco
+
+eco test:
+  stage: eco
+  tags: 
+    - eco
+  # no need to clone repo for online target
+  variables:
+    GIT_STRATEGY: none
+  script:
+    # place runner in project repo
+    - cd /home/eco-runner/draft-green-it-toolbox
+    # copy $url file
+    - cat $URLS > ./input/urls.yaml
+    # start process
+    - ./parcours.sh
+
