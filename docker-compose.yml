@@ -53,30 +53,6 @@ services:
       - preconso
     volumes:
       - ./smartwatts/config.json:/config.json:ro
-  
-  front-vue:
-    build: ./front-vuejs
-    container_name: front-vue
-    ports:
-      - 8090:8080
-    depends_on:
-      - api-node
-    environment:
-      - VUE_APP_API_URL="http://api-node:3031"
-    networks:
-      - epa-network
-    profiles:
-      - delete
-
-  api-node:
-    build: ./api-nodejs
-    container_name: api-node
-    ports: 
-      - 3040:3031
-    networks:
-      - epa-network
-    profiles:
-      - delete
 
   selenium-hub:
     image: ${SELENIUM_HUB_IMAGE_VERSION}
