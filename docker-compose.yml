@@ -35,7 +35,7 @@ services:
       
   powerapi-hwpc-sensor:
     image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
-    container_name: hwpc-sensor
+    container_name: powerapi-hwpc-sensor
     privileged: true
     volumes:
       - /sys:/sys
