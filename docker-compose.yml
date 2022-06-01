@@ -107,7 +107,7 @@ services:
 
   robot-chrome-test:
     build: robot
-    command: -v BROWSER:gc --outputdir /out /tests
+    command: -v BROWSER:gc --outputdir /out /tests/*.robot
     container_name: robot-chrome-test
     volumes:
       - ./robot/tests:/tests:ro
@@ -181,6 +181,18 @@ services:
       - GF_USER=${GRAFANA_USERNAME}
     networks:
       - epa-network
+  
+  url-converter:
+    container_name: url-converter
+    build: ./input/url-file-converter
+    command: /home/urlconverter/urls.yaml /home/urlconverter/urls-eco.yaml /home/urlconverter/urls.txt /home/urlconverter/tests/
+    volumes: 
+      - ./input/urls.yaml:/home/urlconverter/urls.yaml:ro
+      - ./eco-index/url.yaml:/home/urlconverter/urls-eco.yaml:rw
+      - ./input/templates/:/home/urlconverter/templates/:ro
+      - ./robot/tests/:/home/urlconverter/tests/:rw
+      - ./sitespeed/urls.txt:/home/urlconverter/urls.txt:rw
+
 
 volumes:
   influxdb-storage:
