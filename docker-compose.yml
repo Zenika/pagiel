@@ -1,31 +1,6 @@
 version: "3.3"
 
 services:
-
-  mongo:
-    image: ${MONGO_IMAGE_VERSION}
-    container_name: mongo
-    restart: always
-    volumes:
-      - ./mongo/data:/data/db
-      - ./mongo/config:/data/configdb
-    ports:
-      - "27017:27017"
-      - "27018:27018"
-    networks:
-      - epa-network
-
-  mongo-express:
-    image: ${MONGO_EXPRESS_IMAGE_VERSION}
-    container_name: mongo-express
-    depends_on: 
-      - mongo   
-    restart: always
-    ports:
-      - 8091:8081
-    networks:
-      - epa-network
-
   influxdb:
     image: ${INFLUXDB_IMAGE_VERSION}
     container_name: influxdb
@@ -61,15 +36,12 @@ services:
     image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
     container_name: hwpc-sensor
     privileged: true
-    depends_on:
-      - mongo
-    links:
-      - mongo
     volumes:
       - /sys:/sys
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /tmp/powerapi-sensor-reporting-firefox:/reporting
-    command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
+      - ./hwpc/config.json:/config.json:ro
+    command: --config-file /config.json
     networks:
       - epa-network
 
@@ -77,12 +49,13 @@ services:
     build: ./powerapi
     container_name: smartwatts
     depends_on:
-      - mongo
       - influxdb
       - powerapi-hwpc-sensor
-    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --output influxdb2 --name influx --uri $INFLUXDB_HOST --port $INFLUXDB_PORT --bucket $INFLUXDB_BUCKET_NAME --name $INFLUXDB_USERNAME --org $INFLUXDB_ORG --token $INFLUXDB_TOKEN --cpu-error-threshold 2.0 --dram-error-threshold 2.0
+    command: --config-file /config.json
     networks:
       - epa-network
+    volumes:
+      - ./smartwatts/config.json:/config.json:ro
   
   front-vue:
     build: ./front-vuejs
