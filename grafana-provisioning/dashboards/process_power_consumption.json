@@ -8,27 +8,30 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "influxdb",
+        "uid": "PC003803D09A91473"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -56,7 +59,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.0",
+      "pluginVersion": "8.4.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -66,6 +69,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "PC003803D09A91473"
+          },
           "groupBy": [
             {
               "params": [
@@ -82,7 +89,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT power FROM \"power_consumption\" GROUP BY target",
+          "query": "from(bucket: \"db0\")\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r._measurement == \"power_consumption\" and r._field == \"power\")",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -104,49 +111,49 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Process power consumption",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "power {sensor=\"hwpc-sensor\", target=\"(.*)\"}",
+            "renamePattern": "$1"
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
+          "$$hashKey": "object:33",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:34",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
-  "refresh": "10s",
-  "schemaVersion": 27,
+  "refresh": "5s",
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -160,6 +167,6 @@
   "timezone": "",
   "title": "Power process consumption",
   "uid": "AdpluNEMz",
-  "version": 2
+  "version": 3,
+  "weekStart": ""
 }
-

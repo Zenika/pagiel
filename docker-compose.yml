@@ -32,11 +32,15 @@ services:
     ports:
       - '8086:8086'
     volumes:
-      - influxdb-storage:/var/lib/influxdb
+      - influxdb-storage:/var/lib/influxdb2
+      - ./influxdb/queries:/home/queries:rw
     environment:
-      - INFLUXDB_DB=${INFLUXDB_DB_NAME}
-      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
-      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG_NAME}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET_NAME}
+      - DOCKER_INFLUXDB_INIT_RETENTION=${INFLUXDB_RETENTION}
     networks:
       - epa-network
 
@@ -62,19 +66,21 @@ services:
     links:
       - mongo
     volumes:
-      - '/sys:/sys'
-      - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
-      - '/tmp/powerapi-sensor-reporting-firefox:/reporting'
+      - /sys:/sys
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /tmp/powerapi-sensor-reporting-firefox:/reporting
     command: /usr/bin/hwpc-sensor -n "hwpc-sensor" -r "mongodb" -U $MONGO_URI -D $DB -C $INPUT_COLLECTION -s "rapl" -o -e "RAPL_ENERGY_PKG" -s "msr" -e "TSC" -e "APERF" -e "MPERF" -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
     networks:
       - epa-network
-    
-  formula:
-    image: ${POWER_API_FORMULA_IMAGE_VERSION}
-    container_name: formula
+
+  smartwatts:
+    build: ./powerapi/smartwatts-formula
+    container_name: smartwatts
     depends_on:
       - mongo
-    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --output influxdb --name influx --uri $INFLUXDB_HOST --port $INFLUXDB_PORT --db $INFLUXDB_DB_NAME --formula smartwatts --cpu-ratio-base $BASE_CPU_RATIO --cpu-ratio-min $MIN_CPU_RATIO --cpu-ratio-max $MAX_CPU_RATIO --cpu-error-threshold 2.0 --dram-error-threshold 2.0 --disable-dram-formula
+      - influxdb
+      - powerapi-hwpc-sensor
+    command: -s --input mongodb --model HWPCReport -u $MONGO_URI -d $DB -c $INPUT_COLLECTION --output mongodb --name power --model PowerReport -u $MONGO_URI -d $DB -c $OUTPUT_COLLECTION --output mongodb --name formula --model FormulaReport -u $MONGO_URI -d $DB -c frep --output influxdb2 --name influx --uri $INFLUXDB_HOST --port $INFLUXDB_PORT --bucket $INFLUXDB_BUCKET_NAME --name $INFLUXDB_USERNAME --org $INFLUXDB_ORG --token $INFLUXDB_TOKEN --cpu-error-threshold 2.0 --dram-error-threshold 2.0
     networks:
       - epa-network
   
@@ -156,7 +162,7 @@ services:
     container_name: eco-index
     depends_on:
       - influxdb
-    command: greenit analyse url.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://influxdb:${INFLUXDB_PORT} --influxdb_login ${INFLUXDB_USERNAME} --influxdb_password ${INFLUXDB_PASSWORD} --influxdb_database ${INFLUXDB_DB_NAME}
+    command: greenit analyse url.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://${INFLUXDB_HOST}:${INFLUXDB_PORT} --influxdb_token ${INFLUXDB_TOKEN} --influxdb_bucket ${INFLUXDB_BUCKET_NAME} --influxdb_org=${INFLUXDB_ORG_NAME}
     networks:
       - epa-network
     volumes:
@@ -176,6 +182,7 @@ services:
       - ./grafana-provisioning/:/etc/grafana/provisioning
     depends_on:
       - influxdb
+      - graphite
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
@@ -183,6 +190,11 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_USERS_ALLOW_ORG_CREATE=false
       - GF_INSTALL_PLUGINS=grafana-piechart-panel
+      - INFLUXDB_ORG_ID=${INFLUXDB_ORG_ID}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
+      - INFLUXDB_HOST=${INFLUXDB_HOST}
+      - INFLUXDB_PORT=${INFLUXDB_PORT}
     networks:
       - epa-network
 
