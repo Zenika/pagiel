@@ -139,11 +139,11 @@ services:
     container_name: eco-index
     depends_on:
       - influxdb
-    command: greenit analyse url.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://${INFLUXDB_HOST}:${INFLUXDB_PORT} --influxdb_token ${INFLUXDB_TOKEN} --influxdb_bucket ${INFLUXDB_BUCKET_NAME} --influxdb_org=${INFLUXDB_ORG_NAME}
+    command: greenit analyse input/urls.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://${INFLUXDB_HOST}:${INFLUXDB_PORT} --influxdb_token ${INFLUXDB_TOKEN} --influxdb_bucket ${INFLUXDB_BUCKET_NAME} --influxdb_org=${INFLUXDB_ORG_NAME}
     networks:
       - epa-network
     volumes:
-      - ./eco-index/url.yaml:/app/url.yaml:ro
+      - tmp-storage:/app/input:ro
       - ./eco-index/results:/app/output:rw
     environment:
       - TZ:Europe/Paris
@@ -156,10 +156,10 @@ services:
     shm_size: '1g'
     depends_on:
       - graphite
-    command: /urls.txt --cpu --sustainable.enable --axe.enable -b chrome --chrome.args no-sandbox --graphite.host graphite --graphite.webHost http://graphite --graphite.port ${GRAPHITE_PORT} --graphite.httpPort 8092 --graphite.auth user:password --graphite.username ${GRAPHITE_USERNAME} --graphite.password ${GRAPHITE_PASSWORD}
+    command: /input/urls.txt --cpu --sustainable.enable --axe.enable -b chrome --chrome.args no-sandbox --graphite.host graphite --graphite.webHost http://graphite --graphite.port ${GRAPHITE_PORT} --graphite.httpPort 8092 --graphite.auth user:password --graphite.username ${GRAPHITE_USERNAME} --graphite.password ${GRAPHITE_PASSWORD}
     volumes:
       - ./sitespeed/results:/sitespeed.io/sitespeed-result:rw
-      - ./sitespeed/urls.txt:/urls.txt:ro
+      - tmp-storage:/input:ro
     networks:
       - epa-network
     profiles:
@@ -208,13 +208,12 @@ services:
   url-converter:
     container_name: url-converter
     build: ./input/url-file-converter
-    command: /home/urlconverter/urls.yaml /home/urlconverter/urls-eco.yaml /home/urlconverter/urls.txt /home/urlconverter/tests/
+    command: /home/urlconverter/urls.yaml /home/urlconverter/results/urls.yaml /home/urlconverter/results/urls.txt /home/urlconverter/tests/
     volumes: 
       - ./input/urls.yaml:/home/urlconverter/urls.yaml:ro
-      - ./eco-index/url.yaml:/home/urlconverter/urls-eco.yaml:rw
+      - tmp-storage:/home/urlconverter/results:rw
       - ./input/templates/:/home/urlconverter/templates/:ro
       - ./robot/tests/:/home/urlconverter/tests/:rw
-      - ./sitespeed/urls.txt:/home/urlconverter/urls.txt:rw
     profiles:
       - pretest
 
@@ -224,6 +223,7 @@ volumes:
   graphite-storage:
   chronograf-storage:
   grafana-storage:
+  tmp-storage:
 
 networks:
   epa-network:
