@@ -135,7 +135,7 @@ services:
       - conso
 
   eco-index:
-    build: eco-index/GreenIT-Analysis-cli
+    build: eco-index
     container_name: eco-index
     depends_on:
       - influxdb
