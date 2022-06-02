@@ -35,6 +35,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sitespeedFile", help="file for sitespeed", default="/home/urlconverter/results/urls.txt")
     parser.add_argument("--yellowLabToolsFile", help="file for yellowLab tools", default="/home/urlconverter/results/urls-yellowlabtools.yaml")
     parser.add_argument("--robotFolder", help="folder for robot tests", default="/home/urlconverter/tests/")
+    parser.add_argument("--localContainerName", help="name of the container")
+    parser.add_argument("--localContainerPort", help="port of the container", default=80, type=int)
     return parser.parse_args()
 
 def filter_dict_list_by_key(dict_list: list, expected_keys: list) -> list:
@@ -67,7 +69,14 @@ def save_robot_files(robot_folder: str, url_list: list):
 def process(args):
     with open(args.inputFile) as url_input_file:
         url_list = yaml.load(url_input_file, Loader=yaml.FullLoader)
-        
+
+        if args.localContainerName:
+            containerUrl = f"http://{args.localContainerName}:{args.localContainerPort}" if args.localContainerPort != 80 else f"http://{args.localContainerName}"
+            for url in url_list:
+                url["url"] = url["url"].replace("${containerName}", containerUrl, 1)
+                if final_url := url.get("final_url"):
+                    url["final_url"] = final_url.replace("${containerName}", containerUrl, 1)
+
         save_yaml_file(args.ecoIndexFile, url_list, GREENIT_INPUT_FILE_ARGS)
         save_yaml_file(args.yellowLabToolsFile, url_list, YELLOWLABTOOLS_INPUT_FILE_ARGS)
 
