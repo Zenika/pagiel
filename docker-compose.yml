@@ -181,6 +181,19 @@ services:
     profiles:
       - pretest
 
+  demo: 
+    container_name: demo
+    build: ./demo
+    volumes:
+      - ./demo/src/public:/app/src/public
+    profiles:
+      - demo
+    networks:
+      - epa-network
+    ports:
+      - 8080:8080
+
+
 
 volumes:
   influxdb-storage:
