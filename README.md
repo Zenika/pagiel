@@ -17,6 +17,8 @@
 - Se connecter à influxdb (`http://localhost:8086` par défault) pour récuperer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connection (data -> API Token), et renseigner les variables d'environnement correspondantes
 - Executer le script setup.sh, il va créer certains fichiers de configurations nécéssaire pour les autres conteneurs à partir du fichier `.env`.
 
+> Ce projet utilise des git submodules, ils sont clonés par le script de setup.
+
 ### Runner gitlab
 
 Le runner est installé directement sur la machine (cf. https://docs.gitlab.com/runner/register/#linux).

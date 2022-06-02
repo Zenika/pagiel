@@ -11,6 +11,10 @@ then
     exit 1
 fi
 
+#git submodule init
+git submodule init
+git submodule update
+
 # grep variable from .env
 token=`grep INFLUXDB_TOKEN .env`
 token=${token#*=}
