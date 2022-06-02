@@ -1,4 +1,4 @@
-# Eco Platform Analyzer 
+# Plateforme Automatisée de Génération d'Indicateurs Environnementaux sur le Logiciel (PAGIEL)
 
 
 ## Installation
@@ -143,20 +143,16 @@ Les bonnes pratiques sont issues du [référentiel édité par GreenIT.fr](https
 
 Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consiste en l'ajout de l'écriture des résultats en base influx et d'un dahsboard grafana.
 
-**Intégration**
-
-Usage via docker :
-
-```console
-cd GreenIT-Analysis-cli && docker build -t ecoindex -f . && \
-    docker run -it --init --rm --cap-add=SYS_ADMIN --network=eco-platform-analyzer_epa-network --name ecoindex ecoindex \
-    --ci --influxdb --influxdb_hostname http://influxdb:8086 --influxdb_login admin --influxdb_password admin --influxdb_database db0
-```
-
 **Dashboard**
 
 ![dashboard_ecoindex](media/dashboard_ecoindex.png)
 
+### Yellow Lab Tools
+
+> Monitoring et analyse de code dans un navigateur 
+
+Utilisation du projet Yellow Lab Tools pour récupérer une grande quantitée de métrique permettant de remonter au causes des problèmes reporter par les projets précédents. 
+Cet outils collecte des métriques sur des sujets aussi varié que la complexité du DOM, une analyse du JS et du CSS, le cache configuré, etc.
 
 
 ### Mesure de la consommation énergétique 
@@ -267,7 +263,7 @@ mais celui-ci apparait comme étant négligeable.
 **EcoIndex**
 
 - Un conteneur docker dédié GreenIT CLI Analysis
-- Dépendance avec un conteneur InfluxDB
+- Dépendance avec le conteneur InfluxDB
 - Dépendance avec un conteneur Grafana et un dashboard
 
 **Sitespeed.io**
@@ -276,97 +272,25 @@ mais celui-ci apparait comme étant négligeable.
 - Dépendance avec un conteneur Graphite 
 - Dépendance avec un conteneur Grafana et un ensemble de dashboard
 
+**Yellow Lab Tools**
+
+- Un conteneur docker dédié Yellow Lab Tools
+- Dépendance avec le conteneur InfluxDB
+- Dépendance avec un conteneur Grafana et un dashboard
+
 **PowerAPI**
 
 L'analyse de la consommation énergétique est la partie nécessitant le plus d'outillage et de configuration.
 
 - Une machine physique dédiée
 - Un conteneur HWPC
-- Un conteneur Forumla 
-- Dépendance avec un conteneur MongoDB
-- Dépendance avec un conteneur Graphite 
+- Un conteneur SmartWatts
+- Dépendance avec un conteneur InfluxDB 
 - Dépendance avec un conteneur Grafana et un dashboard
-- Installation et configuration d'un Gitlab Runner Shell
-- Installation et configuration des Cgroups Bin
 
 **NB**
 
 À noter que l'utilisation de ces différents outils est totalement modulaire en fonction des besoins.
-Pour la réalisation du POC, l'ensemble des outils sont centralisés sur une seule machine.
-
-
-
-### Installation de la stack complète via Docker Compose 
-
-Pour un usage des outils en local il est possible de démarrer la stack au complet via le fichier `docker-compose.yml`. 
-
-> Résultat du démarrage du `docker-compose.yml`
-
-```console
-conteneur ID   IMAGE                                                   COMMAND                  CREATED             STATUS                         PORTS                                                                                                                     NAMES
-1f745f2edae2   ecoindex                                                "/app/greenit analys…"   About an hour ago   Exited (0) About an hour ago                                                                                                                             ecoindex
-832e96f2932f   eco-platform-analyzer_robot-chrome-test                 "robot -v BROWSER:gc…"   2 days ago          Exited (1) 47 hours ago                                                                                                                                  robot-chrome-test
-db935f0e845d   sitespeedio/grafana-bootstrap:16.0.0                    "/bin/sh -c /entrypo…"   2 days ago          Exited (0) 2 days ago                                                                                                                                    grafana_setup
-adcd3fb75eab   powerapi/hwpc-sensor:latest                             "/usr/bin/hwpc-senso…"   2 days ago          Exited (1) 2 days ago                                                                                                                                    hwpc-sensor
-8c1e5e7ad532   powerapi/smartwatts-formula:latest                      "python3 -m smartwat…"   2 days ago          Exited (1) 2 days ago                                                                                                                                    formula
-e48287d27b04   selenium/node-chrome:4.0.0-beta-1-prerelease-20210207   "/opt/bin/entry_poin…"   2 days ago          Up 2 days                      0.0.0.0:6900->5900/tcp                                                                                                    selenium-node-chrome
-57ef9b1a3f6c   grafana/grafana:7.4.2                                   "/run.sh"                2 days ago          Up 2 days                      0.0.0.0:3000->3000/tcp                                                                                                    grafana
-3256fcf529a7   sitespeedio/graphite:1.1.7-9                            "/entrypoint"            2 days ago          Up 2 days                      2004/tcp, 2013-2014/tcp, 2023-2024/tcp, 8080/tcp, 0.0.0.0:2003->2003/tcp, 8125-8126/tcp, 8125/udp, 0.0.0.0:8092->80/tcp   graphite
-69b425027705   influxdb:1.8.4                                          "/entrypoint.sh infl…"   2 days ago          Up 2 days                      0.0.0.0:8086->8086/tcp                                                                                                    influxdb
-7964c928d49f   mongo:4.4-bionic                                        "docker-entrypoint.s…"   2 days ago          Up 2 days                      0.0.0.0:27017-27018->27017-27018/tcp                                                                                      mongo
-302f1ac13dba   selenium/hub:4.0.0-beta-1-prerelease-20210207           "/opt/bin/entry_poin…"   2 days ago          Up 2 days                      0.0.0.0:4442-4444->4442-4444/tcp                                                                                          selenium-hub
-```
-
-
-
-### Usage en CLI via un pipeline Gitlab
-
-> Exemple d'un pipeline Gitlab exécuté sur le GitlabRunner Shell via un fichier `.gitlab-ci.yml`
-
-```yml
-stages:
-  - run_robot_test
-  - run_sitespeed
-  - run_ecoindex
-
-services:
-  - docker:dind
-
-run_robot_test:
-  stage: run_robot_test
-  script: docker restart robot-chrome-test
-
-run_sitespeed:
-  stage: run_sitespeed
-  script: docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.8.1 https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
-
-run_ecoindex:
-  stage: run_ecoindex
-  script: docker restart eco-index
-```
-
-> Déclaration du runner dans Gitlab via un fichier `config.toml`
-
-```toml
-oncurrent = 1
-check_interval = 0
-
-[session_server]
-    session_timeout = 1000
-
-[[runners]]
-    name = "runner-name"
-    url = "https://gitlab.com/"
-    token = "my_token"
-    executor = "shell"
-    [[runner.cache]]
-        [runners.cache.s3]
-        [runners.cache.gcs]
-```
-
-Chaque outil ayant sa propre implémentation, il faudra tendre à une variabilisation des url's utilisées dans les différents outils pour la réalisation des analyses.
-  
-
 
 ### Installation et configuration de l'environnement pour l'analyse de la consommation énergétique 
 
@@ -427,7 +351,6 @@ Charger les règles
 ```console
 sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 ```
-
 
 
 ## Case d'usage à imaginer ou améliorations
