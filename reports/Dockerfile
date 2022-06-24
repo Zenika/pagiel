@@ -1,0 +1,12 @@
+FROM python:3.10
+
+RUN useradd -d /opt/report -m report
+WORKDIR /opt/report
+
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+
+COPY --chown=report ./src /opt/report/src
+
+ENTRYPOINT ["python3", "/opt/report/src"]

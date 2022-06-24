@@ -1,13 +1,19 @@
-- url: https://www.arkea.com/
-  name: Arkea
-  final_url: https://www.cm-arkea.com/banque/assurance/credit/accueil
-- url: https://www.damien-ar.fr/
-  name: Damien
-  final_url: https://www.damien-ar.fr/#/auth
 - url: https://docs.docker.com/
-  name: DockerDoc
-- url: https://collectif.greenit.fr/
-  name: CollectifGreenIT
-- url: https://www.nike.com/fr/
-  name: Nike
-  cookie_btn: data:var:rejectBtn
+  name: Docker-index
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    Image:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0
+
+- url: https://docs.docker.com/get-started/overview/
+  name: Docker-guide
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    Image:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0

@@ -12,3 +12,4 @@ robot/tests/generated-ping.robot
 robot/tests/generated-resource.resource
 smartwatts/config.json
 .env
+reports/reports/*

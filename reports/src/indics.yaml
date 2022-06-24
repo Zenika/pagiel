@@ -1,0 +1,851 @@
+DOM:
+  DOMaccesses:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMelementMaxDepth:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMelementsCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMidDuplicated:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMinserts:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMmutationsAttributes:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMmutationsInserts:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMmutationsRemoves:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueries:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesAvoidable:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesByClassName:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesById:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesByQuerySelectorAll:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesByTagName:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesDuplicated:
+    influxMeasurement: YellowLabtools
+    type: int
+  DOMqueriesWithoutResults:
+    influxMeasurement: YellowLabtools
+    type: int
+  bodyHTMLSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  commentsSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  documentHeight:
+    influxMeasurement: YellowLabtools
+    type: int
+  hiddenContentSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  iframesCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  nodesWithInlineCSS:
+    influxMeasurement: YellowLabtools
+    type: int
+  whiteSpacesSize:
+    influxMeasurement: YellowLabtools
+    type: int
+Domains:
+  DomainsNumber:
+    influxMeasurement: eco_index
+    type: str
+  blockedRequests:
+    desc: block du to domain filtering
+    influxMeasurement: YellowLabtools
+    type: int
+  domains:
+    desc: nb domains
+    influxMeasurement: YellowLabtools
+    type: int
+  domainsToDomComplete:
+    influxMeasurement: YellowLabtools
+    type: int
+  domainsToDomContentLoaded:
+    influxMeasurement: YellowLabtools
+    type: int
+  domainsToFirstPaint:
+    influxMeasurement: YellowLabtools
+    type: int
+  maxRequestsPerDomain:
+    influxMeasurement: YellowLabtools
+    type: int
+  medianRequestsPerDomain:
+    influxMeasurement: YellowLabtools
+    type: int
+Image:
+  DontResizeImageInBrowser:
+    influxMeasurement: eco_index
+    type: str
+  EmptySrcTag:
+    influxMeasurement: eco_index
+    type: str
+  ImageDownloadedNotDisplayed:
+    influxMeasurement: eco_index
+    type: str
+  OptimizeBitmapImages:
+    influxMeasurement: eco_index
+    type: str
+  OptimizeSvg:
+    influxMeasurement: eco_index
+    type: str
+  hiddenImages:
+    influxMeasurement: YellowLabtools
+    type: int
+  imageCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  imageSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  imagesScaledDown:
+    influxMeasurement: YellowLabtools
+    type: int
+  imagesWithoutDimensions:
+    influxMeasurement: YellowLabtools
+    type: int
+  lazyLoadableImagesBelowTheFold:
+    influxMeasurement: YellowLabtools
+    type: int
+  smallImages:
+    desc: small images that can be base64 encoded
+    influxMeasurement: YellowLabtools
+    type: int
+  videoCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  videoSize:
+    influxMeasurement: YellowLabtools
+    type: int
+assets:
+  ExternalizeCss:
+    influxMeasurement: eco_index
+    type: str
+  ExternalizeJs:
+    influxMeasurement: eco_index
+    type: str
+  MinifiedCss:
+    influxMeasurement: eco_index
+    type: str
+  MinifiedJs:
+    influxMeasurement: eco_index
+    type: str
+  PrintStyleSheet:
+    influxMeasurement: eco_index
+    type: str
+  StyleSheets:
+    influxMeasurement: eco_index
+    type: str
+  UseStandardTypefaces:
+    influxMeasurement: eco_index
+    type: str
+  assetsNotGzipped:
+    influxMeasurement: YellowLabtools
+    type: int
+  assetsWithCookies:
+    influxMeasurement: YellowLabtools
+    type: int
+  assetsWithQueryString:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssCount:
+    desc: nb css file loaded
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  fileMinification:
+    influxMeasurement: YellowLabtools
+    type: int
+  jsCount:
+    desc: nb js loaded
+    influxMeasurement: YellowLabtools
+    type: int
+  jsSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  jsonCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  jsonSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  multipleRequests:
+    influxMeasurement: YellowLabtools
+    type: int
+  smallCssFiles:
+    influxMeasurement: YellowLabtools
+    type: int
+  smallJsFiles:
+    influxMeasurement: YellowLabtools
+    type: int
+cache:
+  cacheHits:
+    desc: from caching server
+    influxMeasurement: YellowLabtools
+    type: int
+  cacheMisses:
+    desc: from caching server
+    influxMeasurement: YellowLabtools
+    type: int
+  cachePasses:
+    desc: from caching server
+    influxMeasurement: YellowLabtools
+    type: int
+caching:
+  AddExpiresOrCacheControlHeaders:
+    influxMeasurement: eco_index
+    type: str
+  cachingDisabled:
+    influxMeasurement: YellowLabtools
+    type: int
+  cachingNotSpecified:
+    influxMeasurement: YellowLabtools
+    type: int
+  cachingTooShort:
+    influxMeasurement: YellowLabtools
+    type: int
+  cachingUseImmutable:
+    influxMeasurement: YellowLabtools
+    type: int
+  oldCachingHeaders:
+    influxMeasurement: YellowLabtools
+    type: int
+compress:
+  CompressHttp:
+    influxMeasurement: eco_index
+    type: str
+  bodySize:
+    influxMeasurement: YellowLabtools
+    type: int
+  contentLength:
+    influxMeasurement: YellowLabtools
+    type: int
+  gzipRequests:
+    influxMeasurement: YellowLabtools
+    type: int
+cookie:
+  MaxCookiesLength:
+    influxMeasurement: eco_index
+    type: str
+  NoCookieForStaticRessources:
+    influxMeasurement: eco_index
+    type: str
+  cookiesRecv:
+    desc: length cookie received
+    influxMeasurement: YellowLabtools
+    type: int
+  cookiesSent:
+    desc: length cookie sent
+    influxMeasurement: YellowLabtools
+    type: int
+  documentCookiesCount:
+    desc: nb cookie
+    influxMeasurement: YellowLabtools
+    type: int
+  documentCookiesLength:
+    desc: length of document.cookie (byte)
+    influxMeasurement: YellowLabtools
+    type: int
+  domainsWithCookies:
+    desc: nb domains with cookies
+    influxMeasurement: YellowLabtools
+    type: int
+css:
+  cssBase64Length:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssBreakpoints:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssColors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssComments:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssCommentsLength:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssComplexSelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssDeclarations:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssDuplicatedProperties:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssDuplicatedSelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssEmptyRules:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssExpressions:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssImportants:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssImports:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssInlineStyles:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssLength:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssMediaQueries:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssMobileFirst:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssMultiClassesSelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssNotMinified:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssOldIEFixes:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssOldPropertyPrefixes:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssParsingErrors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssPropertyResets:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssQualifiedSelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssRedundantBodySelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssRedundantChildNodesSelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssRules:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectorLengthAvg:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectors:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectorsByAttribute:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectorsByClass:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectorsById:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectorsByPseudo:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSelectorsByTag:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSpecificityClassAvg:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSpecificityClassTotal:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSpecificityIdAvg:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSpecificityIdTotal:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSpecificityTagAvg:
+    influxMeasurement: YellowLabtools
+    type: int
+  cssSpecificityTagTotal:
+    influxMeasurement: YellowLabtools
+    type: int
+  similarColors:
+    influxMeasurement: YellowLabtools
+    type: int
+eco:
+  ecoindex:
+    influxMeasurement: eco_index
+    type: int
+  ges:
+    influxMeasurement: eco_index
+    type: float
+  grade:
+    influxMeasurement: eco_index
+    type: str
+  water:
+    influxMeasurement: eco_index
+    type: float
+font:
+  heavyFonts:
+    influxMeasurement: YellowLabtools
+    type: int
+  nonWoff2Fonts:
+    influxMeasurement: YellowLabtools
+    type: int
+  webfontSize:
+    influxMeasurement: YellowLabtools
+    type: int
+headers:
+  headersBiggerThanContent:
+    influxMeasurement: YellowLabtools
+    type: int
+  headersCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  headersRecvCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  headersRecvSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  headersSentCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  headersSentSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  headersSize:
+    influxMeasurement: YellowLabtools
+    type: int
+image:
+  imageOptimization:
+    influxMeasurement: YellowLabtools
+    type: int
+  imagesTooLarge:
+    influxMeasurement: YellowLabtools
+    type: int
+jQuery:
+  jQueryVersionsLoaded:
+    influxMeasurement: YellowLabtools
+    type: int
+jquery:
+  jQueryDOMReads:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQueryDOMWriteReadSwitches:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQueryDOMWrites:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQueryEventTriggers:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQueryOnDOMReadyFunctions:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQuerySizzleCalls:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQueryVersion:
+    influxMeasurement: YellowLabtools
+    type: int
+  jQueryWindowOnLoadFunctions:
+    influxMeasurement: YellowLabtools
+    type: int
+js:
+  Plugins:
+    influxMeasurement: eco_index
+    type: str
+  consoleMessages:
+    influxMeasurement: YellowLabtools
+    type: int
+  globalVariables:
+    influxMeasurement: YellowLabtools
+    type: int
+  globalVariablesFalsy:
+    influxMeasurement: YellowLabtools
+    type: int
+  jsErrors:
+    influxMeasurement: YellowLabtools
+    type: int
+  localStorageEntries:
+    influxMeasurement: YellowLabtools
+    type: int
+  windowAlerts:
+    influxMeasurement: YellowLabtools
+    type: int
+  windowConfirms:
+    influxMeasurement: YellowLabtools
+    type: int
+  windowPrompts:
+    influxMeasurement: YellowLabtools
+    type: int
+other:
+  SocialNetworkButton:
+    influxMeasurement: eco_index
+    type: str
+  base64Size:
+    influxMeasurement: YellowLabtools
+    type: int
+  compression:
+    influxMeasurement: YellowLabtools
+    type: int
+  htmlSize:
+    influxMeasurement: YellowLabtools
+    type: int
+  incorrectContentTypes:
+    influxMeasurement: YellowLabtools
+    type: int
+  isWordPress:
+    influxMeasurement: YellowLabtools
+    type: bool
+  otherSize:
+    influxMeasurement: YellowLabtools
+    type: int
+perf:
+  CumulativeLayoutShift:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.pageinfo.layoutShift.$function
+    type: int
+  FirstVisualChange:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.FirstVisualChange.$function
+    type: int
+  LargestContentfulPaint:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.largestContentfulPaint.renderTime.$function
+    type: int
+  LastVisualChange:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.LastVisualChange.$function
+    type: int
+  LoadEvenEnd:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.loadEventEnd.$function
+    type: int
+  SpeedIndex:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.SpeedIndex.$function
+    type: int
+  TTFB:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.serverResponseTime.$function
+    type: int
+  VisualReadiness:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.VisualReadiness.$function
+    type: int
+  backEndTime:
+    desc: ms
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.backEndTime.$function
+    type: int
+  contentSize:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.pagexray.contentSize
+    type: int
+  domComplete:
+    influxMeasurement: YellowLabtools
+    type: int
+  domContentLoaded:
+    influxMeasurement: YellowLabtools
+    type: int
+  domContentLoadedEnd:
+    influxMeasurement: YellowLabtools
+    type: int
+  domContentLoadedTime:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.domContentLoadedTime.$function
+    type: int
+  domElements:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.coach.advice.info.domElements
+    type: int
+  domInteractive:
+    influxMeasurement: YellowLabtools
+    type: int
+  firstPaint:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.firstPaint.$function
+    type: int
+  frontEndTime:
+    desc: ms
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.frontEndTime.$function
+    type: int
+  fullyLoaded:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.fullyLoaded.$function
+    type: int
+  performanceTimingPageLoad:
+    influxMeasurement: YellowLabtools
+    type: int
+  performanceTimingTTFB:
+    influxMeasurement: YellowLabtools
+    type: int
+  request:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.pagexray.requests
+    type: int
+  timeBackend:
+    desc: '%'
+    influxMeasurement: YellowLabtools
+    type: int
+  timeFrontend:
+    desc: '%'
+    influxMeasurement: YellowLabtools
+    type: int
+  timeToContentfulPaint:
+    desc: '?'
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.timeToContentfulPaint.$function
+    type: int
+  timeToFirstByte:
+    influxMeasurement: YellowLabtools
+    type: int
+  timeToFirstInteractive:
+    desc: '?'
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.timings.timeToFirstInteractive.$function
+    type: int
+  timeToLastByte:
+    influxMeasurement: YellowLabtools
+    type: int
+  transfertSize:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.pagexray.transferSize
+    type: int
+perf cpu:
+  Layout:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.Layout.$function
+    type: int
+  ParseHTML:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.ParseHTML.$function
+    type: int
+  RunTask:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.RunTask.$function
+    type: int
+  UpadteLayoutTree:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.UpdateLayoutTree.$function
+    type: int
+  V8_Execute:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.V8_execute.$function
+    type: int
+  V8_NewContext:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.V8_NewContext.$function
+    type: int
+  documentWriteCalls:
+    influxMeasurement: YellowLabtools
+    type: int
+  evalCalls:
+    influxMeasurement: YellowLabtools
+    type: int
+  eventsBound:
+    influxMeasurement: YellowLabtools
+    type: int
+  eventsDispatched:
+    influxMeasurement: YellowLabtools
+    type: int
+  eventsScrollBound:
+    influxMeasurement: YellowLabtools
+    type: int
+  garbageCollection:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.garbageCollection.$function
+    type: int
+  layoutCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  layoutDuration:
+    influxMeasurement: YellowLabtools
+    type: int
+  other:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.other.$function
+    type: int
+  paintCompositeRender:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.paintCompositeRender.$function
+    type: int
+  parseHTML:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.parseHTML.$function
+    type: int
+  recalcStyleCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  recalcStyleDuration:
+    influxMeasurement: YellowLabtools
+    type: int
+  scriptDuration:
+    influxMeasurement: YellowLabtools
+    type: int
+  scriptEvaluation:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.scriptEvaluation.$function
+    type: int
+  scriptParseCompile:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.scriptParseCompile.$function
+    type: int
+  styleLayout:
+    graphiteAddress: sitespeed_io.default.$groupUrlpageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.styleLayout.$function
+    type: int
+  taskDuration:
+    influxMeasurement: YellowLabtools
+    type: int
+protocol:
+  mainDomainHttpProtocol:
+    influxMeasurement: YellowLabtools
+    type: int
+  mainDomainTlsProtocol:
+    influxMeasurement: YellowLabtools
+    type: int
+  oldHttpProtocol:
+    influxMeasurement: YellowLabtools
+    type: int
+  oldTlsProtocol:
+    influxMeasurement: YellowLabtools
+    type: int
+requests:
+  HttpError:
+    influxMeasurement: eco_index
+    type: str
+  HttpRequest:
+    influxMeasurement: eco_index
+    type: str
+  NoRedirect:
+    influxMeasurement: eco_index
+    type: str
+  UseETags:
+    influxMeasurement: eco_index
+    type: str
+  ajaxRequests:
+    influxMeasurement: YellowLabtools
+    type: int
+  base64Count:
+    influxMeasurement: YellowLabtools
+    type: int
+  biggestLatency:
+    influxMeasurement: YellowLabtools
+    type: int
+  biggestResponse:
+    influxMeasurement: YellowLabtools
+    type: int
+  bodySize:
+    desc: size of the uncompressed content
+    influxMeasurement: YellowLabtools
+    type: int
+  closedConnections:
+    influxMeasurement: YellowLabtools
+    type: int
+  contentLength:
+    desc: size of the compressed content
+    influxMeasurement: YellowLabtools
+    type: int
+  cssCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  emptyRequests:
+    desc: ??
+    influxMeasurement: YellowLabtools
+    type: int
+  fastestResponse:
+    influxMeasurement: YellowLabtools
+    type: int
+  fontsCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  gzipRequests:
+    influxMeasurement: YellowLabtools
+    type: int
+  htmlCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  httpsRequests:
+    desc: nb https requests
+    influxMeasurement: YellowLabtools
+    type: int
+  identicalFiles:
+    influxMeasurement: YellowLabtools
+    type: int
+  imageCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  jsCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  jsonCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  medianLatency:
+    influxMeasurement: YellowLabtools
+    type: int
+  medianResponse:
+    influxMeasurement: YellowLabtools
+    type: int
+  notFound:
+    influxMeasurement: YellowLabtools
+    type: int
+  otherCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  performanceTimingConnect:
+    desc: time it took to connect to the server (ms)
+    influxMeasurement: YellowLabtools
+    type: int
+  performanceTimingDNS:
+    desc: time it took to resolve domain (ms)
+    influxMeasurement: YellowLabtools
+    type: int
+  postRequests:
+    influxMeasurement: YellowLabtools
+    type: int
+  redirects:
+    influxMeasurement: YellowLabtools
+    type: int
+  redirectsTime:
+    influxMeasurement: YellowLabtools
+    type: int
+  requests:
+    desc: total number of requests
+    influxMeasurement: YellowLabtools
+    type: int
+  requestsToDomComplete:
+    influxMeasurement: YellowLabtools
+    type: int
+  requestsToDomContentLoaded:
+    influxMeasurement: YellowLabtools
+    type: int
+  requestsToFirstPaint:
+    influxMeasurement: YellowLabtools
+    type: int
+  slowestResponse:
+    influxMeasurement: YellowLabtools
+    type: int
+  smallestLatency:
+    influxMeasurement: YellowLabtools
+    type: int
+  smallestResponse:
+    influxMeasurement: YellowLabtools
+    type: int
+  statusCodesTrail:
+    influxMeasurement: YellowLabtools
+    type: int
+  synchronousXHR:
+    influxMeasurement: YellowLabtools
+    type: int
+  totalRequests:
+    influxMeasurement: YellowLabtools
+    type: int
+  totalWeight:
+    influxMeasurement: YellowLabtools
+    type: int
+  videoCount:
+    influxMeasurement: YellowLabtools
+    type: int
+  webfontCount:
+    influxMeasurement: YellowLabtools
+    type: int

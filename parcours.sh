@@ -63,6 +63,14 @@ process () {
         exit 1
     fi
     echo "fin des tests"
+    docker-compose --profile report up --abort-on-container-exit --exit-code-from report report
+    errCode=$?
+    if [ $errCode -ne 0 ];
+    then
+        echo "report failed"
+        exit 1
+    fi
+    echo "rapport rédigé"
 }
 
 process
