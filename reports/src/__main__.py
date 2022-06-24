@@ -95,8 +95,8 @@ def generateTestSuiteXml(parent, pageName, categoryName, categoryTests):
 
 def generateTestsuitesXml(tests):
     testsuites = ET.Element("testsuites")
-    testsuites.set("id", "random")
-    testsuites.set("name", "eco-test")
+    testsuites.set("id", "PAGIEL-test")
+    testsuites.set("name", "PAGIEL-test")
     totalTests, totalFailure = 0, 0
     for pageName, pageTests in tests.items():
         for categoryName, categoryTests in pageTests.items():
