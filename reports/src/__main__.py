@@ -6,13 +6,42 @@ import yaml
 
 from graphite import GraphiteClient
 from influxdb import InfluxClient
-from exceptions import ComparatorException, CategoryException, IndicatorException
+from exceptions import ComparatorException, CategoryException, IndicatorException, MissingComparison
 
 def loadDataFiles(src):
     with open(src) as indicsYaml:
         return yaml.load(indicsYaml, Loader=yaml.FullLoader)
 
-def testIndicator(test, indicator, comparison, indicatorsCategoryDict):
+def compare(comparisonMode, expectedValue, indicatorValue):
+    match comparisonMode:
+        case ">":
+            return {"result": indicatorValue > expectedValue, "expected": expectedValue, "value": indicatorValue}
+        case ">=":
+            return {"result": indicatorValue >= expectedValue, "expected": expectedValue, "value": indicatorValue}
+        case "<":
+            return {"result": indicatorValue < expectedValue, "expected": expectedValue, "value": indicatorValue}
+        case "<=":
+            return {"result": indicatorValue <= expectedValue, "expected": expectedValue, "value": indicatorValue}
+        case "==":
+            return {"result": indicatorValue == expectedValue, "expected": expectedValue, "value": indicatorValue}
+        case "!=":
+            return {"result": indicatorValue != expectedValue, "expected": expectedValue, "value": indicatorValue}
+        case _:
+            raise ComparatorException(comparisonMode)
+
+def getIndicatorValue(indicator, indicatorDict, test):
+    """
+        Query database for last value
+    """
+    if(indicatorDict.get("influxMeasurement")):
+        return influxClient.queryLastValue(indicatorDict["influxMeasurement"], indicator, test["name"])
+    else:
+        return graphiteClient.queryLastValue(indicatorDict["graphiteAddress"], test["url"])
+
+def testIndicator(test, indicator, comparisons, indicatorsCategoryDict):
+    """
+        test all assertion on an indicator, return dict with result
+    """
     if not indicatorsCategoryDict.get(indicator):
         raise IndicatorException(indicator)
 
@@ -20,31 +49,11 @@ def testIndicator(test, indicator, comparison, indicatorsCategoryDict):
 
     res = {}
 
-    indicatorValue = None
-    if(indicatorsCategoryDict[indicator].get("influxMeasurement")):
-        indicatorValue = influxClient.queryLastValue(indicatorsCategoryDict[indicator]["influxMeasurement"], indicator, test["name"])
-    else:
-        indicatorValue = graphiteClient.queryLastValue(indicatorsCategoryDict[indicator]["graphiteAddress"], test["url"])
+    indicatorValue = getIndicatorValue(indicator, indicatorsCategoryDict[indicator], test)
 
-    for comparisonMode, expectedValue in comparison.items():
-        match comparisonMode:
-            case ">":
-                res[f"{comparisonMode} {str(expectedValue)}"] = {"result": indicatorValue > expectedValue, "expected": expectedValue, "value": indicatorValue}
-            case ">=":
-                res[f"{comparisonMode} {str(expectedValue)}"] = {"result": indicatorValue >= expectedValue, "expected": expectedValue, "value": indicatorValue}
-            case "<":
-                res[f"{comparisonMode} {str(expectedValue)}"] = {"result": indicatorValue < expectedValue, "expected": expectedValue, "value": indicatorValue}
-            case "<=":
-                res[f"{comparisonMode} {str(expectedValue)}"] = {"result": indicatorValue <= expectedValue, "expected": expectedValue, "value": indicatorValue}
-            case "==":
-                res[f"{comparisonMode} {str(expectedValue)}"] = {"result": indicatorValue == expectedValue, "expected": expectedValue, "value": indicatorValue}
-            case "!=":
-                res[f"{comparisonMode} {str(expectedValue)}"] = {"result": indicatorValue != expectedValue, "expected": expectedValue, "value": indicatorValue}
-            case _:
-                raise ComparatorException(comparisonMode)
-        
+    for comparisonMode, expectedValue in comparisons.items():
+        res[f"{comparisonMode} {str(expectedValue)}"] = compare(comparisonMode, expectedValue, indicatorValue)
         print(f"{indicatorValue} {comparisonMode} {expectedValue}")
-
     return res
 
 def testCategory(test, category, indicators):
@@ -55,6 +64,8 @@ def testCategory(test, category, indicators):
     res = {}
 
     for indicator, comparisons in indicators.items():
+        if not comparisons:
+            raise MissingComparison(indicator)
         res[indicator] = testIndicator(test, indicator, comparisons, indicatorDict[category])
 
     return res
@@ -72,6 +83,9 @@ def testUrlList(urlList):
     return res
 
 def generateTestCaseXml(parent, indicator, comparison, result):
+    """
+        Generate XML testcase and failure. Return bool with assetion result
+    """
     indicXml = ET.SubElement(parent, "testcase")
     indicXml.set("id", f"{indicator} {comparison}")
     indicXml.set("name", f"{indicator} {comparison}")
@@ -81,8 +95,8 @@ def generateTestCaseXml(parent, indicator, comparison, result):
 
 def generateTestSuiteXml(parent, pageName, categoryName, categoryTests):
     pageXml = ET.SubElement(parent, "testsuite")
-    pageXml.set("id", f"{pageName}/{categoryName}")
-    pageXml.set("name", f"{pageName}/{categoryName}")
+    pageXml.set("id", f"{pageName}.{categoryName}")
+    pageXml.set("name", f"{pageName}.{categoryName}")
     nbPageTest, nbPageFailure = 0, 0
     for indicator, indicTest in categoryTests.items():
         for comparison, result in indicTest.items():
