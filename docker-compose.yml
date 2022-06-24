@@ -97,7 +97,7 @@ services:
     container_name: eco-index
     depends_on:
       - influxdb
-    command: greenit analyse input/urls.yaml ./output/results.html -f html --ci --influxdb --influxdb_hostname http://${INFLUXDB_HOST}:${INFLUXDB_PORT} --influxdb_token ${INFLUXDB_TOKEN} --influxdb_bucket ${INFLUXDB_BUCKET_NAME} --influxdb_org=${INFLUXDB_ORG_NAME}
+    command: greenit analyse input/urls.yaml -f influxdb --ci --influxdb_hostname http://${INFLUXDB_HOST}:${INFLUXDB_PORT} --influxdb_token ${INFLUXDB_TOKEN} --influxdb_bucket ${INFLUXDB_BUCKET_NAME} --influxdb_org=${INFLUXDB_ORG_NAME}
     volumes:
       - tmp-storage:/app/input:ro
       - ./eco-index/results:/app/output:rw
