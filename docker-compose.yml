@@ -121,10 +121,13 @@ services:
   
   yellowlabtools:
     container_name: yellowlabtools
-    build: ./yellowLabTools/src
-    command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME}
+    build:
+      context: yellowLabTools/src
+    command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME} --influxdb-offenders
+    user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     volumes:
       - tmp-storage:/input
+      - ./yellowLabTools/reports:/usr/src/ylt/results:rw
     privileged: true
     profiles:
       - test
@@ -203,6 +206,6 @@ services:
 volumes:
   influxdb-storage:
   graphite-storage:
-  chronograf-storage:
+  report-storage:
   grafana-storage:
   tmp-storage:
