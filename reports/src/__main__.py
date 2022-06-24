@@ -1,4 +1,5 @@
 import os
+import sys
 import xml.etree.cElementTree as ET
 from datetime import datetime
 
@@ -121,17 +122,25 @@ def generateTestsuitesXml(tests):
     testsuites.set("failures", str(totalFailure))
     return ET.ElementTree(testsuites)
 
+def main():
+    urlList = loadDataFiles("/opt/report/urls.yaml")
+
+    resultDict = testUrlList(urlList)
+
+    if len(resultDict) > 0:
+        timestamp = int(datetime.now().timestamp())
+
+        resultXMl = generateTestsuitesXml(resultDict)
+        resultXMl.write("/opt/report/results/report.xml")
+        resultXMl.write(f"/opt/report/results/report-{timestamp}.xml")
+
 graphiteClient = GraphiteClient(f'http://{os.environ["GRAPHITE_HOST"]}:{os.environ["GRAPHITE_PORT"]}', (os.environ["GRAPHITE_USERNAME"], os.environ["GRAPHITE_PASSWORD"]))
 influxClient = InfluxClient(f'http://{os.environ["INFLUXDB_HOST"]}:{os.environ["INFLUXDB_PORT"]}', org=os.environ["INFLUXDB_ORG_NAME"], token=os.environ["INFLUXDB_TOKEN"], bucket=os.environ["INFLUXDB_BUCKET_NAME"])
 indicatorDict = loadDataFiles("/opt/report/src/indics.yaml")
 
-urlList = loadDataFiles("/opt/report/urls.yaml")
-
-resultDict = testUrlList(urlList)
-
-if len(resultDict) > 0:
-    timestamp = int(datetime.now().timestamp())
-
-    resultXMl = generateTestsuitesXml(resultDict)
-    resultXMl.write("/opt/report/results/report.xml")
-    resultXMl.write(f"/opt/report/results/report-{timestamp}.xml")
+if __name__ == "__main__":
+    try: 
+        main()
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
