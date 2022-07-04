@@ -70,9 +70,6 @@ class IndicatorComparator:
         return res
 
     def test_category(self, test: dict, category: str, indicators: dict) -> dict:
-        if category not in self.indicators_by_category:
-            raise CategoryException(category)
-        
         print(f"--- Catégorie {category} ---")
         res = defaultdict(dict)
 
@@ -92,6 +89,8 @@ class IndicatorComparator:
                 print(f"--- Vérifications pour {test['name']} ---")
 
                 for category, indicators in test["require"].items():
+                    if category not in self.indicators_by_category:
+                        raise CategoryException(category)
                     res[test['name']][category] = self.test_category(test, category, indicators)
 
         return res
