@@ -5,6 +5,7 @@ DOM:
   DOMelementMaxDepth:
     desc: Profondeur maximale d'imbrication des noeuds HTML
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   DOMelementsCount:
     desc: Nombre de noeuds HTML
@@ -17,6 +18,7 @@ DOM:
   DOMinserts:
     desc: "Nombre de noeuds ins\xE9r\xE9s"
     influxMeasurement: YellowLabTools
+    path: '*.append'
     type: int
   DOMmutationsAttributes:
     desc: 'Nombre de changement d''attribut de node '
@@ -45,22 +47,27 @@ DOM:
   DOMqueriesById:
     desc: "Nombre d'appels \xE0 document.getElementById"
     influxMeasurement: YellowLabTools
+    path: '*.id'
     type: int
   DOMqueriesByQuerySelectorAll:
     desc: "Nombre d'appels \xE0 document.querySelector(All)"
     influxMeasurement: YellowLabTools
+    path: '*.selector'
     type: int
   DOMqueriesByTagName:
     desc: "Nombre d'appels \xE0 document.getElementsByTagName"
     influxMeasurement: YellowLabTools
+    path: '*.tag'
     type: int
   DOMqueriesDuplicated:
     desc: "Nombre de requ\xEAtes r\xE9p\xE9t\xE9es"
     influxMeasurement: YellowLabTools
+    path: '*.query'
     type: int
   DOMqueriesWithoutResults:
     desc: "Nombre de requ\xEAtes sans r\xE9sultat"
     influxMeasurement: YellowLabTools
+    path: '*.query'
     type: int
   bodyHTMLSize:
     desc: Taille du contenue du body (document.body.innerHTML.length) (bytes)
@@ -77,6 +84,7 @@ DOM:
   hiddenContentSize:
     desc: "Taille du contenue cach\xE9 de la page (avec display:none) (bytes)"
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   iframesCount:
     desc: Nombre d'iframes
@@ -85,6 +93,7 @@ DOM:
   nodesWithInlineCSS:
     desc: Nombre de nodes avec du css inline
     influxMeasurement: YellowLabTools
+    path: '*.node'
     type: int
   whiteSpacesSize:
     desc: Taille des noeuds de texte avec uniquement des blancs (bytes)
@@ -116,16 +125,17 @@ assets:
     influxMeasurement: eco_index
     type: str
   assetsWithCookies:
-    defaultComparison: Err:520
+    defaultComparison: '''=='
     defaultValue: 0.0
     desc: "Nombre de fichier requ\xEAt\xE9 sur des domaines avec des cookies"
     influxMeasurement: YellowLabTools
     type: int
   assetsWithQueryString:
-    defaultComparison: Err:520
+    defaultComparison: '''=='
     defaultValue: 0.0
     desc: "Nombre de fichier requ\xEAt\xE9 avec des param\xE8tres dans les URLs"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cssCount:
     desc: Nombre total de fichier css
@@ -137,6 +147,7 @@ assets:
     type: int
   fileMinification:
     influxMeasurement: YellowLabTools
+    path: files.*.url
     type: int
   jsCount:
     desc: Nombre total de fichier javascript
@@ -155,7 +166,7 @@ assets:
     influxMeasurement: YellowLabTools
     type: int
   multipleRequests:
-    defaultComparison: Err:520
+    defaultComparison: ==
     defaultValue: 0.0
     desc: "Fichier statique requ\xEAt\xE9 plus d'une fois"
     influxMeasurement: YellowLabTools
@@ -167,6 +178,7 @@ assets:
   smallJsFiles:
     desc: Nombre de petit fichier javascript
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
 caching:
   AddExpiresOrCacheControlHeaders:
@@ -188,24 +200,29 @@ caching:
   cachingDisabled:
     desc: "Nombre de fichier dont le cache est d\xE9sactiv\xE9"
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   cachingNotSpecified:
     desc: "Nombre de fichier dont le cache est non sp\xE9cifi\xE9"
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   cachingTooShort:
     desc: "Nombre de fichier dont le cache est tr\xE8s court"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cachingUseImmutable:
     desc: "Nombre de fichier qui pourrait b\xE9n\xE9ficier de l'en-t\xEAte Cache-Control:\
       \ immutable"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   oldCachingHeaders:
     desc: "Nombre de r\xE9ponse avec les en-t\xEAtes de cache HTTP 1.0 (Expires et\
       \ Pragma) "
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
 compression:
   CompressHttp:
@@ -215,10 +232,15 @@ compression:
   assetsNotGzipped:
     desc: Nombre de fichier statique non gzip
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   bodySize:
     desc: "Volume total de fichier d\xE9compress\xE9"
     influxMeasurement: YellowLabTools
+    type: int
+  compression:
+    influxMeasurement: YellowLabTools
+    path: files.*.url
     type: int
   contentLength:
     desc: "Volume total de fichier compress\xE9"
@@ -267,10 +289,12 @@ css:
   cssBreakpoints:
     desc: Nombre de breakpoints CSS
     influxMeasurement: YellowLabTools
+    path: '*.pixels'
     type: int
   cssColors:
     desc: "Nombre de couleurs utilis\xE9s dans le css"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssComments:
     desc: Nombre de commentaires dans les fichiers css
@@ -283,18 +307,22 @@ css:
   cssComplexSelectors:
     desc: "Nombre de s\xE9lecteurs complexes"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssDeclarations:
     desc: "Nombre de d\xE9clarations faite dans les fichiers css"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cssDuplicatedProperties:
     desc: "Nombre de propri\xE9t\xE9s dupliqu\xE9s dans un s\xE9lecteur"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssDuplicatedSelectors:
     desc: "Nombre de s\xE9lecteurs dupliqu\xE9s"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssEmptyRules:
     desc: "Nombre de r\xE8gles sans propri\xE9t\xE9es"
@@ -307,6 +335,7 @@ css:
   cssImportants:
     desc: "Nombre de propri\xE9t\xE9s avec une valeur forc\xE9e avec !important"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssImports:
     desc: "Nombre de r\xE8gle avec @import"
@@ -315,34 +344,42 @@ css:
   cssInlineStyles:
     desc: Nombre de style inline
     influxMeasurement: YellowLabTools
+    path: '*.node'
     type: int
   cssLength:
     desc: Taille des fichiers css (bytes)
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cssMediaQueries:
     desc: Nombre de media queries
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssMobileFirst:
     desc: "Nombre de r\xE8gles mobile first"
     influxMeasurement: YellowLabTools
+    path: '*.query'
     type: int
   cssMultiClassesSelectors:
     desc: "Nombre de s\xE9lecteurs avec multiples classes"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssNotMinified:
     desc: "Nombre de fichiers css non minifi\xE9s"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cssOldIEFixes:
     desc: Nombre de fixes pour des vieille version d'Internet Explorer
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssOldPropertyPrefixes:
     desc: "Nombre de propri\xE9t\xE9s avec un pr\xE9fixe non n\xE9c\xE9ssaire"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssParsingErrors:
     desc: Nombre d'erreurs lors du parsing du css
@@ -352,28 +389,34 @@ css:
     influxMeasurement: YellowLabTools
     type: int
   cssQualifiedSelectors:
-    desc: "Nombre de s\xE9lecteurs qualifi\xE9s (ex : header#nav, h1.title"
+    desc: "Nombre de s\xE9lecteurs qualifi\xE9s (ex : header#nav, h1.title)"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssRedundantBodySelectors:
     desc: "Nombre de s\xE9lecteurs de body redondant (ex: body .foo)"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssRedundantChildNodesSelectors:
     desc: "Nombre de s\xE9lecteurs de node enfant redondant"
     influxMeasurement: YellowLabTools
+    path: '*.value.message'
     type: int
   cssRules:
     desc: "Nombre de r\xE8gles css"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cssSelectorLengthAvg:
     desc: "Longueur moyenne des s\xE9lecteurs css"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: float
   cssSelectors:
     desc: "Nombre de s\xE9lecteurs css"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   cssSelectorsByAttribute:
     desc: "Nombre de s\xE9lecteurs par attribut"
@@ -399,6 +442,7 @@ css:
     desc: "Moyenne de la sp\xE9cificit\xE9 pour les s\xE9lecteurs par classe, pseudo-class\
       \ ou attribut"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: float
   cssSpecificityClassTotal:
     desc: "Sp\xE9cificit\xE9 totale des s\xE9lecteurs par classe, pseudo-class, et\
@@ -408,6 +452,7 @@ css:
   cssSpecificityIdAvg:
     desc: "Moyenne de la sp\xE9cificit\xE9 pour les s\xE9lecteurs par id"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: float
   cssSpecificityIdTotal:
     desc: "Sp\xE9cificit\xE9 totale des s\xE9lecteurs par id"
@@ -416,6 +461,7 @@ css:
   cssSpecificityTagAvg:
     desc: "Moyenne de la sp\xE9cificit\xE9 pour les s\xE9lecteurs par tag"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: float
   cssSpecificityTagTotal:
     desc: "Sp\xE9cificit\xE9 totale des s\xE9lecteurs par tag"
@@ -424,6 +470,7 @@ css:
   similarColors:
     desc: Nombre de couleurs similaires
     influxMeasurement: YellowLabTools
+    path: '*.color1+color2'
     type: int
 domains:
   DomainsNumber:
@@ -439,14 +486,17 @@ domains:
     defaultValue: 3.0
     desc: "Nombre de domaines requ\xEAt\xE9s pour charger la page"
     influxMeasurement: YellowLabTools
+    path: '*.domain'
     type: int
   domainsToDomComplete:
     desc: "Nombre de domaines requ\xEAt\xE9 pour atteindre l'\xE9tat DomComplete"
     influxMeasurement: YellowLabTools
+    path: '*.domain'
     type: int
   domainsToDomContentLoaded:
     desc: "Nombre de domaines requ\xEAt\xE9 pour atteindre l'\xE9tat DomContentLoaded"
     influxMeasurement: YellowLabTools
+    path: '*.domain'
     type: int
   domainsToFirstPaint:
     desc: "Nombre de domaines requ\xEAt\xE9 pour faire le premier changement visuel"
@@ -481,7 +531,7 @@ eco:
     influxMeasurement: eco_index
     type: float
 fonts:
-  heavyFonts:
+  fonts.*.url:
     influxMeasurement: YellowLabTools
     type: int
   nonWoff2Fonts:
@@ -496,6 +546,7 @@ headers:
     desc: "Nombre de r\xE9ponse re\xE7us avec partie une en-t\xEAte plus importante\
       \ que le body"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   headersCount:
     desc: "Nomre de r\xE9ponses et d'en-t\xEAte re\xE7us"
@@ -552,6 +603,7 @@ images:
     type: int
   imageOptimization:
     influxMeasurement: YellowLabTools
+    path: images.*.url
     type: int
   imageSize:
     desc: "Volume d'image charg\xE9 (bytes)"
@@ -568,14 +620,17 @@ images:
   imagesWithoutDimensions:
     desc: Nombre de balises img sans dimensions
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   lazyLoadableImagesBelowTheFold:
     desc: "Nombre d'image sous la ligne de flotaison qui pourraient \xEAtre lazy loader"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   smallImages:
     desc: "Petites image qui pourrait \xEAtre encod\xE9 en base64"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   videoCount:
     desc: "Nombre de vid\xE9o"
@@ -610,6 +665,7 @@ jquery:
   jQuerySizzleCalls:
     desc: "Nombre d'appel \xE0 Sizzle"
     influxMeasurement: YellowLabTools
+    path: "*.selector"
     type: int
   jQueryVersion:
     desc: Version de jQuery
@@ -618,10 +674,12 @@ jquery:
   jQueryVersionsLoaded:
     desc: "Nombre d'instances de jQuery charg\xE9es"
     influxMeasurement: YellowLabTools
+    path: '*.version'
     type: int
   jQueryWindowOnLoadFunctions:
     desc: "Nombre de fonctions li\xE9es \xE0 l'\xE9v\xE8nement windowOnLoad"
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
 js:
   Plugins:
@@ -635,6 +693,7 @@ js:
   globalVariables:
     desc: Nombre de variables globales
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   globalVariablesFalsy:
     desc: Nombre de variables globales avec une valeur falsy
@@ -667,9 +726,6 @@ other:
     type: str
   base64Size:
     desc: "Volume de fichier encod\xE9 en base64 (bytes)"
-    influxMeasurement: YellowLabTools
-    type: int
-  compression:
     influxMeasurement: YellowLabTools
     type: int
   htmlSize:
@@ -824,6 +880,7 @@ performances_cpu:
   eventsBound:
     desc: "Nombre d'\xE9v\xE8nement \xE9cout\xE9 via EventTaget.addEventListener"
     influxMeasurement: YellowLabTools
+    path: '*.path'
     type: int
   eventsDispatched:
     desc: "Nombre d'appel \xE0 EventTarget.dispatchEvent"
@@ -832,6 +889,7 @@ performances_cpu:
   eventsScrollBound:
     desc: "Nombre d'\xE9coutes sur l'\xE9v\xE8nement scroll"
     influxMeasurement: YellowLabTools
+    path: '*.element'
     type: int
   garbageCollection:
     graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.garbageCollection.$function
@@ -890,16 +948,14 @@ protocols:
   oldHttpProtocol:
     desc: Nombre de domaines utilisant un vieux protocol HTTP (1.0 ou 1.1)
     influxMeasurement: YellowLabTools
+    path: '*.domain'
     type: int
   oldTlsProtocol:
     desc: Nombre de domaines utilisant un vieux protocol TLS (1.2)
     influxMeasurement: YellowLabTools
+    path: '*.domain'
     type: int
 requests:
-  '3':
-    desc: Nombre de fichier CSS
-    influxMeasurement: YellowLabTools
-    type: int
   HttpError:
     desc: "Eviter les requ\xEAtes en erreur"
     influxMeasurement: eco_index
@@ -919,6 +975,7 @@ requests:
   ajaxRequests:
     desc: "Nombre de requ\xEAte AJAX"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   base64Count:
     desc: Nombre de fichier en base64
@@ -927,10 +984,12 @@ requests:
   biggestLatency:
     desc: "Temps pour le premier byte de la r\xE9ponse la plus lente (ms)"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   biggestResponse:
     desc: "Volume de la plus grosse requ\xEAte (byte)"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   bodySize:
     desc: "Volume total apr\xE8s d\xE9compression de toutes les r\xE9ponses"
@@ -945,6 +1004,13 @@ requests:
       \ les paquets"
     influxMeasurement: YellowLabTools
     type: int
+  cssCount:
+    defaultComparison: <
+    defaultValue: 3.0
+    desc: Nombre de fichier CSS
+    influxMeasurement: YellowLabTools
+    path: '*.url'
+    type: int
   emptyRequests:
     desc: "Nombre de r\xE9ponse dont le body est vide"
     influxMeasurement: YellowLabTools
@@ -952,24 +1018,29 @@ requests:
   fastestResponse:
     desc: "Temps pour le dernier byte de la r\xE9ponse la plus rapide (ms)"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   fontsCount:
     desc: "Nombre de fichier de police de caract\xE8re"
     influxMeasurement: YellowLabTools
+    path: list.*.url
     type: int
   gzipRequests:
     desc: "Nombre de r\xE9ponse compress\xE9e avec GZIP"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   htmlCount:
     desc: Nombre de fichier HTML
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   httpsRequests:
     defaultComparison: <=
     defaultValue: 27.0
     desc: "Nombre de requ\xEAte HTTPS"
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   identicalFiles:
     desc: "Nombre de fichiers identiques obtenue \xE0 partir d'urls diff\xE9rents"
@@ -978,14 +1049,17 @@ requests:
   imageCount:
     desc: Nombre d'images
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   jsCount:
     desc: Nombre de fichier javascript
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   jsonCount:
     desc: Nombre de fichier JSON
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   medianLatency:
     desc: "M\xE9diane du temps pour le premier byte sur toutes les r\xE9ponses (ms)"
@@ -1002,6 +1076,7 @@ requests:
   otherCount:
     desc: Nombre d'autres fichiers
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   performanceTimingConnect:
     desc: "Temps n\xE9cessaire pour se connecter au serveur "
@@ -1014,6 +1089,7 @@ requests:
   postRequests:
     desc: "Nombre de requ\xEAte POST effectu\xE9 au chargement de la page"
     influxMeasurement: YellowLabTools
+    path: '*'
     type: int
   redirects:
     desc: "Nombre de redirects (re\xE7u 301, 302, 303)"
@@ -1027,6 +1103,7 @@ requests:
     desc: "Nombre total de requ\xEAte effectu\xE9"
     influxMeasurement: YellowLabTools
     type: int
+    path: '*.url'
   requestsToDomComplete:
     desc: "Nombre de requ\xEAtes pour atteindre l'\xE9tat DomComplete"
     influxMeasurement: YellowLabTools
@@ -1042,14 +1119,17 @@ requests:
   slowestResponse:
     desc: "Temps pour le dernier byte de la r\xE9ponse la plus lente (ms)"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   smallestLatency:
     desc: "Temps pour le premier byte de la r\xE9ponse la plus rapide (ms)"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   smallestResponse:
     desc: "Volume de la plus petite requ\xEAte (byte)"
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int
   statusCodesTrail:
     desc: "Liste des code de r\xE9ponses que la requ\xEAte principale a suivi"
@@ -1061,9 +1141,11 @@ requests:
     type: int
   totalRequests:
     influxMeasurement: YellowLabTools
+    path: total
     type: int
   totalWeight:
     influxMeasurement: YellowLabTools
+    path: totalWeight
     type: int
   videoCount:
     desc: "Nombre de vid\xE9o"
@@ -1072,4 +1154,5 @@ requests:
   webfontCount:
     desc: Nombre de fichier de police web
     influxMeasurement: YellowLabTools
+    path: '*.url'
     type: int

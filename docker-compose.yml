@@ -200,6 +200,7 @@ services:
     volumes:
       - ./reports/reports:/opt/report/results/:rw
       - ./input/urls.yaml:/opt/report/urls.yaml:ro
+      - ./yellowLabTools/reports:/opt/report/offenders:ro
     profiles:
       - report
 

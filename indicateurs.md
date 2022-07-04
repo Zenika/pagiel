@@ -116,42 +116,46 @@ Type : entier
 ## ExternalizeCss
 Externaliser les css
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## ExternalizeJs
 Externaliser les js
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## MinifiedCss
 Minifier les css
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## MinifiedJs
 Minifier les js
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## StyleSheets
 Limiter le nombre de fichiers css
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## UseStandardTypefaces
 Utiliser des polices de caractères standards
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## assetsWithCookies
 Nombre de fichier requêté sur des domaines avec des cookies
 
 Type : entier
 
+Exemple de comparaison : `'== 0.0`
+
 ## assetsWithQueryString
 Nombre de fichier requêté avec des paramètres dans les URLs
 
 Type : entier
+
+Exemple de comparaison : `'== 0.0`
 
 ## cssCount
 Nombre total de fichier css
@@ -191,6 +195,8 @@ Fichier statique requêté plus d'une fois
 
 Type : entier
 
+Exemple de comparaison : `== 0.0`
+
 ## smallCssFiles
 Nombre de petit fichier css
 
@@ -205,7 +211,7 @@ Type : entier
 ## AddExpiresOrCacheControlHeaders
 Ajouter des expires ou cache-control headers
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## cacheHits
 Nombre de cache hits sur un serveur de cache
@@ -251,7 +257,7 @@ Type : entier
 ## CompressHttp
 Compresser les ressources
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## assetsNotGzipped
 Nombre de fichier statique non gzip
@@ -261,6 +267,9 @@ Type : entier
 ## bodySize
 Volume total de fichier décompressé
 
+Type : entier
+
+## compression
 Type : entier
 
 ## contentLength
@@ -277,12 +286,12 @@ Type : entier
 ## MaxCookiesLength
 Taille maximum des cookies par domaine
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## NoCookieForStaticRessources
 Pas de cookie pour les ressources statiques
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## cookiesRecv
 Taille totale de cookies reçus
@@ -304,7 +313,7 @@ Taille de document.cookie (bytes)
 
 Type : entier
 
-Comparaison par défaut : `<= 512.0`
+Exemple de comparaison : `<= 512.0`
 
 ## domainsWithCookies
 Nombre de dommaine avec des cookies
@@ -426,7 +435,7 @@ Type : entier
 Type : entier
 
 ## cssQualifiedSelectors
-Nombre de sélecteurs qualifiés (ex : header#nav, h1.title
+Nombre de sélecteurs qualifiés (ex : header#nav, h1.title)
 
 Type : entier
 
@@ -519,7 +528,7 @@ Type : entier
 ## DomainsNumber
 Limiter le nombre de domaines
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## blockedRequests
 Nombre de requête bloqué à cause de filtrage de domaine
@@ -531,7 +540,7 @@ Nombre de domaines requêtés pour charger la page
 
 Type : entier
 
-Comparaison par défaut : `< 3.0`
+Exemple de comparaison : `< 3.0`
 
 ## domainsToDomComplete
 Nombre de domaines requêté pour atteindre l'état DomComplete
@@ -564,7 +573,7 @@ Valeur de l'écoindex de la page
 
 Type : entier
 
-Comparaison par défaut : `>= 65.0`
+Exemple de comparaison : `>= 65.0`
 
 ## ges
 Emission de gaz à effet de serre associée à la page (en gramme equivalent CO2, geCO2)
@@ -574,7 +583,7 @@ Type : nombre à virgule
 ## grade
 Note associée à l'ecoindex
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## water
 Consomation d'eau associée à la page
@@ -582,7 +591,7 @@ Consomation d'eau associée à la page
 Type : nombre à virgule
 
 # fonts
-## heavyFonts
+## fonts.*.url
 Type : entier
 
 ## nonWoff2Fonts
@@ -633,27 +642,27 @@ Type : entier
 ## DontResizeImageInBrowser
 Ne pas retailler les images dans le navigateur
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## EmptySrcTag
 Eviter les tags SRC vides
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## ImageDownloadedNotDisplayed
 Ne pas télécharger des images inutilement
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## OptimizeBitmapImages
 Optimiser les images bitmap
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## OptimizeSvg
 Optimiser les images svg
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## hiddenImages
 Nombre d'images caché par un style display: none
@@ -758,7 +767,7 @@ Type : entier
 ## Plugins
 Ne pas utiliser de plugins
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## consoleMessages
 Nombre d'appel à des fonctions console.*
@@ -804,14 +813,11 @@ Type : entier
 ## SocialNetworkButton
 N'utilisez pas les boutons standards des réseaux sociaux
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## base64Size
 Volume de fichier encodé en base64 (bytes)
 
-Type : entier
-
-## compression
 Type : entier
 
 ## htmlSize
@@ -827,7 +833,7 @@ Type : entier
 ## isWordPress
 Est-ce que le site utilise wordpress
 
-Type : Booléen
+Type : booléen
 
 ## otherSize
 Volume d'autre type de fichier chargé (bytes)
@@ -1061,30 +1067,25 @@ Nombre de domaines utilisant un vieux protocol TLS (1.2)
 Type : entier
 
 # requests
-## 3
-Nombre de fichier CSS
-
-Type : entier
-
 ## HttpError
 Eviter les requêtes en erreur
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## HttpRequest
 Limiter le nombre de requêtes HTTP
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## NoRedirect
 Eviter les redirections
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## UseETags
 Utiliser des ETags
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## ajaxRequests
 Nombre de requête AJAX
@@ -1121,6 +1122,13 @@ Volume total des réponses, i.e. ce qui a été transférer dans les paquets
 
 Type : entier
 
+## cssCount
+Nombre de fichier CSS
+
+Type : entier
+
+Exemple de comparaison : `< 3.0`
+
 ## emptyRequests
 Nombre de réponse dont le body est vide
 
@@ -1151,7 +1159,7 @@ Nombre de requête HTTPS
 
 Type : entier
 
-Comparaison par défaut : `<= 27.0`
+Exemple de comparaison : `<= 27.0`
 
 ## identicalFiles
 Nombre de fichiers identiques obtenue à partir d'urls différents
@@ -1256,7 +1264,7 @@ Type : entier
 ## statusCodesTrail
 Liste des code de réponses que la requête principale a suivi
 
-Type : Chaine de charactère
+Type : chaine de charactère
 
 ## synchronousXHR
 Nombre de requête XML synchrone
