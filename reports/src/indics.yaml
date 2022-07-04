@@ -1046,6 +1046,7 @@ requests:
     desc: "Nombre de fichiers identiques obtenue \xE0 partir d'urls diff\xE9rents"
     influxMeasurement: YellowLabTools
     type: int
+    path: 'list.*.urls.*'
   imageCount:
     desc: Nombre d'images
     influxMeasurement: YellowLabTools
