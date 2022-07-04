@@ -96,9 +96,9 @@ Ou :
 
  ### Rapport junit
 
- Un rapport au format junit est rédigé si la clé `require` est présente sur l'un des tests à réaliser. Ce rapport peut être récupérer par le runnuer s'il est déplacer dans le dossier de celui-ci.
+ Un rapport au format junit est rédigé si la clé `require` est présente sur l'un des tests à réaliser. Ce rapport peut être récupéré par le runner s'il est déplacé dans le dossier de celui-ci.
 
- Ce rapport indique les résultats d'assertions réalisées sur le indicateurs récupérés lors des tests. La liste exhaustive de ces indicateurs est disponible [ici](./indicateurs.md).
+ Ce rapport indique les résultats d'assertions réalisées sur les indicateurs récupérés lors des tests. La liste exhaustive de ces indicateurs est disponible [ici](./indicateurs.md).
 
  Par défaut aucune assertion n'est faite sur les indicateurs. Pour en rajouter, il est nécessaire de préciser la catégorie et le nom de l'indicateur, ainsi qu'une ou plusieurs assertions à vérifier. La liste des comparaisons disponible est la suivante : ">", "=>", "==", "<=", "<", "!=".
 
