@@ -1,0 +1,19 @@
+- url: https://docs.docker.com/
+  name: Docker-index
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    images:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0
+
+- url: https://docs.docker.com/get-started/overview/
+  name: Docker-guide
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    images:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0
