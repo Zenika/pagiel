@@ -148,14 +148,14 @@ Nombre de fichier requêté sur des domaines avec des cookies
 
 Type : entier
 
-Exemple de comparaison : `'== 0.0`
+Exemple de comparaison : `== 0.0`
 
 ## assetsWithQueryString
 Nombre de fichier requêté avec des paramètres dans les URLs
 
 Type : entier
 
-Exemple de comparaison : `'== 0.0`
+Exemple de comparaison : `== 0.0`
 
 ## cssCount
 Nombre total de fichier css

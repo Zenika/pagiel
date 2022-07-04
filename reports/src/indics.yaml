@@ -125,13 +125,13 @@ assets:
     influxMeasurement: eco_index
     type: str
   assetsWithCookies:
-    defaultComparison: '''=='
+    defaultComparison: ==
     defaultValue: 0.0
     desc: "Nombre de fichier requ\xEAt\xE9 sur des domaines avec des cookies"
     influxMeasurement: YellowLabTools
     type: int
   assetsWithQueryString:
-    defaultComparison: '''=='
+    defaultComparison: ==
     defaultValue: 0.0
     desc: "Nombre de fichier requ\xEAt\xE9 avec des param\xE8tres dans les URLs"
     influxMeasurement: YellowLabTools
