@@ -1,0 +1,8 @@
+version: "3.3"
+
+services:
+  report-test:
+    container_name: report-test
+    build: 
+      context: reports/
+      dockerfile: Dockerfile-test

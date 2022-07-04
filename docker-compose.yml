@@ -121,10 +121,13 @@ services:
   
   yellowlabtools:
     container_name: yellowlabtools
-    build: ./yellowLabTools/src
-    command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME}
+    build:
+      context: yellowLabTools/src
+    command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME} --influxdb-offenders
+    user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     volumes:
       - tmp-storage:/input
+      - ./yellowLabTools/reports:/usr/src/ylt/results:rw
     privileged: true
     profiles:
       - test
@@ -181,10 +184,29 @@ services:
     profiles:
       - pretest
 
+  report:
+    container_name: report
+    build: ./reports
+    environment:
+      - INFLUXDB_ORG_NAME=${INFLUXDB_ORG_NAME}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
+      - INFLUXDB_HOST=${INFLUXDB_HOST}
+      - INFLUXDB_PORT=${INFLUXDB_PORT}
+      - GRAPHITE_PORT=${GRAPHITE_ACCESS_PORT}
+      - GRAPHITE_HOST=${GRAPHITE_HOST}
+      - GRAPHITE_USERNAME=${GRAPHITE_USERNAME}
+      - GRAPHITE_PASSWORD=${GRAPHITE_PASSWORD}
+    volumes:
+      - ./reports/reports:/opt/report/results/:rw
+      - ./input/urls.yaml:/opt/report/urls.yaml:ro
+      - ./yellowLabTools/reports:/opt/report/offenders:ro
+    profiles:
+      - report
 
 volumes:
   influxdb-storage:
   graphite-storage:
-  chronograf-storage:
+  report-storage:
   grafana-storage:
   tmp-storage:

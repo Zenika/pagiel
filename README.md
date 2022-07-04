@@ -57,6 +57,7 @@ Sa structure est la suivante :
 | `actions`           | list   | Non         | Réalise une suite d'actions avant d'analyser la page                |
 | `final_url`               | string | Non         | URL final de la page après chargement                              |
 | `cookie_btn`               | string | Non         | Selecteur pour fermer le popup des cookies       |
+| `require`               | map | Non         | Entraine la génération d'un rapport junit, plus d'information dans la partie dédiée       |
 
 Pour plus de détails sur la configuration des actions voir https://github.com/cnumr/GreenIT-Analysis-cli#actions
 
@@ -76,14 +77,45 @@ eco test:
   variables:
     GIT_STRATEGY: none
   script:
+    - initialDirectory=$(pwd)
     - cd /home/eco-runner/draft-green-it-toolbox
     - cat $URLS > ./input/urls.yaml
     - ./parcours.sh
+    - cp reports/reports/report.xml $initialDirectory
+  artifacts:
+    when: always
+    reports:
+      junit: 
+        - report.xml
 ```
 Ou :
- - `stage: eco` est un stage personnalisé
- - le tag `eco` est le tag du runner
- - le `cd` en début de script met le runner dans le répertoire du projet
+ - `stage: eco` est un stage personnalisé ;
+ - Le tag `eco` est le tag du runner ;
+ - Le `cd` en début de script met le runner dans le répertoire du projet ;
+ - On stocke dans une variable le dossier du runner afin de pouvoir y copier le rapport.
+
+ ### Rapport junit
+
+ Un rapport au format junit est rédigé si la clé `require` est présente sur l'un des tests à réaliser. Ce rapport peut être récupéré par le runner s'il est déplacé dans le dossier de celui-ci.
+
+ Ce rapport indique les résultats d'assertions réalisées sur les indicateurs récupérés lors des tests. La liste exhaustive de ces indicateurs est disponible [ici](./indicateurs.md).
+
+ Par défaut aucune assertion n'est faite sur les indicateurs. Pour en rajouter, il est nécessaire de préciser la catégorie et le nom de l'indicateur, ainsi qu'une ou plusieurs assertions à vérifier. La liste des comparaisons disponible est la suivante : ">", "=>", "==", "<=", "<", "!=".
+
+ Un exemple de configuration de tests :
+
+ ```yaml
+- url: https://exemple.com/
+  name: Exemple
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    assets:
+      cssCount: #Plusieurs assertions peuvent être faites sur le même indicateur
+        ">=": 2
+        "<=": 5
+ ```
    
 
 ## Outillage
