@@ -13,9 +13,9 @@
 - Cloner le répo en ligne
 - Copier le fichier `.env.exemple` vers le fichier `.env`.
 - Changer les couples nom d'utilisateur/mot de passe.
-- Lancer `docker-compose up`, cela lancera les conteneurs influxdb, graphite et grafana qui sont prévu pour fonctionner en permanance.
-- Se connecter à influxdb (`http://localhost:8086` par défault) pour récuperer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connection (data -> API Token), et renseigner les variables d'environnement correspondantes
-- Executer le script setup.sh, il va créer certains fichiers de configurations nécéssaire pour les autres conteneurs à partir du fichier `.env`.
+- Lancer `docker-compose up`, cela lancera les conteneurs influxdb, graphite et Grafana qui sont prévus pour fonctionner en permanence.
+- Se connecter à influxdb (`http://localhost:8086` par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
+- Executer le script setup.sh, il va créer certains fichiers de configuration nécéssaires pour les autres conteneurs à partir du fichier `.env`.
 
 > Ce projet utilise des git submodules, ils sont clonés par le script de setup.
 
@@ -88,7 +88,7 @@ eco test:
       junit: 
         - report.xml
 ```
-Ou :
+Où :
  - `stage: eco` est un stage personnalisé ;
  - Le tag `eco` est le tag du runner ;
  - Le `cd` en début de script met le runner dans le répertoire du projet ;
@@ -152,7 +152,7 @@ docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-si
 
 L'ensemble des configurations possibles sont exposées ici : https://www.sitespeed.io/documentation/sitespeed.io/configuration/
 
-Sitespeed génère par défaut les résultats d'analyses au format HTMl à la racine de l'exécution du conteneur, mais il est possible de connecter plusieurs types de endpoints en sorties : 
+Sitespeed génère par défaut les résultats d'analyses au format HTML à la racine de l'exécution du conteneur, mais il est possible de connecter plusieurs types de endpoints en sorties : 
 - S3
 - Influx
 - Graphite (à utiliser pour les dashboard proposés par sitespeed)
@@ -171,11 +171,11 @@ Sitespeed génère par défaut les résultats d'analyses au format HTMl à la ra
 > Scoring basé sur l'évaluation des règles d'éco-conceptions
 
 Utilisation du fork du plugin GreenIT https://github.com/cnumr/GreenIT-Analysis-cli.
-Cet outil est à la base un plugin pour Chrome et Firefox permettant de réaliser un scoring des bonnes pratiques d'éco-conceptions.
+Cet outil est à la base un plugin pour Chrome et Firefox permettant de réaliser un scoring des bonnes pratiques d'éco-conception.
 
-Les bonnes pratiques sont issues du [référentiel édité par GreenIT.fr](https://collectif.greenit.fr/ecoconception-web/)
+Les bonnes pratiques sont issues du [référentiel édité par GreenIT.fr](https://collectif.greenit.fr/ecoconception-web/).
 
-Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consiste en l'ajout de l'écriture des résultats en base influx et d'un dahsboard grafana.
+Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consiste en l'ajout de l'écriture des résultats en base influx et d'un dahsboard Grafana.
 
 **Dashboard**
 
@@ -185,13 +185,13 @@ Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consis
 
 > Monitoring et analyse de code dans un navigateur 
 
-Utilisation du projet Yellow Lab Tools pour récupérer une grande quantitée de métrique permettant de remonter au causes des problèmes reporter par les projets précédents. 
-Cet outils collecte des métriques sur des sujets aussi varié que la complexité du DOM, une analyse du JS et du CSS, le cache configuré, etc.
+Utilisation du projet Yellow Lab Tools pour récupérer une grande quantitée de métrique permettant de remonter aux causes des problèmes reportés par les projets précédents. 
+Cet outil collecte des métriques sur des sujets aussi variés que la complexité du DOM, une analyse du JS et du CSS, le cache configuré, etc.
 
 
 ### Mesure de la consommation énergétique 
 
-Utilisation de la suite d'outils exposé par le framework *PowerAPI* https://github.com/powerapi-ng
+Utilisation de la suite d'outils exposée par le framework *PowerAPI* https://github.com/powerapi-ng
 /!\ Ces outils sont utilisables uniquement sur une machine physique disposant des accès root /!\ 
 
 Pour le besoin nous avons retenu les outils HWPC Sensor et Formula, ces derniers sont disponibles de manière conteneurisés.
@@ -202,10 +202,10 @@ Pour le besoin nous avons retenu les outils HWPC Sensor et Formula, ces derniers
 
 **Description**
 
-RAPL expose des données des données de consommation sous forme de clé valeur : `Timestamp (ns) / joules`.
+RAPL expose des données de consommation sous forme de clé valeur : `Timestamp (ns) / joules`.
 > Article expliquant succinctement le fonctionnement de RAPL : https://01.org/blogs/2014/running-average-power-limit-%E2%80%93-rapl 
 
->HPWC scrap la données via le kernel linux, lui-même ré-exposant ces données issues du CPU/DRAM/GPU. 
+> HPWC scrap la données via le kernel linux, lui-même ré-exposant ces données issues du CPU/DRAM/GPU. 
 Ces données sont ensuite poussées au choix dans une base mongo ou dans un fichier texte.
 
 https://powerapi-ng.github.io/hwpc.html
@@ -272,20 +272,20 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 ![dashboard_conso_energetique](media/dashboard_conso_energetique.png)
 
 À noter qu'il faudra aller plus loin dans la façon d'exploiter ces données :
-- Dans un premier temps il peut être pertinent de corréler les mesures réalisées dans le temps et l'exécution des tests RobotFramwork
-- Dans un second temps il faudra réaliser un calcul de type intégration (dans Grafana) en fonction de la durée des tests, dans l'idée d'avoir une valeur unique à la place d'une courbe  
+- Dans un premier temps, il peut être pertinent de corréler les mesures réalisées dans le temps et l'exécution des tests Robot Framework
+- Dans un second temps, il faudra réaliser un calcul de type intégration (dans Grafana) en fonction de la durée des tests, dans l'idée d'avoir une valeur unique à la place d'une courbe  
 
 
 ### Selenium & Robot Framework
 
 Pour la mesure de consommation énergétique d'un browser, nous avons retenu l'utilisation du framework Selenium.
-Selenium expose un mécanisme de hub et de node afin de paralléliser les executions de tests et ceux sur différents navigateurs.
+Selenium expose un mécanisme de hub et de node afin de paralléliser les executions de tests et ce sur différents navigateurs.
 Les tests sont pilotés par Robot Framework, celui-ci va permettre de programmer la simulation de parcours utilisateur, 
 les mesures de consommation énergétique seront réalisées en arrière-plan par écoute du PID des nodes par HWPC.
 
-Il est toute fois envisageable de monitorer avec HWPC le PID d'un browser installé directement sur la machine.
-Il faudra alors installer et configurer GeckoDriver afin de piloter le browser au travers de selenium hub.
-Nous n'avons pas été en mesure de quantifier précisément le "bruit" généré dans un node selenium conteneurisé,
+Il est toutefois envisageable de monitorer avec HWPC le PID d'un browser installé directement sur la machine.
+Il faudra alors installer et configurer GeckoDriver afin de piloter le browser au travers de Selenium hub.
+Nous n'avons pas été en mesure de quantifier précisément le "bruit" généré dans un node Selenium conteneurisé,
 mais celui-ci apparait comme étant négligeable.
 
 
@@ -344,10 +344,10 @@ sudo apt-get install nodejs npm
 
 https://docs.gitlab.com/runner/install/linux-manually.html
 
-Vous devez ajouter le runner à la configuration de votre repository gitlab https://gitlab.com/your_project/-/settings/ci_cd,
-en spécifiant le registration_token et l'url du gitlab à votre runner local.
+Vous devez ajouter le runner à la configuration de votre repository Gitlab https://gitlab.com/your_project/-/settings/ci_cd,
+en spécifiant le registration_token et l'url du Gitlab à votre runner local.
 
-> Donner les droits du process docker au daemon gitlab runner
+> Donner les droits du process docker au daemon Gitlab runner
 
 ```console
 sudo usermod -aG docker gitlab-runner
@@ -391,26 +391,26 @@ sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 
 * Aggregation des runtime de browser
 
-    Les 3 outils : eco index, site speed et robot framework utilise chacun leurs propres runtime de browser.
+    Les 3 outils : eco index, site speed et robot framework utilisent chacun leurs propres runtime de browser.
     - GreenIT CLI Analysis utilise un Chronium par défaut et n'est pas configurable
-    - Sitespeed.io utilise sa propre runtinme mais peu apparemment être configuré pour utiliser un selenium serveur
-    - RobotFramework utilise selenium
+    - Sitespeed.io utilise sa propre runtinme mais peut apparemment être configuré pour utiliser un Selenium serveur
+    - Robot Framework utilise Selenium
 
-    Le plus intéressant serait de converger sur un usage unique de selenium et donc de réaliser une contribution sur
+    Le plus intéressant serait de converger sur un usage unique de Selenium et donc de réaliser une contribution sur
     le plugin GreenIT CLI Analysis afin de le rendre compatible avec Selenium.   
     
 * Analyse statique de code avec un plugin Sonar dédié 
 
 ![architecture_sonar](media/architecture_sonar.png)
 
-À l'image du plugin GreenIT CLI Analysis, il est possible de réaliser le même type d'analyse via un plugin sonar custom.
+À l'image du plugin GreenIT CLI Analysis, il est possible de réaliser le même type d'analyse via un plugin Sonar custom.
 Un début d'implémentation est disponible sur ce repository : https://github.com/cnumr/SonarQube
 
 * Banc de tests
 
     L'objectif serait de constituer un parc de machines aux performances diverses.
-    Lesquelles aurait à leurs dispositions une installation de PowerAPI avec un ou plusieurs node selenium.
-    Ces derniers serait pilotés par des tests RobotFramework.
+    Lesquelles auraient à leurs dispositions une installation de PowerAPI avec un ou plusieurs node Selenium.
+    Ces derniers seraient pilotés par des tests Robot Framework.
     Il pourrait également être intéressant d'exécuter Sitespeed à distance afin de monitorer les performances de navigation.
     Cela permettrait d'avoir une historisation de la consommation énergétique d'un front donné sur une machine donnée.
     
@@ -424,7 +424,7 @@ Un début d'implémentation est disponible sur ce repository : https://github.co
    
 * Concevoir un index d'éco-conception à partir des métriques générées par ces différents outils
 
-* Concevoir des dashboards personnalisé pour chaque type de profil 
+* Concevoir des dashboards personnalisés pour chaque type de profil 
    
    
 ## Références 
