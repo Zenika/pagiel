@@ -197,6 +197,7 @@ services:
       - GRAPHITE_HOST=${GRAPHITE_HOST}
       - GRAPHITE_USERNAME=${GRAPHITE_USERNAME}
       - GRAPHITE_PASSWORD=${GRAPHITE_PASSWORD}
+      - EXIT_CODE_FAIL=${EXIT_CODE_FAIL}
     volumes:
       - ./reports/reports:/opt/report/results/:rw
       - ./input/urls.yaml:/opt/report/urls.yaml:ro

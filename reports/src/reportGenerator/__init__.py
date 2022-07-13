@@ -23,6 +23,7 @@ class IndicatorComparator:
         self.graphite_client = graphite_client
         self.influxdb_client = influxdb_client
         self.indicators_by_category = indicators_by_category
+        self.some_failed = False
 
     def compare(self, comparison_mode: str, expected_value: Any, indicator_value: Any) -> bool:
         match comparison_mode:
@@ -65,6 +66,7 @@ class IndicatorComparator:
             
             if not res[f"{comparisonMode} {expectedValue}"]["result"] and indicators_details.get("path", ""):
                 res[f"{comparisonMode} {expectedValue}"]["path"] = indicators_details.get("path")
+                self.some_failed = True
 
             print(f"{indicator_value} {comparisonMode} {expectedValue}")
         return res
@@ -185,7 +187,7 @@ class JunitReportGenerator:
         testsuites.set("failures", str(totalFailure))
         return ElementTree(testsuites)
 
-def main(graphite_client, influxdb_client, indicators_by_category, offenders):
+def main(graphite_client: GraphiteClient, influxdb_client: InfluxClient, indicators_by_category: dict, offenders: list) -> bool:
     urlList = load_yaml_data_file("/opt/report/urls.yaml")
     indicator_comparator = IndicatorComparator(graphite_client, influxdb_client, indicators_by_category)
     comparison_results = indicator_comparator.test_url_list(urlList)
@@ -197,3 +199,4 @@ def main(graphite_client, influxdb_client, indicators_by_category, offenders):
         resultXMl = junit_generator.generate_testsuites_xml(comparison_results)
         resultXMl.write("/opt/report/results/report.xml")
         resultXMl.write(f"/opt/report/results/report-{timestamp}.xml")
+    return indicator_comparator.some_failed
