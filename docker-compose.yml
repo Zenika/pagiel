@@ -189,6 +189,7 @@ services:
   report:
     container_name: report
     build: ./reports
+    user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     depends_on:
       - influxdb
       - graphite
