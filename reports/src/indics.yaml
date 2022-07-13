@@ -531,8 +531,9 @@ eco:
     influxMeasurement: eco_index
     type: float
 fonts:
-  fonts.*.url:
+  heavyFonts:
     influxMeasurement: YellowLabTools
+    path: fonts.*.url
     type: int
   nonWoff2Fonts:
     influxMeasurement: YellowLabTools
@@ -665,7 +666,7 @@ jquery:
   jQuerySizzleCalls:
     desc: "Nombre d'appel \xE0 Sizzle"
     influxMeasurement: YellowLabTools
-    path: "*.selector"
+    path: .selector
     type: int
   jQueryVersion:
     desc: Version de jQuery
@@ -674,7 +675,7 @@ jquery:
   jQueryVersionsLoaded:
     desc: "Nombre d'instances de jQuery charg\xE9es"
     influxMeasurement: YellowLabTools
-    path: '*.version'
+    path: .version
     type: int
   jQueryWindowOnLoadFunctions:
     desc: "Nombre de fonctions li\xE9es \xE0 l'\xE9v\xE8nement windowOnLoad"
@@ -818,6 +819,7 @@ performances:
     type: int
   request:
     graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.requests
+    path: '*.url'
     type: int
   timeBackend:
     desc: "Temps pour le premier octet de r\xE9ponse par rapport au temps total de\
@@ -1103,7 +1105,6 @@ requests:
     desc: "Nombre total de requ\xEAte effectu\xE9"
     influxMeasurement: YellowLabTools
     type: int
-    path: '*.url'
   requestsToDomComplete:
     desc: "Nombre de requ\xEAtes pour atteindre l'\xE9tat DomComplete"
     influxMeasurement: YellowLabTools
@@ -1145,7 +1146,7 @@ requests:
     type: int
   totalWeight:
     influxMeasurement: YellowLabTools
-    path: totalWeight
+    path: totalweight
     type: int
   videoCount:
     desc: "Nombre de vid\xE9o"

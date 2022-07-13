@@ -591,7 +591,7 @@ Consomation d'eau associée à la page
 Type : nombre à virgule
 
 # fonts
-## fonts.*.url
+## heavyFonts
 Type : entier
 
 ## nonWoff2Fonts
