@@ -1,5 +1,51 @@
-# Plateforme Automatisée de Génération d'Indicateurs Environnementaux sur le Logiciel (PAGIEL)
 
+<h1 align="center">Plateforme Automatisée de Génération d'Indicateurs Environnementaux sur le Logiciel (PAGIEL)</h1>
+<p>
+  <a href="https://github.com/Zenika/pagiel/blob/main/LICENSE" target="_blank">
+    <img alt="License: GNU GPL" src="https://img.shields.io/badge/License-GNU GPL-yellow.svg" />
+  </a>
+</p>
+
+Sommaire
+- [Présentation du projet](#présentation-du-projet)
+- [Installation](#installation)
+  - [Prérequis](#prérequis)
+  - [Préparation](#préparation)
+  - [Runner gitlab](#runner-gitlab)
+- [Utilisation](#utilisation)
+  - [Fichier input/urls.yaml](#fichier-inputurlsyaml)
+  - [Utilisation seule](#utilisation-seule)
+  - [Via les CI/CD](#via-les-cicd)
+  - [Rapport au format junit](#rapport-au-format-junit)
+- [Outillage](#outillage)
+  - [Sitespeed.io](#sitespeedio)
+  - [Scoring EcoIndex Green IT](#scoring-ecoindex-green-it-httpwwwecoindexfr)
+  - [Yellow Lab Tools](#yellow-lab-tools)
+  - [Mesure de la consommation énergétique](#mesure-de-la-consommation-énergétique)
+    - [HWPC](#hpwc)
+    - [Formula](#formula)
+    - [Dashboards](#dashboards)
+  - [Selenium & Robot Framework](#selenium--robot-framework)
+- [Architecture](#architecture)
+ - [Configuration suplémentaire pour l'analyse de la consomation énergétique](#installation-et-configuration-de-lenvironnement-pour-lanalyse-de-la-consommation-énergétique)
+- [Cas d'usage à imaginer ou amélioration](#cas-dusage-à-imaginer-ou-améliorations)
+- [Licence](#licence)
+- [Référence](#références)
+  - [Mesure de consomation énergétique](#mesure-de-consommation-énergétique)
+    - [RAPL (Running Average Power Limit)](#rapl-running-average-power-limit)
+    - [Android](#android)
+    - [iOS](#ios)
+    - [cgroups](#cgroups)
+    - [PowerAPI](#power-api)
+    - [Power consumption](#power-consumption)
+    - [Power consumption tools](#power-consumption-tools)
+  - [Framework Front Web](#framework-front-web)
+    - [SvelteJS](#sveltejs)
+  - [Divers](#divers)
+
+## Présentation du projet
+
+Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. Mais ces outils sont pour la plupart prévus pour un usage ponctuel et manuel. L'objectif de PAGIEL est de permettre l'utilisation de ces outils tout au long du développement d'un projet web, en rendant possible leur utilisation depuis les pipelines de CI/CD. PAGIEL rend possible l'utilisation de quatre projets web open source que sont GreenIT Analysis, SiteSpeed, Yellow Lab Tools et PowerAPI depuis un runner GitLab, en pouvant configurer les attendus sur tout ou partie des indicateurs remontés par la plateforme, et stopper le pipeline de déploiement en cas de problème avec un des indicateurs surveillés.
 
 ## Installation
 
@@ -78,8 +124,8 @@ eco test:
     GIT_STRATEGY: none
   script:
     - initialDirectory=$(pwd)
-    - cd /home/eco-runner/draft-green-it-toolbox
-    - cat $URLS > ./input/urls.yaml
+    - cd $PROJECT_DIRECTORY
+    - echo "$URLS" > ./input/urls.yaml
     - ./parcours.sh
     - cp reports/reports/report.xml $initialDirectory
   artifacts:
@@ -93,8 +139,10 @@ Où :
  - Le tag `eco` est le tag du runner ;
  - Le `cd` en début de script met le runner dans le répertoire du projet ;
  - On stocke dans une variable le dossier du runner afin de pouvoir y copier le rapport.
+ - $URL contient le fichier yaml à utiliser (cf [ici](#fichier-inputurlsyaml))
+ - $PROJECT_DIRECTORY est le dossier dans lequel est installé le projet sur la machine du runner
 
- ### Rapport junit
+ ### Rapport au format junit
 
  Un rapport au format junit est rédigé si la clé `require` est présente sur l'un des tests à réaliser. Ce rapport peut être récupéré par le runner s'il est déplacé dans le dossier de celui-ci.
 
@@ -387,7 +435,7 @@ sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 ```
 
 
-## Case d'usage à imaginer ou améliorations
+## Cas d'usage à imaginer ou améliorations
 
 * Aggregation des runtime de browser
 
@@ -424,8 +472,15 @@ Un début d'implémentation est disponible sur ce repository : https://github.co
    
 * Concevoir un index d'éco-conception à partir des métriques générées par ces différents outils
 
-* Concevoir des dashboards personnalisés pour chaque type de profil 
-   
+* Concevoir des dashboards personnalisé pour chaque type de profil 
+
+## Contribution
+
+Un problème, une idée, la [page des issues](https://github.com/Zenika/pagiel/issues) est ouverte.
+
+## Licence
+
+The LCA values used by GreenIT to evaluate environmental impacts are not under free license - © Frédéric Bordage. Please also refer to the mentions provided in the code files for specifics on the IP regime.
    
 ## Références 
 
@@ -486,7 +541,7 @@ Un début d'implémentation est disponible sur ce repository : https://github.co
   * https://dev.to/lukocastillo/svelte-3-how-to-integrate-with-svelte-routing-4j3b
   * https://sapper.svelte.dev/
 
-#### Divers
+### Divers
   * https://dev.to/ryansolid/making-sense-of-the-js-framework-benchmark-25hl
   * https://github.com/cnumr/GreenIT-Analysis
   * https://collectif.greenit.fr/ecoconception-web/115-bonnes-pratiques-eco-conception_web.html
