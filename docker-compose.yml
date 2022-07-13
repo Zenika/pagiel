@@ -123,6 +123,8 @@ services:
     container_name: yellowlabtools
     build:
       context: yellowLabTools/src
+    depends_on:
+      - influxdb
     command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME} --influxdb-offenders
     user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     volumes:
@@ -187,6 +189,9 @@ services:
   report:
     container_name: report
     build: ./reports
+    depends_on:
+      - influxdb
+      - graphite
     environment:
       - INFLUXDB_ORG_NAME=${INFLUXDB_ORG_NAME}
       - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
