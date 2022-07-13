@@ -28,7 +28,7 @@ host=`grep INFLUXDB_HOST .env`
 host=${host#*=}
 
 # dealing with json is easier with python
-python3 setup-script/smartwatts-conf.py $host $port $org $token $bucket
+python3 scripts/smartwatts-conf.py $host $port $org $token $bucket
 
 # starting setup profile
 # -> push sitespeed dashboard in grafana
