@@ -64,8 +64,9 @@ class IndicatorComparator:
         for comparisonMode, expectedValue in comparisons.items():
             res[f"{comparisonMode} {expectedValue}"] = self.compare(comparisonMode, expectedValue, indicator_value)
             
-            if not res[f"{comparisonMode} {expectedValue}"]["result"] and indicators_details.get("path", ""):
-                res[f"{comparisonMode} {expectedValue}"]["path"] = indicators_details.get("path")
+            if not res[f"{comparisonMode} {expectedValue}"]["result"]:
+                if path := indicators_details.get("path", ""):
+                    res[f"{comparisonMode} {expectedValue}"]["path"] = path
                 self.some_failed = True
 
             print(f"{indicator_value} {comparisonMode} {expectedValue}")
