@@ -13,9 +13,9 @@
         "pusher_power": {
             "type": "influxdb2",
             "model": "PowerReport",
-            "uri": "influxdb",
+            "uri": "",
             "port": 0,
-            "bucket": "",
+            "db": "",
             "org": "",
             "token": ""
         }

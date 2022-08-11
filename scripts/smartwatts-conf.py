@@ -27,9 +27,9 @@ else:
             sys.exit()
             
         # saving good config
-        json_config["output"]["pusher_power"]["uri"] = host
+        json_config["output"]["pusher_power"]["uri"] = f"http://{host}"
         json_config["output"]["pusher_power"]["port"] = int(port)
-        json_config["output"]["pusher_power"]["bucket"] = bucket
+        json_config["output"]["pusher_power"]["db"] = bucket
         json_config["output"]["pusher_power"]["token"] = token
         json_config["output"]["pusher_power"]["org"] = org
 

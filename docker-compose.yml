@@ -43,7 +43,7 @@ services:
       - preconso
 
   smartwatts:
-    build: ./powerapi
+    image: ${SMARTWATTS_IMAGE_VERSION}
     container_name: smartwatts
     depends_on:
       - influxdb
