@@ -139,13 +139,14 @@ class JunitReportGenerator:
             return ""
         return self.display_offender(offender_dict["offenders"].get(indicator, None), path)
 
-    def generate_test_case_xml(self, parent: Element, indicator: str, comparison: str, result: dict, test_name: str) -> bool:
+    def generate_test_case_xml(self, parent: Element, testsuite: str, indicator: str, comparison: str, result: dict, test_name: str) -> bool:
         """
             Generate XML testcase and failure. Return bool with assetion result
         """
         indic_xml = SubElement(parent, "testcase")
         indic_xml.set("id", f"{indicator} {comparison}")
         indic_xml.set("name", f"{indicator} {comparison}")
+        indic_xml.set("classname", f"{testsuite}")
         if not result["result"]:
             if result.get("path"):
                 offenders = self.get_offender_for(test_name, indicator, result["path"].split("."))
@@ -159,13 +160,14 @@ class JunitReportGenerator:
             Generate testsuite junit tag
         """
         page_xml = SubElement(parent, "testsuite")
-        page_xml.set("id", f"{test_name}.{category_name}")
-        page_xml.set("name", f"{test_name}.{category_name}")
+        testsuite_name = f"{test_name}.{category_name}"
+        page_xml.set("id", testsuite_name)
+        page_xml.set("name", testsuite_name)
         nb_page_test, nb_page_failure = 0, 0
         for indicator, indic_test in category_tests.items():
             for comparison, result in indic_test.items():
                 nb_page_test += 1
-                if not self.generate_test_case_xml(page_xml, indicator, comparison, result, test_name):
+                if not self.generate_test_case_xml(page_xml, testsuite_name, indicator, comparison, result, test_name):
                     nb_page_failure += 1
         page_xml.set("tests", str(nb_page_test))
         page_xml.set("failures", str(nb_page_failure))
