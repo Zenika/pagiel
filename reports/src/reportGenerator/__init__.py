@@ -25,7 +25,7 @@ class IndicatorComparator:
         self.indicators_by_category = indicators_by_category
         self.some_failed = False
 
-    def compare(self, comparison_mode: str, expected_value: Any, indicator_value: Any) -> bool:
+    def compare(self, comparison_mode: str, expected_value: Any, indicator_value: Any) -> dict:
         match comparison_mode:
             case ">":
                 return {"result": indicator_value > expected_value, "expected": expected_value, "value": indicator_value}
@@ -47,8 +47,8 @@ class IndicatorComparator:
             Query database for last value
         """
         if indicator.get("influxMeasurement"):
-            return self.influxdb_client.queryLastValue(indicator["influxMeasurement"], indicator_key, test["name"])
-        return self.graphite_client.queryLastValue(indicator["graphiteAddress"], test["url"])
+            return self.influxdb_client.query_last_value(indicator["influxMeasurement"], indicator_key, test["name"])
+        return self.graphite_client.query_last_value(indicator["graphiteAddress"], test["url"])
 
     def test_indicator(self, test: dict, indicator: str, comparisons: dict, indicators_details: dict) -> dict:
         """
@@ -61,15 +61,15 @@ class IndicatorComparator:
 
         indicator_value = self.get_indicator_value(indicator, indicators_details, test)
 
-        for comparisonMode, expectedValue in comparisons.items():
-            res[f"{comparisonMode} {expectedValue}"] = self.compare(comparisonMode, expectedValue, indicator_value)
+        for comparison_mode, expected_value in comparisons.items():
+            res[f"{comparison_mode} {expected_value}"] = self.compare(comparison_mode, expected_value, indicator_value)
             
-            if not res[f"{comparisonMode} {expectedValue}"]["result"]:
+            if not res[f"{comparison_mode} {expected_value}"]["result"]:
                 if path := indicators_details.get("path", ""):
-                    res[f"{comparisonMode} {expectedValue}"]["path"] = path
+                    res[f"{comparison_mode} {expected_value}"]["path"] = path
                 self.some_failed = True
 
-            print(f"{indicator_value} {comparisonMode} {expectedValue}")
+            print(f"{indicator_value} {comparison_mode} {expected_value}")
         return res
 
     def test_category(self, test: dict, category: str, indicators: dict) -> dict:
@@ -180,26 +180,26 @@ class JunitReportGenerator:
         testsuites = Element("testsuites")
         testsuites.set("id", "PAGIEL-test")
         testsuites.set("name", "PAGIEL-test")
-        totalTests, totalFailure = 0, 0
-        for pageName, pageTests in tests.items():
-            for categoryName, categoryTests in pageTests.items():
-                nbPageTest, nbPageFailure = self.generate_testsuite_xml(testsuites, pageName, categoryName, categoryTests)
-                totalTests += nbPageTest
-                totalFailure += nbPageFailure
-        testsuites.set("tests", str(totalTests))
-        testsuites.set("failures", str(totalFailure))
+        total_tests, total_failure = 0, 0
+        for page_name, page_tests in tests.items():
+            for category_name, category_tests in page_tests.items():
+                nb_page_test, nb_page_failure = self.generate_testsuite_xml(testsuites, page_name, category_name, category_tests)
+                total_tests += nb_page_test
+                total_failure += nb_page_failure
+        testsuites.set("tests", str(total_tests))
+        testsuites.set("failures", str(total_failure))
         return ElementTree(testsuites)
 
 def main(graphite_client: GraphiteClient, influxdb_client: InfluxClient, indicators_by_category: dict, offenders: list) -> bool:
-    urlList = load_yaml_data_file("/opt/report/urls.yaml")
+    url_list = load_yaml_data_file("/opt/report/urls.yaml")
     indicator_comparator = IndicatorComparator(graphite_client, influxdb_client, indicators_by_category)
-    comparison_results = indicator_comparator.test_url_list(urlList)
+    comparison_results = indicator_comparator.test_url_list(url_list)
 
     if len(comparison_results) > 0:
         timestamp = int(datetime.now().timestamp())
 
         junit_generator = JunitReportGenerator(offenders)
-        resultXMl = junit_generator.generate_testsuites_xml(comparison_results)
-        resultXMl.write("/opt/report/results/report.xml")
-        resultXMl.write(f"/opt/report/results/report-{timestamp}.xml")
+        result_xml = junit_generator.generate_testsuites_xml(comparison_results)
+        result_xml.write("/opt/report/results/report.xml")
+        result_xml.write(f"/opt/report/results/report-{timestamp}.xml")
     return indicator_comparator.some_failed

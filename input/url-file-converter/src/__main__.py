@@ -43,13 +43,13 @@ def process(args):
         url_list = yaml.load(url_input_file, Loader=yaml.FullLoader)
 
         with open(args.ecoIndexFile, 'w') as ecoIndexUrlFile:
-            documents = yaml.dump([{k: v for k,v in url.items() if k in GREENIT_INPUT_FILE_ARGS} for url in url_list], ecoIndexUrlFile)
+            yaml.dump([{k: v for k,v in url.items() if k in GREENIT_INPUT_FILE_ARGS} for url in url_list], ecoIndexUrlFile)
 
         with open(args.sitespeedFile, 'w') as sitespeed_urls:
             sitespeed_urls.write("\n".join([url["url"] for url in url_list]))
 
         with open(args.yellowLabToolsFile, 'w') as yellowlabtoolsUrlFile:
-            documents = yaml.dump([{k: v for k,v in url.items() if k in YELLOWLABTOOLS_INPUT_FILE_ARGS} for url in url_list], yellowlabtoolsUrlFile)
+            yaml.dump([{k: v for k,v in url.items() if k in YELLOWLABTOOLS_INPUT_FILE_ARGS} for url in url_list], yellowlabtoolsUrlFile)
 
         robot_resources = [ROBOT_RESOURCE_TEMPLATE.format(url=url["url"], name=url["name"], final_url=url.get("final_url", url["url"])) for url in url_list ]
         robot_tests = []

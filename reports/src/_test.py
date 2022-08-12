@@ -7,8 +7,8 @@ INDICATORS_BY_CATEGORY = load_yaml_data_file("/opt/report/src/indics.yaml")
 
 
 class TestOffenderPath(TestCase):
-    def __init__(self, methodName: str = ...) -> None:
-        super().__init__(methodName)
+    def __init__(self, method_name: str = ...) -> None:
+        super().__init__(method_name)
         self.junit_generator = JunitReportGenerator(OFFENDERS)
 
     def test_paths(self):
