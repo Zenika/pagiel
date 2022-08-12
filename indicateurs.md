@@ -638,6 +638,11 @@ Volume total d'en-tête (bytes)
 
 Type : entier
 
+## incorrectContentTypes
+Nombre de Content-Type incorrects
+
+Type : entier
+
 # images
 ## DontResizeImageInBrowser
 Ne pas retailler les images dans le navigateur
@@ -815,30 +820,10 @@ N'utilisez pas les boutons standards des réseaux sociaux
 
 Type : chaine de charactère
 
-## base64Size
-Volume de fichier encodé en base64 (bytes)
-
-Type : entier
-
-## htmlSize
-Volume de fichiers HTML chargés (bytes)
-
-Type : entier
-
-## incorrectContentTypes
-Nombre de Content-Type incorrects
-
-Type : entier
-
 ## isWordPress
 Est-ce que le site utilise wordpress
 
 Type : booléen
-
-## otherSize
-Volume d'autre type de fichier chargé (bytes)
-
-Type : entier
 
 # performances
 ## CumulativeLayoutShift
@@ -1097,6 +1082,11 @@ Nombre de fichier en base64
 
 Type : entier
 
+## base64Size
+Volume de fichier encodé en base64 (bytes)
+
+Type : entier
+
 ## biggestLatency
 Temps pour le premier byte de la réponse la plus lente (ms)
 
@@ -1154,6 +1144,11 @@ Nombre de fichier HTML
 
 Type : entier
 
+## htmlSize
+Volume de fichiers HTML chargés (bytes)
+
+Type : entier
+
 ## httpsRequests
 Nombre de requête HTTPS
 
@@ -1198,6 +1193,11 @@ Type : entier
 
 ## otherCount
 Nombre d'autres fichiers
+
+Type : entier
+
+## otherSize
+Volume d'autre type de fichier chargé (bytes)
 
 Type : entier
 

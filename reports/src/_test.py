@@ -2,7 +2,7 @@ from unittest import TestCase, main as test_main
 
 from reportGenerator import load_json_data_file, load_yaml_data_file, JunitReportGenerator
 
-OFFENDERS = load_json_data_file("/opt/report/src/testFiles/test-result.json")
+OFFENDERS = load_json_data_file("/opt/report/src/testfiles/test-result.json")
 INDICATORS_BY_CATEGORY = load_yaml_data_file("/opt/report/src/indics.yaml")
 
 
