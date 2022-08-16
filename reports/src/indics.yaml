@@ -735,36 +735,36 @@ other:
     type: bool
 performances:
   CumulativeLayoutShift:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.pageinfo.layoutShift.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.pageinfo.cumulativeLayoutShift.$function
     type: int
   FirstVisualChange:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.FirstVisualChange.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.FirstVisualChange.$function
     type: int
   LargestContentfulPaint:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.largestContentfulPaint.renderTime.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.largestContentfulPaint.renderTime.$function
     type: int
   LastVisualChange:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.LastVisualChange.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.LastVisualChange.$function
     type: int
   LoadEvenEnd:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.loadEventEnd.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.loadEventEnd.$function
     type: int
   SpeedIndex:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.SpeedIndex.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.SpeedIndex.$function
     type: int
   TTFB:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.serverResponseTime.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.serverResponseTime.$function
     type: int
   VisualReadiness:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.VisualReadiness.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.visualMetrics.VisualReadiness.$function
     type: int
   backEndTime:
     desc: "Temps pour le premier octet de r\xE9ponse par rapport au temps total de\
       \ chargement (ms)"
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.backEndTime.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.backEndTime.$function
     type: int
   contentSize:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.contentSize
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.pagexray.contentSize
     type: int
   domComplete:
     desc: Timing du domComplete (windows.performance)
@@ -777,24 +777,24 @@ performances:
     influxMeasurement: YellowLabTools
     type: int
   domContentLoadedTime:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.domContentLoadedTime.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.domContentLoadedTime.$function
     type: int
   domElements:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.coach.advice.info.domElements
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.coach.advice.info.domElements
     type: int
   domInteractive:
     influxMeasurement: YellowLabTools
     type: int
   firstPaint:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.firstPaint.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.firstPaint.$function
     type: int
   frontEndTime:
     desc: "Temps pour l'\xE9v\xE8nement window.load par rapport au temps total de\
       \ chargement (ms)"
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.frontEndTime.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.pageTimings.frontEndTime.$function
     type: int
   fullyLoaded:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.fullyLoaded.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.timings.fullyLoaded.$function
     type: int
   performanceTimingPageLoad:
     desc: "Temps n\xE9c\xE9ssaire pour charger enti\xE8rement la page (ms)"
@@ -806,7 +806,7 @@ performances:
     influxMeasurement: YellowLabTools
     type: int
   request:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.requests
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.pagexray.requests
     type: int
   timeBackend:
     desc: "Temps pour le premier octet de r\xE9ponse par rapport au temps total de\
@@ -818,18 +818,10 @@ performances:
       \ chargement (%)"
     influxMeasurement: YellowLabTools
     type: int
-  timeToContentfulPaint:
-    desc: '?'
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.timeToContentfulPaint.$function
-    type: int
   timeToFirstByte:
     desc: "Temps n\xE9c\xE9ssaire pour recevoir le premier octet de la premi\xE8re\
       \ r\xE9ponse (ms)"
     influxMeasurement: YellowLabTools
-    type: int
-  timeToFirstInteractive:
-    desc: '?'
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.timeToFirstInteractive.$function
     type: int
   timeToLastByte:
     desc: "Temps n\xE9c\xE9ssaire pour recevoir le derni\xE8re octet de la derni\xE8\
@@ -837,26 +829,17 @@ performances:
     influxMeasurement: YellowLabTools
     type: int
   transfertSize:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.transferSize
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.pagexray.transferSize
     type: int
 performances_cpu:
   Layout:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.Layout.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.Layout.$function
     type: int
   ParseHTML:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.ParseHTML.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.ParseHTML.$function
     type: int
   RunTask:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.RunTask.$function
-    type: int
-  UpadteLayoutTree:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.UpdateLayoutTree.$function
-    type: int
-  V8_Execute:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.V8_execute.$function
-    type: int
-  V8_NewContext:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.V8_NewContext.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.events.RunTask.$function
     type: int
   documentWriteCalls:
     desc: "Nombre d'appel \xE0 document.write"
@@ -881,7 +864,7 @@ performances_cpu:
     path: '*.element'
     type: int
   garbageCollection:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.garbageCollection.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.garbageCollection.$function
     type: int
   layoutCount:
     desc: Nombre de calcul de layout
@@ -892,13 +875,13 @@ performances_cpu:
     influxMeasurement: YellowLabTools
     type: int
   other:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.other.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.other.$function
     type: int
   paintCompositeRender:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.paintCompositeRender.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.paintCompositeRender.$function
     type: int
   parseHTML:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.parseHTML.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.parseHTML.$function
     type: int
   recalcStyleCount:
     desc: Nombre total de recalculs du style
@@ -913,13 +896,13 @@ performances_cpu:
     influxMeasurement: YellowLabTools
     type: int
   scriptEvaluation:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.scriptEvaluation.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.scriptEvaluation.$function
     type: int
   scriptParseCompile:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.scriptParseCompile.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.scriptParseCompile.$function
     type: int
   styleLayout:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.styleLayout.$function
+    graphiteAddress: sitespeed_io.default.$groupUrl.pageSummary.$url.$page.chrome.native.browsertime.statistics.cpu.categories.styleLayout.$function
     type: int
   taskDuration:
     desc: "Dur\xE9e totale des taches effectu\xE9 par le navigateur"
