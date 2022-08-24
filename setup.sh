@@ -29,7 +29,4 @@ host=${host#*=}
 
 # dealing with json is easier with python
 python3 scripts/smartwatts-conf.py $host $port $org $token $bucket
-
-# starting setup profile
-# -> push sitespeed dashboard in grafana
-docker-compose --profile setup up -d
+python3 scripts/sitespeed-conf.py $host $port $org $token $bucket
