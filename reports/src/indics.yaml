@@ -531,8 +531,9 @@ eco:
     influxMeasurement: eco_index
     type: float
 fonts:
-  fonts.*.url:
+  heavyFonts:
     influxMeasurement: YellowLabTools
+    path: fonts.*.url
     type: int
   nonWoff2Fonts:
     influxMeasurement: YellowLabTools
@@ -570,6 +571,10 @@ headers:
     type: int
   headersSize:
     desc: "Volume total d'en-t\xEAte (bytes)"
+    influxMeasurement: YellowLabTools
+    type: int
+  incorrectContentTypes:
+    desc: Nombre de Content-Type incorrects
     influxMeasurement: YellowLabTools
     type: int
 images:
@@ -665,7 +670,7 @@ jquery:
   jQuerySizzleCalls:
     desc: "Nombre d'appel \xE0 Sizzle"
     influxMeasurement: YellowLabTools
-    path: "*.selector"
+    path: '*.selector'
     type: int
   jQueryVersion:
     desc: Version de jQuery
@@ -724,26 +729,10 @@ other:
     desc: "N'utilisez pas les boutons standards des r\xE9seaux sociaux"
     influxMeasurement: eco_index
     type: str
-  base64Size:
-    desc: "Volume de fichier encod\xE9 en base64 (bytes)"
-    influxMeasurement: YellowLabTools
-    type: int
-  htmlSize:
-    desc: "Volume de fichiers HTML charg\xE9s (bytes)"
-    influxMeasurement: YellowLabTools
-    type: int
-  incorrectContentTypes:
-    desc: Nombre de Content-Type incorrects
-    influxMeasurement: YellowLabTools
-    type: int
   isWordPress:
     desc: Est-ce que le site utilise wordpress
     influxMeasurement: YellowLabTools
     type: bool
-  otherSize:
-    desc: "Volume d'autre type de fichier charg\xE9 (bytes)"
-    influxMeasurement: YellowLabTools
-    type: int
 performances:
   CumulativeLayoutShift:
     graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.pageinfo.layoutShift.$function
@@ -981,6 +970,10 @@ requests:
     desc: Nombre de fichier en base64
     influxMeasurement: YellowLabTools
     type: int
+  base64Size:
+    desc: "Volume de fichier encod\xE9 en base64 (bytes)"
+    influxMeasurement: YellowLabTools
+    type: int
   biggestLatency:
     desc: "Temps pour le premier byte de la r\xE9ponse la plus lente (ms)"
     influxMeasurement: YellowLabTools
@@ -1035,6 +1028,10 @@ requests:
     influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
+  htmlSize:
+    desc: "Volume de fichiers HTML charg\xE9s (bytes)"
+    influxMeasurement: YellowLabTools
+    type: int
   httpsRequests:
     defaultComparison: <=
     defaultValue: 27.0
@@ -1045,6 +1042,7 @@ requests:
   identicalFiles:
     desc: "Nombre de fichiers identiques obtenue \xE0 partir d'urls diff\xE9rents"
     influxMeasurement: YellowLabTools
+    path: list.*.urls.*
     type: int
   imageCount:
     desc: Nombre d'images
@@ -1078,6 +1076,10 @@ requests:
     influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
+  otherSize:
+    desc: "Volume d'autre type de fichier charg\xE9 (bytes)"
+    influxMeasurement: YellowLabTools
+    type: int
   performanceTimingConnect:
     desc: "Temps n\xE9cessaire pour se connecter au serveur "
     influxMeasurement: YellowLabTools
@@ -1102,8 +1104,8 @@ requests:
   requests:
     desc: "Nombre total de requ\xEAte effectu\xE9"
     influxMeasurement: YellowLabTools
-    type: int
     path: '*.url'
+    type: int
   requestsToDomComplete:
     desc: "Nombre de requ\xEAtes pour atteindre l'\xE9tat DomComplete"
     influxMeasurement: YellowLabTools

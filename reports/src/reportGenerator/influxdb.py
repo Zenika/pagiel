@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from influxdb_client import InfluxDBClient
 
-def getInfluxdbTimestamp(date):
+def get_influxdb_timestamp(date):
     return int(date.timestamp())
 
 class InfluxClient:
@@ -17,22 +17,21 @@ class InfluxClient:
     def query(self, measurement, field, page, last=False):
         now = datetime.now()
         yes = now + timedelta(days=-1)
-        pageTag = "pageName" if measurement == "eco_index" else "name"
-        fluxQuery = f'from(bucket: "{self.bucket}") |> range(start: {getInfluxdbTimestamp(yes)}, stop: {getInfluxdbTimestamp(now)}) |> filter(fn: (r) => r._measurement == "{measurement}" and r.{pageTag} == "{page}" and r._field == "{field}") {"|> last()" if last else ""}'
-        # print(fluxQuery)
-        return [row for table in self.query_api.query(fluxQuery) for row in table.records]
+        page_tag = "pageName" if measurement == "eco_index" else "name"
+        flux_query = f'from(bucket: "{self.bucket}") |> range(start: {get_influxdb_timestamp(yes)}, stop: {get_influxdb_timestamp(now)}) |> filter(fn: (r) => r._measurement == "{measurement}" and r.{page_tag} == "{page}" and r._field == "{field}") {"|> last()" if last else ""}'
+        return [row for table in self.query_api.query(flux_query) for row in table.records]
     
-    def queryLast(self, measurement, field, page):
+    def query_last(self, measurement, field, page):
         return self.query(measurement, field, page, True)
     
-    def queryLastValue(self, measurement, field, page):
-        return self.queryLast(measurement, field, page)[0]["_value"]
+    def query_last_value(self, measurement, field, page):
+        return self.query_last(measurement, field, page)[0]["_value"]
 
-    def queryFields(self, measurement, page):
-        fluxQuery = f"""from(bucket: "db0")
+    def query_fields(self, measurement, page):
+        flux_query = f"""from(bucket: "db0")
   |> range(start: 1654073155, stop: 1654677955)
   |> filter(fn: (r) => r["_measurement"] == "{measurement}")
   |> filter(fn: (r) => r["name"] == "{page}")
   |> yield(name: "last")
   """
-        return self.query_api.query(fluxQuery)
+        return self.query_api.query(flux_query)

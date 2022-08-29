@@ -13,3 +13,7 @@ class ComparatorException (Exception):
 class MissingComparison(KeyError):
     def __init__(self, indicator):
         super().__init__(f"L'indicateur '{indicator}' n'a pas d'assertion")
+
+class InvalidUrlException(Exception):
+    def __init__(self, url):
+        super().__init__(f"{url} n'est pas une url valide")

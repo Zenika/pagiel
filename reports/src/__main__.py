@@ -8,8 +8,14 @@ if __name__ == "__main__":
     INDICATORS_BY_CATEGORY = load_yaml_data_file("/opt/report/src/indics.yaml")
     OFFENDERS = load_json_data_file("/opt/report/offenders/result.json")
 
+    if(exit_code_variable := environ.get("EXIT_CODE_FAIL")):
+        try:
+            exit_code_fail = int(exit_code_variable)
+        except ValueError:
+            exit_code_fail = 0
     try: 
-        main(GRAPHITE_CLIENT, INFLUXDB_CLIENT, INDICATORS_BY_CATEGORY, OFFENDERS)
+        some_failed = main(GRAPHITE_CLIENT, INFLUXDB_CLIENT, INDICATORS_BY_CATEGORY, OFFENDERS)
+        exit(0 if not some_failed else exit_code_fail)
     except Exception as e:
         print(str(e))
         exit(1)

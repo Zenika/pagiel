@@ -43,7 +43,7 @@ services:
       - preconso
 
   smartwatts:
-    build: ./powerapi
+    image: ${SMARTWATTS_IMAGE_VERSION}
     container_name: smartwatts
     depends_on:
       - influxdb
@@ -93,7 +93,7 @@ services:
       - conso
 
   eco-index:
-    build: eco-index
+    build: eco-index/GreenIT-analysis-cli
     container_name: eco-index
     depends_on:
       - influxdb
@@ -123,6 +123,8 @@ services:
     container_name: yellowlabtools
     build:
       context: yellowLabTools/src
+    depends_on:
+      - influxdb
     command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME} --influxdb-offenders
     user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     volumes:
@@ -175,7 +177,7 @@ services:
   url-converter:
     container_name: url-converter
     build: ./input/url-file-converter
-    command: /home/urlconverter/urls.yaml /home/urlconverter/results/urls.yaml /home/urlconverter/results/urls.txt /home/urlconverter/results/urls-yellowlabtools.yaml /home/urlconverter/tests/
+    command: /home/urlconverter/urls.yaml
     volumes: 
       - ./input/urls.yaml:/home/urlconverter/urls.yaml:ro
       - tmp-storage:/home/urlconverter/results:rw
@@ -187,6 +189,10 @@ services:
   report:
     container_name: report
     build: ./reports
+    user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
+    depends_on:
+      - influxdb
+      - graphite
     environment:
       - INFLUXDB_ORG_NAME=${INFLUXDB_ORG_NAME}
       - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
@@ -197,6 +203,7 @@ services:
       - GRAPHITE_HOST=${GRAPHITE_HOST}
       - GRAPHITE_USERNAME=${GRAPHITE_USERNAME}
       - GRAPHITE_PASSWORD=${GRAPHITE_PASSWORD}
+      - EXIT_CODE_FAIL=${EXIT_CODE_FAIL}
     volumes:
       - ./reports/reports:/opt/report/results/:rw
       - ./input/urls.yaml:/opt/report/urls.yaml:ro

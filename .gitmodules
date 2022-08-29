@@ -1,12 +1,6 @@
-[submodule "eco-index/GreenIT-Analysis-cli"]
-	path = eco-index/GreenIT-Analysis-cli
-	url = https://github.com/Zenika/GreenIT-Analysis-cli
-[submodule "powerapi/powerapi"]
-	path = powerapi/powerapi
-	url = git@github.com:Zenika/powerapi.git
-[submodule "powerapi/smartwatts"]
-	path = powerapi/smartwatts
-	url = git@github.com:Zenika/smartwatts-formula.git
 [submodule "yellowLabTools/src"]
 	path = yellowLabTools/src
 	url = git@github.com:Zenika/YellowLabTools.git
+[submodule "eco-index/GreenIT-analysis-cli"]
+	path = eco-index/GreenIT-analysis-cli
+	url = https://github.com/cnumr/GreenIT-Analysis-cli
