@@ -590,6 +590,126 @@ Consomation d'eau associée à la page
 
 Type : nombre à virgule
 
+# ecoconception
+## java-avoidListInForeach
+Using List instead of Arrays with Foreach save CPU cycles calculations and RAM consumption
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## java-avoidRepoInLoop
+Using Spring repository in loop induced unnecessary calculation by the cpu so unless energy consumption
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## java-avoidSQLRequestInLoop
+Executing SQL queries in loop induced unnecessary calculation by the cpu, RAM usage and network transfert.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## java-avoidSelect*
+Databases servers have to solves fileds regarding to schema. Knowing and using the schema save CPU cycles and network transfer.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## java-noFunctionInForLoop
+Do not call a function when declaring a for-type loop in order to avoid function calls each iterations. It saves CPU cycles
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## java-noUnnecessaryAssignation
+Do not unnecessarily assign values to variables. It increase unless RAM memory usage
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## java-use++i
+The form $i++ creates a temporary variable whereas ++$i does not. It save CPU cycles.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## php-avoidDoubleQuote
+PHP allows declaring a string with simple or double quotes. Using double quotes allows developers to insert variables which will be substituted during execution. When the string has no variables, using simple quotes avoid PHP to search inexisting variables. It will save CPU cycles consumption.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## php-avoidSQLRequestInLoop
+Executing SQL queries in loop induced unnecessary calculation by the cpu, RAM usage and network transfert.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## php-avoidSelect*
+Databases servers have to solves fileds regarding to schema. Knowing and using the schema save CPU cycles and network transfer.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## php-avoidTryCatchFinaly
+Inside complex code parts (for exemple multiple loops, complex data constructions...), avoid using try...catch...finally. When an exception is thrown, a variable (the exception itself) is created in a catch block and it's destruction consumes unnecessary CPU cycles and RAM. Prefer using logical tests in this cases.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## php-noFunctionInForLoop
+Do not call a function when declaring a for-type loop in order to avoid function calls each iterations. It saves CPU cycles
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## php-use++i
+The form $i++ creates a temporary variable whereas ++$i does not. It save CPU cycles.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## python-avoidCallGlobalVarInFunction
+When function calls global variables, a lot a CPU cycles is consumed
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## python-avoidSelect*
+Databases servers have to solves fileds regarding to schema. Knowing and using the schema save CPU cycles and network transfer.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## python-avoidTryCatchFinaly
+Inside complex code parts (for exemple multiple loops, complex data constructions...), avoid using try...catch...finally. When an exception is thrown, a variable (the exception itself) is created in a catch block and it's destruction consumes unnecessary CPU cycles and RAM. Prefer using logical tests in this cases.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
+## python-noFunctionInForLoop
+Raises an issue on a For statement with a visitor on which you can control the visit.
+
+Type : entier
+
+Exemple de comparaison : `== 0.0`
+
 # fonts
 ## heavyFonts
 Type : entier

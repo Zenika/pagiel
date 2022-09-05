@@ -4,3 +4,6 @@
 [submodule "eco-index/GreenIT-analysis-cli"]
 	path = eco-index/GreenIT-analysis-cli
 	url = https://github.com/cnumr/GreenIT-Analysis-cli
+[submodule "ecocode/src"]
+	path = ecocode/src
+	url = git@github.com:cnumr/ecoCode.git

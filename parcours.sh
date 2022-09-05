@@ -1,4 +1,5 @@
 #!/bin/bash
+sourceCodeRepository=$1
 
 source ./scripts/parcours-common.sh
 
@@ -12,6 +13,7 @@ process () {
     converturl
     tests
     testsrobot
+    testEcoCode $sourceCodeRepository
     report
     sleep 15
 }
