@@ -15,8 +15,11 @@ help() {
     echo "-R : disable report generation"
     echo "-F : disable Robot Framework"
     echo "-d : setup test for an image"
+    echo "-D : setup test for a docker-compose"
     echo "--docker-image : image to test (mandatory with -d)"
     echo "--docker-port : port of the website (default 80)"
+    echo "--docker-compose-file : docker-compose file to test (mandatory with -D)"
+    echo "--docker-front-container : name of the container exposing the website (default : test-container)"
 }
 
 # Powerapi section
@@ -77,6 +80,16 @@ startContainer() { # dockerImage containerName dockerNetwork
 stopContainer() { # dockerImage containerName
     docker container stop $2
     docker image rm -f $1
+}
+
+# docker-compose
+startDockerCompose(){ # dockerComposeFile dockerNetwork
+    python3 ./scripts/docker-compose-conf.py $1 $2
+    docker-compose --file=$1 up -d
+}
+
+stopDockerCompose(){ # dockerComposeFile
+    docker-compose --file=$1 down
 }
 
 # Test function
@@ -144,6 +157,8 @@ cleanup() {
 
     if [ "$dockerMode" = "image" ] ; then
         stopContainer $dockerImage $dockerContainerName
+    elif [ "$dockerMode" = "compose" ] ; then
+        stopDockerCompose $dockerComposeFile
     fi
 }
 
@@ -160,12 +175,13 @@ doYellowLabTool=true
 doReport=true
 dockerMode=default
 dockerContainerName=test-container
-dockerPort=0
+dockerPort=80
+dockerComposeFile=""
 dockerNetwork=${currentDir}_default
 
 OPTS=$(getopt \
     --options "hPGSYRFdD" \
-    --longoptions "docker-image:,docker-port:" \
+    --longoptions "docker-image:,docker-port:,docker-front-container:,docker-compose-file:" \
     --name "$(basename "$0")" \
     -- "$@"
 )
@@ -188,6 +204,8 @@ while [[ $# > 0 ]]; do
       -D) dockerMode=compose;;
       --docker-image) dockerImage=$2 && shift;;
       --docker-port) dockerPort=$2 && shift;;
+      --docker-front-container) dockerContainerName=$2 && shift;;
+      --docker-compose-file) dockerComposeFile=$2 && shift;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -205,6 +223,8 @@ else
     convertInputDocker $dockerContainerName $dockerPort
     if [ "$dockerMode" = "image" ] ; then
         startContainer $dockerImage $dockerContainerName $dockerNetwork
+    else
+        startDockerCompose $dockerComposeFile $dockerNetwork
     fi
 fi
 
