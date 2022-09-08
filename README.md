@@ -25,6 +25,7 @@ Sommaire
     - [HWPC](#hpwc)
     - [Formula](#formula)
     - [Dashboards](#dashboards)
+  - [Sonarqube et plugin ecoCode](#sonarqube-et-plugin-ecocode)
   - [Selenium & Robot Framework](#selenium--robot-framework)
 - [Architecture](#architecture)
  - [Configuration suplémentaire pour l'analyse de la consomation énergétique](#installation-et-configuration-de-lenvironnement-pour-lanalyse-de-la-consommation-énergétique)
@@ -53,6 +54,8 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 
 - docker-compose
 - python (script d'installation uniquement)
+- java >= 8
+- mvn 3
 
 ### Préparation
 
@@ -323,6 +326,25 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 - Dans un premier temps, il peut être pertinent de corréler les mesures réalisées dans le temps et l'exécution des tests Robot Framework
 - Dans un second temps, il faudra réaliser un calcul de type intégration (dans Grafana) en fonction de la durée des tests, dans l'idée d'avoir une valeur unique à la place d'une courbe  
 
+### Sonarqube et plugin ecoCode
+
+Sonarqube est un logiciel d'analyse statique de code. Il permet d’évaluer la dette technique et la présence de mauvaises pratiques de programation dans le code source de l'application. Le serveur expose une API REST, et nous pouvons donc agréger les résultats de Sonarqube dans notre plateforme.
+
+EcoCode est un autre outil du CnumR, qui rajoute quelques règles liées à l'écoconception dans les règles d’analyses de Sonarqube. Pour l’instant, les langages supportés sont Java, PHP, Python et Android.
+
+Les indicateurs de la catégorie "ecoconception" proviennent de ce plugin, et la valeur comparée est le nombre de fois ou ce code smell est présent dans le code source.
+
+Il est possible de rajouter d'autres indicateurs provenant de sonarqube dans la liste des indicateurs qui peuvent être suivis par la plateforme. Pour cela, il suffit de rajouter un bloc dans le fichier `reports/src/indics.yaml` et de recréer l'image du container `report` via un `docker-compose build report`.
+
+```
+<catégorie>:
+  <nom de la règle>:
+    Rule-key: <clé de la règle>
+```
+
+Le nom et la catégorie seront à renseigner par la suite dans le fichier urls.yaml, et la clé se trouve dans les détails d'une règle.
+
+Il est aussi possible de rajouter d'autres plugins, il suffit de les placer dans le dossier ecocode/src/lib
 
 ### Selenium & Robot Framework
 

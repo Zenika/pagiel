@@ -1,4 +1,5 @@
 #!/bin/bash
+sourceCodeRepository=$1
 
 source ./scripts/parcours-common.sh
 
@@ -6,6 +7,7 @@ source ./scripts/parcours-common.sh
 process () {
     converturl
     tests
+    testEcoCode $sourceCodeRepository
     report
 }
 

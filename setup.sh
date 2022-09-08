@@ -15,6 +15,9 @@ fi
 git submodule init
 git submodule update
 
+cd ecocode/src ; mvn clean install ; cd ../..
+docker-compose restart sonar-server
+
 # grep variable from .env
 token=`grep INFLUXDB_TOKEN .env`
 token=${token#*=}

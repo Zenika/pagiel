@@ -528,8 +528,132 @@ eco:
     type: str
   water:
     desc: "Consomation d'eau associ\xE9e \xE0 la page"
-    influxMeasurement: eco_index
     type: float
+ecoconception:
+  java-avoidListInForeach:
+    Rule-key: cnumr-java:S53
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Using List instead of Arrays with Foreach save CPU cycles calculations and
+      RAM consumption
+    type: int
+  java-avoidRepoInLoop:
+    Rule-key: cnumr-java:GRC1
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Using Spring repository in loop induced unnecessary calculation by the cpu
+      so unless energy consumption
+    type: int
+  java-avoidSQLRequestInLoop:
+    Rule-key: cnumr-java:S72
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Executing SQL queries in loop induced unnecessary calculation by the cpu,
+      RAM usage and network transfert.
+    type: int
+  java-avoidSelect*:
+    Rule-key: cnumr-java:S74
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Databases servers have to solves fileds regarding to schema. Knowing and
+      using the schema save CPU cycles and network transfer.
+    type: int
+  java-noFunctionInForLoop:
+    Rule-key: cnumr-java:S69
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Do not call a function when declaring a for-type loop in order to avoid
+      function calls each iterations. It saves CPU cycles
+    type: int
+  java-noUnnecessaryAssignation:
+    Rule-key: cnumr-java:S63
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Do not unnecessarily assign values to variables. It increase unless RAM
+      memory usage
+    type: int
+  java-use++i:
+    Rule-key: cnumr-java:S67
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: The form $i++ creates a temporary variable whereas ++$i does not. It save
+      CPU cycles.
+    type: int
+  php-avoidDoubleQuote:
+    Rule-key: cnumr-php:S66
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: PHP allows declaring a string with simple or double quotes. Using double
+      quotes allows developers to insert variables which will be substituted during
+      execution. When the string has no variables, using simple quotes avoid PHP to
+      search inexisting variables. It will save CPU cycles consumption.
+    type: int
+  php-avoidSQLRequestInLoop:
+    Rule-key: cnumr-php:S72
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Executing SQL queries in loop induced unnecessary calculation by the cpu,
+      RAM usage and network transfert.
+    type: int
+  php-avoidSelect*:
+    Rule-key: cnumr-php:S74
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Databases servers have to solves fileds regarding to schema. Knowing and
+      using the schema save CPU cycles and network transfer.
+    type: int
+  php-avoidTryCatchFinaly:
+    Rule-key: cnumr-php:S34
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Inside complex code parts (for exemple multiple loops, complex data constructions...),
+      avoid using try...catch...finally. When an exception is thrown, a variable (the
+      exception itself) is created in a catch block and it's destruction consumes
+      unnecessary CPU cycles and RAM. Prefer using logical tests in this cases.
+    type: int
+  php-noFunctionInForLoop:
+    Rule-key: cnumr-php:S69
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Do not call a function when declaring a for-type loop in order to avoid
+      function calls each iterations. It saves CPU cycles
+    type: int
+  php-use++i:
+    Rule-key: cnumr-php:S67
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: The form $i++ creates a temporary variable whereas ++$i does not. It save
+      CPU cycles.
+    type: int
+  python-avoidCallGlobalVarInFunction:
+    Rule-key: cnumr-python:D4
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: When function calls global variables, a lot a CPU cycles is consumed
+    type: int
+  python-avoidSelect*:
+    Rule-key: cnumr-python:S74
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Databases servers have to solves fileds regarding to schema. Knowing and
+      using the schema save CPU cycles and network transfer.
+    type: int
+  python-avoidTryCatchFinaly:
+    Rule-key: cnumr-python:S34
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Inside complex code parts (for exemple multiple loops, complex data constructions...),
+      avoid using try...catch...finally. When an exception is thrown, a variable (the
+      exception itself) is created in a catch block and it's destruction consumes
+      unnecessary CPU cycles and RAM. Prefer using logical tests in this cases.
+    type: int
+  python-noFunctionInForLoop:
+    Rule-key: cnumr-python:S69
+    defaultComparison: ==
+    defaultValue: 0.0
+    desc: Raises an issue on a For statement with a visitor on which you can control
+      the visit.
+    type: int
 fonts:
   heavyFonts:
     influxMeasurement: YellowLabTools

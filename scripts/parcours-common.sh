@@ -57,6 +57,17 @@ tests() {
     fi
 }
 
+testEcoCode() {
+    echo "Démarrage d'EcoCode"
+    SONAR_REPO=$1 docker-compose run --rm sonar-scanner 
+    errCode=$?
+    if [ $errCode -ne 0 ];
+    then
+        echo "Erreur lors d'EcoCode"
+        exit $errCode
+    fi
+}
+
 testsrobot() {
     echo "Démarrage des tests Robot Framework"
     docker-compose --profile conso up --abort-on-container-exit --exit-code-from robot-chrome-test robot-chrome-test
@@ -71,7 +82,7 @@ testsrobot() {
 report() {
     # Démarrage du conteneur de génération de raport Junit
     echo "Début de la génération du raport Junit"
-    docker-compose --profile report up --abort-on-container-exit --exit-code-from report report
+    SONAR_PROJECT_KEY=$1 docker-compose run --rm report
     errCode=$?
     if [ $errCode -ne 0 ];
     then
