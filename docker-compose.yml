@@ -17,17 +17,6 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG_NAME}
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET_NAME}
       - DOCKER_INFLUXDB_INIT_RETENTION=${INFLUXDB_RETENTION}
-
-  graphite:
-    image: ${GRAPHITE_IMAGE_VERSION}
-    container_name: graphite
-    ports:
-      - "2003:2003"
-      - "8092:80"
-    restart: always
-    volumes:
-      - graphite-storage:/opt/graphite/storage/whisper
-      - ./graphite/conf/carbon.conf:/opt/graphite/conf/carbon.conf:ro
       
   powerapi-hwpc-sensor:
     image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
@@ -108,14 +97,15 @@ services:
 
   sitespeed:
     container_name: sitespeed
-    image: ${SITESPEED_IMAGE_VERSION}
+    build: sitespeed/src
     shm_size: '1g'
     depends_on:
-      - graphite
-    command: /input/urls.txt --cpu --sustainable.enable --axe.enable -b chrome --chrome.args no-sandbox --graphite.host graphite --graphite.webHost http://graphite --graphite.port ${GRAPHITE_PORT} --graphite.httpPort 8092 --graphite.auth user:password --graphite.username ${GRAPHITE_USERNAME} --graphite.password ${GRAPHITE_PASSWORD}
+      - influxdb
+    command: --config /sitespeed.io/config.json /input/urls.txt
     volumes:
       - ./sitespeed/results:/sitespeed.io/sitespeed-result:rw
       - tmp-storage:/input:ro
+      - ./sitespeed/config/config.json:/sitespeed.io/config.json
     profiles:
       - test
   
@@ -145,7 +135,6 @@ services:
       - ./grafana-provisioning/:/etc/grafana/provisioning
     depends_on:
       - influxdb
-      - graphite
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
@@ -158,21 +147,6 @@ services:
       - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
       - INFLUXDB_HOST=${INFLUXDB_HOST}
       - INFLUXDB_PORT=${INFLUXDB_PORT}
-      - GRAPHITE_PORT=${GRAPHITE_ACCESS_PORT}
-      - GRAPHITE_HOST=${GRAPHITE_HOST}
-      - GRAPHITE_USERNAME=${GRAPHITE_USERNAME}
-      - GRAPHITE_PASSWORD=${GRAPHITE_PASSWORD}
-
-  grafana-setup:
-    container_name: grafana_setup
-    image: ${GRAFANA_SETUP_IMAGE_VERSION}
-    links:
-      - grafana
-    environment:
-      - GF_PASSWORD=${GRAFANA_PASSWORD}
-      - GF_USER=${GRAFANA_USERNAME}
-    profiles:
-      - setup
   
   url-converter:
     container_name: url-converter
@@ -192,17 +166,12 @@ services:
     user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     depends_on:
       - influxdb
-      - graphite
     environment:
       - INFLUXDB_ORG_NAME=${INFLUXDB_ORG_NAME}
       - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
       - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
       - INFLUXDB_HOST=${INFLUXDB_HOST}
       - INFLUXDB_PORT=${INFLUXDB_PORT}
-      - GRAPHITE_PORT=${GRAPHITE_ACCESS_PORT}
-      - GRAPHITE_HOST=${GRAPHITE_HOST}
-      - GRAPHITE_USERNAME=${GRAPHITE_USERNAME}
-      - GRAPHITE_PASSWORD=${GRAPHITE_PASSWORD}
       - EXIT_CODE_FAIL=${EXIT_CODE_FAIL}
     volumes:
       - ./reports/reports:/opt/report/results/:rw
@@ -213,7 +182,6 @@ services:
 
 volumes:
   influxdb-storage:
-  graphite-storage:
   report-storage:
   grafana-storage:
   tmp-storage:

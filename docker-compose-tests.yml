@@ -6,3 +6,9 @@ services:
     build: 
       context: reports/
       dockerfile: Dockerfile-test
+    environment:
+      - INFLUXDB_ORG_NAME=${INFLUXDB_ORG_NAME}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
+      - INFLUXDB_HOST=${INFLUXDB_HOST}
+      - INFLUXDB_PORT=${INFLUXDB_PORT}

@@ -1,1160 +1,1895 @@
 DOM:
   DOMaccesses:
-    influxMeasurement: YellowLabTools
+    Field: DOMaccesses
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     type: int
   DOMelementMaxDepth:
+    Field: DOMelementMaxDepth
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Profondeur maximale d'imbrication des noeuds HTML
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   DOMelementsCount:
+    Field: DOMelementsCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de noeuds HTML
-    influxMeasurement: YellowLabTools
     type: int
   DOMidDuplicated:
+    Field: DOMidDuplicated
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'ids dupliqu\xE9s"
-    influxMeasurement: YellowLabTools
     type: int
   DOMinserts:
+    Field: DOMinserts
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de noeuds ins\xE9r\xE9s"
-    influxMeasurement: YellowLabTools
     path: '*.append'
     type: int
   DOMmutationsAttributes:
+    Field: DOMmutationsAttributes
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: 'Nombre de changement d''attribut de node '
-    influxMeasurement: YellowLabTools
     type: int
   DOMmutationsInserts:
+    Field: DOMmutationsInserts
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de noeuds ins\xE9r\xE9s"
-    influxMeasurement: YellowLabTools
     type: int
   DOMmutationsRemoves:
+    Field: DOMmutationsRemoves
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de noeuds supprim\xE9s"
-    influxMeasurement: YellowLabTools
     type: int
   DOMqueries:
+    Field: DOMqueries
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAtes sur le DOM"
-    influxMeasurement: YellowLabTools
     type: int
   DOMqueriesAvoidable:
+    Field: DOMqueriesAvoidable
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAtes sur le DOM r\xE9p\xE9t\xE9es "
-    influxMeasurement: YellowLabTools
     type: int
   DOMqueriesByClassName:
+    Field: DOMqueriesByClassName
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appels \xE0 document.getElementsByClassName"
-    influxMeasurement: YellowLabTools
     type: int
   DOMqueriesById:
+    Field: DOMqueriesById
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appels \xE0 document.getElementById"
-    influxMeasurement: YellowLabTools
     path: '*.id'
     type: int
   DOMqueriesByQuerySelectorAll:
+    Field: DOMqueriesByQuerySelectorAll
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appels \xE0 document.querySelector(All)"
-    influxMeasurement: YellowLabTools
     path: '*.selector'
     type: int
   DOMqueriesByTagName:
+    Field: DOMqueriesByTagName
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appels \xE0 document.getElementsByTagName"
-    influxMeasurement: YellowLabTools
     path: '*.tag'
     type: int
   DOMqueriesDuplicated:
+    Field: DOMqueriesDuplicated
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAtes r\xE9p\xE9t\xE9es"
-    influxMeasurement: YellowLabTools
     path: '*.query'
     type: int
   DOMqueriesWithoutResults:
+    Field: DOMqueriesWithoutResults
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAtes sans r\xE9sultat"
-    influxMeasurement: YellowLabTools
     path: '*.query'
     type: int
   bodyHTMLSize:
+    Field: bodyHTMLSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Taille du contenue du body (document.body.innerHTML.length) (bytes)
-    influxMeasurement: YellowLabTools
     type: int
   commentsSize:
+    Field: commentsSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Taille des commentaires sur la page (bytes)
-    influxMeasurement: YellowLabTools
     type: int
   documentHeight:
+    Field: documentHeight
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Hauteur de la page (px)
-    influxMeasurement: YellowLabTools
     type: int
   hiddenContentSize:
+    Field: hiddenContentSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Taille du contenue cach\xE9 de la page (avec display:none) (bytes)"
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   iframesCount:
+    Field: iframesCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'iframes
-    influxMeasurement: YellowLabTools
     type: int
   nodesWithInlineCSS:
+    Field: nodesWithInlineCSS
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de nodes avec du css inline
-    influxMeasurement: YellowLabTools
     path: '*.node'
     type: int
   whiteSpacesSize:
+    Field: whiteSpacesSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Taille des noeuds de texte avec uniquement des blancs (bytes)
-    influxMeasurement: YellowLabTools
     type: int
 assets:
   ExternalizeCss:
+    Field: ExternalizeCss
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Externaliser les css
-    influxMeasurement: eco_index
     type: str
   ExternalizeJs:
+    Field: ExternalizeJs
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Externaliser les js
-    influxMeasurement: eco_index
     type: str
   MinifiedCss:
+    Field: MinifiedCss
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Minifier les css
-    influxMeasurement: eco_index
     type: str
   MinifiedJs:
+    Field: MinifiedJs
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Minifier les js
-    influxMeasurement: eco_index
     type: str
   StyleSheets:
+    Field: StyleSheets
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Limiter le nombre de fichiers css
-    influxMeasurement: eco_index
     type: str
   UseStandardTypefaces:
+    Field: UseStandardTypefaces
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Utiliser des polices de caract\xE8res standards"
-    influxMeasurement: eco_index
     type: str
   assetsWithCookies:
+    Field: assetsWithCookies
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: ==
     defaultValue: 0.0
     desc: "Nombre de fichier requ\xEAt\xE9 sur des domaines avec des cookies"
-    influxMeasurement: YellowLabTools
     type: int
   assetsWithQueryString:
+    Field: assetsWithQueryString
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: ==
     defaultValue: 0.0
     desc: "Nombre de fichier requ\xEAt\xE9 avec des param\xE8tres dans les URLs"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
-  cssCount:
-    desc: Nombre total de fichier css
-    influxMeasurement: YellowLabTools
-    type: int
   cssSize:
+    Field: cssSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Volume total de fichier css
-    influxMeasurement: YellowLabTools
     type: int
   fileMinification:
-    influxMeasurement: YellowLabTools
+    Field: fileMinification
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     path: files.*.url
     type: int
-  jsCount:
-    desc: Nombre total de fichier javascript
-    influxMeasurement: YellowLabTools
-    type: int
   jsSize:
+    Field: jsSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Volume total de fichier javascript
-    influxMeasurement: YellowLabTools
-    type: int
-  jsonCount:
-    desc: Nombre total de fichier JSON
-    influxMeasurement: YellowLabTools
     type: int
   jsonSize:
+    Field: jsonSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Volume total de fichier JSON
-    influxMeasurement: YellowLabTools
     type: int
   multipleRequests:
+    Field: multipleRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: ==
     defaultValue: 0.0
     desc: "Fichier statique requ\xEAt\xE9 plus d'une fois"
-    influxMeasurement: YellowLabTools
     type: int
   smallCssFiles:
+    Field: smallCssFiles
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de petit fichier css
-    influxMeasurement: YellowLabTools
     type: int
   smallJsFiles:
+    Field: smallJsFiles
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de petit fichier javascript
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
 caching:
   AddExpiresOrCacheControlHeaders:
+    Field: AddExpiresOrCacheControlHeaders
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Ajouter des expires ou cache-control headers
-    influxMeasurement: eco_index
     type: str
   cacheHits:
+    Field: cacheHits
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de cache hits sur un serveur de cache
-    influxMeasurement: YellowLabTools
     type: int
   cacheMisses:
+    Field: cacheMisses
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de cache misses sur un serveur de cache
-    influxMeasurement: YellowLabTools
     type: int
   cachePasses:
+    Field: cachePasses
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de cache passes sur un serveur de cache
-    influxMeasurement: YellowLabTools
     type: int
   cachingDisabled:
+    Field: cachingDisabled
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichier dont le cache est d\xE9sactiv\xE9"
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   cachingNotSpecified:
+    Field: cachingNotSpecified
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichier dont le cache est non sp\xE9cifi\xE9"
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   cachingTooShort:
+    Field: cachingTooShort
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichier dont le cache est tr\xE8s court"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   cachingUseImmutable:
+    Field: cachingUseImmutable
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichier qui pourrait b\xE9n\xE9ficier de l'en-t\xEAte Cache-Control:\
       \ immutable"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   oldCachingHeaders:
+    Field: oldCachingHeaders
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE9ponse avec les en-t\xEAtes de cache HTTP 1.0 (Expires et\
       \ Pragma) "
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
 compression:
   CompressHttp:
+    Field: CompressHttp
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Compresser les ressources
-    influxMeasurement: eco_index
     type: str
   assetsNotGzipped:
+    Field: assetsNotGzipped
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fichier statique non gzip
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   bodySize:
+    Field: bodySize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume total de fichier d\xE9compress\xE9"
-    influxMeasurement: YellowLabTools
     type: int
   compression:
-    influxMeasurement: YellowLabTools
+    Field: compression
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     path: files.*.url
     type: int
   contentLength:
+    Field: contentLength
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume total de fichier compress\xE9"
-    influxMeasurement: YellowLabTools
     type: int
   gzipRequests:
+    Field: gzipRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAtes compress\xE9e avec gzip"
-    influxMeasurement: YellowLabTools
     type: int
 cookies:
   MaxCookiesLength:
+    Field: MaxCookiesLength
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Taille maximum des cookies par domaine
-    influxMeasurement: eco_index
     type: str
   NoCookieForStaticRessources:
+    Field: NoCookieForStaticRessources
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Pas de cookie pour les ressources statiques
-    influxMeasurement: eco_index
     type: str
   cookiesRecv:
+    Field: cookiesRecv
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Taille totale de cookies re\xE7us"
-    influxMeasurement: YellowLabTools
     type: int
   cookiesSent:
+    Field: cookiesSent
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Taille totale de cookies envoy\xE9s"
-    influxMeasurement: YellowLabTools
     type: int
   documentCookiesCount:
+    Field: documentCookiesCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de cookies dans document.cookie
-    influxMeasurement: YellowLabTools
     type: int
   documentCookiesLength:
+    Field: documentCookiesLength
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: <=
     defaultValue: 512.0
     desc: Taille de document.cookie (bytes)
-    influxMeasurement: YellowLabTools
     type: int
   domainsWithCookies:
+    Field: domainsWithCookies
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de dommaine avec des cookies
-    influxMeasurement: YellowLabTools
     type: int
 css:
   cssBase64Length:
+    Field: cssBase64Length
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Longueur de contenue encod\xE9 en base64 dans les fichiers css"
-    influxMeasurement: YellowLabTools
     type: int
   cssBreakpoints:
+    Field: cssBreakpoints
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de breakpoints CSS
-    influxMeasurement: YellowLabTools
     path: '*.pixels'
     type: int
   cssColors:
+    Field: cssColors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de couleurs utilis\xE9s dans le css"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssComments:
+    Field: cssComments
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de commentaires dans les fichiers css
-    influxMeasurement: YellowLabTools
     type: int
   cssCommentsLength:
+    Field: cssCommentsLength
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Longueur des commentaires dans les fichiers css
-    influxMeasurement: YellowLabTools
     type: int
   cssComplexSelectors:
+    Field: cssComplexSelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs complexes"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssDeclarations:
+    Field: cssDeclarations
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de d\xE9clarations faite dans les fichiers css"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   cssDuplicatedProperties:
+    Field: cssDuplicatedProperties
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de propri\xE9t\xE9s dupliqu\xE9s dans un s\xE9lecteur"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssDuplicatedSelectors:
+    Field: cssDuplicatedSelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs dupliqu\xE9s"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssEmptyRules:
+    Field: cssEmptyRules
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE8gles sans propri\xE9t\xE9es"
-    influxMeasurement: YellowLabTools
     type: int
   cssExpressions:
+    Field: cssExpressions
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE8gles avec des expressions"
-    influxMeasurement: YellowLabTools
     type: int
   cssImportants:
+    Field: cssImportants
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de propri\xE9t\xE9s avec une valeur forc\xE9e avec !important"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssImports:
+    Field: cssImports
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE8gle avec @import"
-    influxMeasurement: YellowLabTools
     type: int
   cssInlineStyles:
+    Field: cssInlineStyles
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de style inline
-    influxMeasurement: YellowLabTools
     path: '*.node'
     type: int
   cssLength:
+    Field: cssLength
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Taille des fichiers css (bytes)
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   cssMediaQueries:
+    Field: cssMediaQueries
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de media queries
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssMobileFirst:
+    Field: cssMobileFirst
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE8gles mobile first"
-    influxMeasurement: YellowLabTools
     path: '*.query'
     type: int
   cssMultiClassesSelectors:
+    Field: cssMultiClassesSelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs avec multiples classes"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssNotMinified:
+    Field: cssNotMinified
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichiers css non minifi\xE9s"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   cssOldIEFixes:
+    Field: cssOldIEFixes
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fixes pour des vieille version d'Internet Explorer
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssOldPropertyPrefixes:
+    Field: cssOldPropertyPrefixes
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de propri\xE9t\xE9s avec un pr\xE9fixe non n\xE9c\xE9ssaire"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssParsingErrors:
+    Field: cssParsingErrors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'erreurs lors du parsing du css
-    influxMeasurement: YellowLabTools
     type: int
   cssPropertyResets:
-    influxMeasurement: YellowLabTools
+    Field: cssPropertyResets
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     type: int
   cssQualifiedSelectors:
+    Field: cssQualifiedSelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs qualifi\xE9s (ex : header#nav, h1.title)"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssRedundantBodySelectors:
+    Field: cssRedundantBodySelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs de body redondant (ex: body .foo)"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssRedundantChildNodesSelectors:
+    Field: cssRedundantChildNodesSelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs de node enfant redondant"
-    influxMeasurement: YellowLabTools
     path: '*.value.message'
     type: int
   cssRules:
+    Field: cssRules
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE8gles css"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   cssSelectorLengthAvg:
+    Field: cssSelectorLengthAvg
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Longueur moyenne des s\xE9lecteurs css"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: float
   cssSelectors:
+    Field: cssSelectors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs css"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   cssSelectorsByAttribute:
+    Field: cssSelectorsByAttribute
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs par attribut"
-    influxMeasurement: YellowLabTools
     type: int
   cssSelectorsByClass:
+    Field: cssSelectorsByClass
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs par classe"
-    influxMeasurement: YellowLabTools
     type: int
   cssSelectorsById:
+    Field: cssSelectorsById
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs par id"
-    influxMeasurement: YellowLabTools
     type: int
   cssSelectorsByPseudo:
+    Field: cssSelectorsByPseudo
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de pseudo-selectors
-    influxMeasurement: YellowLabTools
     type: int
   cssSelectorsByTag:
+    Field: cssSelectorsByTag
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de s\xE9lecteurs par tag"
-    influxMeasurement: YellowLabTools
     type: int
   cssSpecificityClassAvg:
+    Field: cssSpecificityClassAvg
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Moyenne de la sp\xE9cificit\xE9 pour les s\xE9lecteurs par classe, pseudo-class\
       \ ou attribut"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: float
   cssSpecificityClassTotal:
+    Field: cssSpecificityClassTotal
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Sp\xE9cificit\xE9 totale des s\xE9lecteurs par classe, pseudo-class, et\
       \ attribut"
-    influxMeasurement: YellowLabTools
     type: int
   cssSpecificityIdAvg:
+    Field: cssSpecificityIdAvg
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Moyenne de la sp\xE9cificit\xE9 pour les s\xE9lecteurs par id"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: float
   cssSpecificityIdTotal:
+    Field: cssSpecificityIdTotal
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Sp\xE9cificit\xE9 totale des s\xE9lecteurs par id"
-    influxMeasurement: YellowLabTools
     type: int
   cssSpecificityTagAvg:
+    Field: cssSpecificityTagAvg
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Moyenne de la sp\xE9cificit\xE9 pour les s\xE9lecteurs par tag"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: float
   cssSpecificityTagTotal:
+    Field: cssSpecificityTagTotal
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Sp\xE9cificit\xE9 totale des s\xE9lecteurs par tag"
-    influxMeasurement: YellowLabTools
     type: int
   similarColors:
+    Field: similarColors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de couleurs similaires
-    influxMeasurement: YellowLabTools
     path: '*.color1+color2'
     type: int
 domains:
   DomainsNumber:
+    Field: DomainsNumber
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Limiter le nombre de domaines
-    influxMeasurement: eco_index
     type: str
   blockedRequests:
+    Field: blockedRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte bloqu\xE9 \xE0 cause de filtrage de domaine"
-    influxMeasurement: YellowLabTools
     type: int
   domains:
+    Field: domains
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: <
     defaultValue: 3.0
     desc: "Nombre de domaines requ\xEAt\xE9s pour charger la page"
-    influxMeasurement: YellowLabTools
     path: '*.domain'
     type: int
   domainsToDomComplete:
+    Field: domainsToDomComplete
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de domaines requ\xEAt\xE9 pour atteindre l'\xE9tat DomComplete"
-    influxMeasurement: YellowLabTools
     path: '*.domain'
     type: int
   domainsToDomContentLoaded:
+    Field: domainsToDomContentLoaded
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de domaines requ\xEAt\xE9 pour atteindre l'\xE9tat DomContentLoaded"
-    influxMeasurement: YellowLabTools
     path: '*.domain'
     type: int
   domainsToFirstPaint:
+    Field: domainsToFirstPaint
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de domaines requ\xEAt\xE9 pour faire le premier changement visuel"
-    influxMeasurement: YellowLabTools
     type: int
   maxRequestsPerDomain:
+    Field: maxRequestsPerDomain
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre maximal de requ\xEAtes faire sur un seul domaine"
-    influxMeasurement: YellowLabTools
     type: int
   medianRequestsPerDomain:
+    Field: medianRequestsPerDomain
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "M\xE9diane du nombre de requ\xEAte faite par domaine"
-    influxMeasurement: YellowLabTools
     type: int
 eco:
   ecoindex:
+    Field: ecoindex
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     defaultComparison: '>='
     defaultValue: 65.0
     desc: "Valeur de l'\xE9coindex de la page"
-    influxMeasurement: eco_index
     type: int
   ges:
+    Field: ges
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Emission de gaz \xE0 effet de serre associ\xE9e \xE0 la page (en gramme\
       \ equivalent CO2, geCO2)"
-    influxMeasurement: eco_index
     type: float
   grade:
+    Field: grade
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Note associ\xE9e \xE0 l'ecoindex"
-    influxMeasurement: eco_index
     type: str
   water:
+    Field: water
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Consomation d'eau associ\xE9e \xE0 la page"
-    influxMeasurement: eco_index
     type: float
 fonts:
   heavyFonts:
-    influxMeasurement: YellowLabTools
+    Field: heavyFonts
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     path: fonts.*.url
     type: int
   nonWoff2Fonts:
-    influxMeasurement: YellowLabTools
+    Field: nonWoff2Fonts
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     type: int
   webfontSize:
+    Field: webfontSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume de web font charg\xE9 (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
 headers:
   headersBiggerThanContent:
+    Field: headersBiggerThanContent
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE9ponse re\xE7us avec partie une en-t\xEAte plus importante\
       \ que le body"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   headersCount:
+    Field: headersCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nomre de r\xE9ponses et d'en-t\xEAte re\xE7us"
-    influxMeasurement: YellowLabTools
     type: int
   headersRecvCount:
+    Field: headersRecvCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'en-t\xEAtes re\xE7us"
-    influxMeasurement: YellowLabTools
     type: int
   headersRecvSize:
+    Field: headersRecvSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume d'en-t\xEAtes re\xE7us (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   headersSentCount:
+    Field: headersSentCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'en-t\xEAtes envoy\xE9s"
-    influxMeasurement: YellowLabTools
     type: int
   headersSentSize:
+    Field: headersSentSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume d'en-t\xEAtes envoy\xE9s (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   headersSize:
+    Field: headersSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume total d'en-t\xEAte (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   incorrectContentTypes:
+    Field: incorrectContentTypes
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de Content-Type incorrects
-    influxMeasurement: YellowLabTools
     type: int
 images:
   DontResizeImageInBrowser:
+    Field: DontResizeImageInBrowser
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Ne pas retailler les images dans le navigateur
-    influxMeasurement: eco_index
     type: str
   EmptySrcTag:
+    Field: EmptySrcTag
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Eviter les tags SRC vides
-    influxMeasurement: eco_index
     type: str
   ImageDownloadedNotDisplayed:
+    Field: ImageDownloadedNotDisplayed
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Ne pas t\xE9l\xE9charger des images inutilement"
-    influxMeasurement: eco_index
     type: str
   OptimizeBitmapImages:
+    Field: OptimizeBitmapImages
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Optimiser les images bitmap
-    influxMeasurement: eco_index
     type: str
   OptimizeSvg:
+    Field: OptimizeSvg
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Optimiser les images svg
-    influxMeasurement: eco_index
     type: str
   hiddenImages:
+    Field: hiddenImages
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'images cach\xE9 par un style display: none"
-    influxMeasurement: YellowLabTools
     type: int
   imageCount:
+    Field: imageCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'images
-    influxMeasurement: YellowLabTools
     type: int
   imageOptimization:
-    influxMeasurement: YellowLabTools
+    Field: imageOptimization
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     path: images.*.url
     type: int
   imageSize:
+    Field: imageSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume d'image charg\xE9 (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   imagesScaledDown:
+    Field: imagesScaledDown
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'images retaill\xE9s dans le navigateur"
-    influxMeasurement: YellowLabTools
     type: int
   imagesTooLarge:
+    Field: imagesTooLarge
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'image trop grosse
-    influxMeasurement: YellowLabTools
     type: int
   imagesWithoutDimensions:
+    Field: imagesWithoutDimensions
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de balises img sans dimensions
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   lazyLoadableImagesBelowTheFold:
+    Field: lazyLoadableImagesBelowTheFold
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'image sous la ligne de flotaison qui pourraient \xEAtre lazy loader"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   smallImages:
+    Field: smallImages
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Petites image qui pourrait \xEAtre encod\xE9 en base64"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   videoCount:
+    Field: videoCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de vid\xE9o"
-    influxMeasurement: YellowLabTools
     type: int
   videoSize:
+    Field: videoSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume de vid\xE9o charg\xE9 (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
 jquery:
   jQueryDOMReads:
+    Field: jQueryDOMReads
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de lectures du DOM avec jQuery
-    influxMeasurement: YellowLabTools
     type: int
   jQueryDOMWriteReadSwitches:
+    Field: jQueryDOMWriteReadSwitches
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'op\xE9ration de lecture du DOM qui suivent une s\xE9rie d'\xE9\
       criture"
-    influxMeasurement: YellowLabTools
     type: int
   jQueryDOMWrites:
+    Field: jQueryDOMWrites
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'\xE9criture du DOM avec jQuery"
-    influxMeasurement: YellowLabTools
     type: int
   jQueryEventTriggers:
+    Field: jQueryEventTriggers
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'event trigger de jQuery
-    influxMeasurement: YellowLabTools
     type: int
   jQueryOnDOMReadyFunctions:
+    Field: jQueryOnDOMReadyFunctions
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fonctions li\xE9es \xE0 l'\xE9v\xE8nement onDOMReady"
-    influxMeasurement: YellowLabTools
     type: int
   jQuerySizzleCalls:
+    Field: jQuerySizzleCalls
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 Sizzle"
-    influxMeasurement: YellowLabTools
     path: '*.selector'
     type: int
   jQueryVersion:
+    Field: jQueryVersion
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Version de jQuery
-    influxMeasurement: YellowLabTools
     type: int
   jQueryVersionsLoaded:
+    Field: jQueryVersionsLoaded
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'instances de jQuery charg\xE9es"
-    influxMeasurement: YellowLabTools
     path: '*.version'
     type: int
   jQueryWindowOnLoadFunctions:
+    Field: jQueryWindowOnLoadFunctions
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fonctions li\xE9es \xE0 l'\xE9v\xE8nement windowOnLoad"
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
 js:
   Plugins:
+    Field: Plugins
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Ne pas utiliser de plugins
-    influxMeasurement: eco_index
     type: str
   consoleMessages:
+    Field: consoleMessages
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 des fonctions console.*"
-    influxMeasurement: YellowLabTools
     type: int
   globalVariables:
+    Field: globalVariables
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de variables globales
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   globalVariablesFalsy:
+    Field: globalVariablesFalsy
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de variables globales avec une valeur falsy
-    influxMeasurement: YellowLabTools
     type: int
   jsErrors:
+    Field: jsErrors
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'erreur de javascript
-    influxMeasurement: YellowLabTools
     type: int
   localStorageEntries:
+    Field: localStorageEntries
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'entr\xE9es dans le localStorage"
-    influxMeasurement: YellowLabTools
     type: int
   windowAlerts:
+    Field: windowAlerts
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 window.alert"
-    influxMeasurement: YellowLabTools
     type: int
   windowConfirms:
+    Field: windowConfirms
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 window.confirm"
-    influxMeasurement: YellowLabTools
     type: int
   windowPrompts:
+    Field: windowPrompts
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 window.prompt"
-    influxMeasurement: YellowLabTools
     type: int
 other:
   SocialNetworkButton:
+    Field: SocialNetworkButton
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "N'utilisez pas les boutons standards des r\xE9seaux sociaux"
-    influxMeasurement: eco_index
     type: str
   isWordPress:
+    Field: isWordPress
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Est-ce que le site utilise wordpress
-    influxMeasurement: YellowLabTools
     type: bool
 performances:
   CumulativeLayoutShift:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.pageinfo.layoutShift.$function
+    Field: median
+    Measurement: cumulativeLayoutShift
+    Tags:
+      page: $name
+      statistics: googleWebVitals
     type: int
   FirstVisualChange:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.FirstVisualChange.$function
+    Field: median
+    Measurement: FirstVisualChange
+    Tags:
+      page: $name
     type: int
   LargestContentfulPaint:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.largestContentfulPaint.renderTime.$function
+    Field: median
+    Measurement: largestContentfulPaint
+    Tags:
+      page: $name
+      statistics: googleWebVitals
     type: int
   LastVisualChange:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.LastVisualChange.$function
+    Field: median
+    Measurement: LastVisualChange
+    Tags:
+      page: $name
     type: int
   LoadEvenEnd:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.loadEventEnd.$function
+    Field: median
+    Measurement: loadEventEnd
+    Tags:
+      navigationTiming: loadEventEnd
+      page: $name
     type: int
   SpeedIndex:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.SpeedIndex.$function
+    Field: median
+    Measurement: SpeedIndex
+    Tags:
+      page: $name
     type: int
   TTFB:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.serverResponseTime.$function
+    Field: median
+    Measurement: ttfb
+    Tags:
+      page: $name
+      statistics: timings
     type: int
   VisualReadiness:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.visualMetrics.VisualReadiness.$function
+    Field: median
+    Measurement: VisualReadiness
+    Tags:
+      page: $name
+      statistics: visualMetrics
     type: int
   backEndTime:
+    Field: median
+    Measurement: backEndTime
+    Tags:
+      page: $name
     desc: "Temps pour le premier octet de r\xE9ponse par rapport au temps total de\
       \ chargement (ms)"
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.backEndTime.$function
-    type: int
-  contentSize:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.contentSize
     type: int
   domComplete:
+    Field: domComplete
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Timing du domComplete (windows.performance)
-    influxMeasurement: YellowLabTools
     type: int
   domContentLoaded:
-    influxMeasurement: YellowLabTools
+    Field: domContentLoaded
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     type: int
   domContentLoadedEnd:
-    influxMeasurement: YellowLabTools
+    Field: domContentLoadedEnd
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
+    type: int
+  domContentLoadedEventEnd:
+    Field: median
+    Measurement: domContentLoadedEventEnd
+    Tags:
+      page: $name
+    type: int
+  domContentLoadedEventStart:
+    Field: median
+    Measurement: domContentLoadedEventStart
+    Tags:
+      page: $name
     type: int
   domContentLoadedTime:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.domContentLoadedTime.$function
+    Field: median
+    Measurement: domContentLoadedTime
+    Tags:
+      page: $name
     type: int
   domElements:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.coach.advice.info.domElements
+    Field: median
+    Measurement: domElements
+    Tags:
+      page: $name
     type: int
   domInteractive:
-    influxMeasurement: YellowLabTools
+    Field: domInteractive
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     type: int
   firstPaint:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.firstPaint.$function
+    Field: median
+    Measurement: firstPaint
+    Tags:
+      page: $name
     type: int
   frontEndTime:
+    Field: median
+    Measurement: frontEndTime
+    Tags:
+      page: $name
     desc: "Temps pour l'\xE9v\xE8nement window.load par rapport au temps total de\
       \ chargement (ms)"
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.pageTimings.frontEndTime.$function
     type: int
   fullyLoaded:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.fullyLoaded.$function
+    Field: median
+    Measurement: fullyLoaded
+    Tags:
+      page: $name
     type: int
   performanceTimingPageLoad:
+    Field: performanceTimingPageLoad
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9c\xE9ssaire pour charger enti\xE8rement la page (ms)"
-    influxMeasurement: YellowLabTools
     type: int
   performanceTimingTTFB:
+    Field: performanceTimingTTFB
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9c\xE9ssaire pour recevoir le premier octet de la premi\xE8re\
       \ r\xE9ponse (ms)"
-    influxMeasurement: YellowLabTools
-    type: int
-  request:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.requests
     type: int
   timeBackend:
+    Field: timeBackend
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps pour le premier octet de r\xE9ponse par rapport au temps total de\
       \ chargement (%)"
-    influxMeasurement: YellowLabTools
     type: int
   timeFrontend:
+    Field: timeFrontend
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps pour l'\xE9v\xE8nement window.load par rapport au temps total de\
       \ chargement (%)"
-    influxMeasurement: YellowLabTools
-    type: int
-  timeToContentfulPaint:
-    desc: '?'
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.timeToContentfulPaint.$function
     type: int
   timeToFirstByte:
+    Field: timeToFirstByte
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9c\xE9ssaire pour recevoir le premier octet de la premi\xE8re\
       \ r\xE9ponse (ms)"
-    influxMeasurement: YellowLabTools
-    type: int
-  timeToFirstInteractive:
-    desc: '?'
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.timings.timeToFirstInteractive.$function
     type: int
   timeToLastByte:
+    Field: timeToLastByte
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9c\xE9ssaire pour recevoir le derni\xE8re octet de la derni\xE8\
       re r\xE9ponse (ms)"
-    influxMeasurement: YellowLabTools
-    type: int
-  transfertSize:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.pagexray.transferSize
     type: int
 performances_cpu:
   Layout:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.Layout.$function
+    Field: median
+    Measurement: Layout
+    Tags:
+      page: $name
     type: int
   ParseHTML:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.ParseHTML.$function
+    Field: median
+    Measurement: ParseHTML
+    Tags:
+      page: $name
     type: int
   RunTask:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.RunTask.$function
-    type: int
-  UpadteLayoutTree:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.UpdateLayoutTree.$function
-    type: int
-  V8_Execute:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.V8_execute.$function
-    type: int
-  V8_NewContext:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.events.V8_NewContext.$function
+    Field: median
+    Measurement: RunTask
+    Tags:
+      page: $name
     type: int
   documentWriteCalls:
+    Field: documentWriteCalls
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 document.write"
-    influxMeasurement: YellowLabTools
     type: int
   evalCalls:
+    Field: evalCalls
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 eval"
-    influxMeasurement: YellowLabTools
     type: int
   eventsBound:
+    Field: eventsBound
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'\xE9v\xE8nement \xE9cout\xE9 via EventTaget.addEventListener"
-    influxMeasurement: YellowLabTools
     path: '*.path'
     type: int
   eventsDispatched:
+    Field: eventsDispatched
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'appel \xE0 EventTarget.dispatchEvent"
-    influxMeasurement: YellowLabTools
     type: int
   eventsScrollBound:
+    Field: eventsScrollBound
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'\xE9coutes sur l'\xE9v\xE8nement scroll"
-    influxMeasurement: YellowLabTools
     path: '*.element'
     type: int
   garbageCollection:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.garbageCollection.$function
+    Field: median
+    Measurement: garbageCollection
+    Tags:
+      page: $name
     type: int
   layoutCount:
+    Field: layoutCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de calcul de layout
-    influxMeasurement: YellowLabTools
     type: int
   layoutDuration:
+    Field: layoutDuration
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Dur\xE9e total des calculs de layout"
-    influxMeasurement: YellowLabTools
-    type: int
-  other:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.other.$function
     type: int
   paintCompositeRender:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.paintCompositeRender.$function
-    type: int
-  parseHTML:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.parseHTML.$function
+    Field: median
+    Measurement: paintCompositeRender
+    Tags:
+      page: $name
     type: int
   recalcStyleCount:
+    Field: recalcStyleCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre total de recalculs du style
-    influxMeasurement: YellowLabTools
     type: int
   recalcStyleDuration:
+    Field: recalcStyleDuration
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Dur\xE9e totale des recalculs du style"
-    influxMeasurement: YellowLabTools
     type: int
   scriptDuration:
+    Field: scriptDuration
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Dur\xE9e totale des script javascript"
-    influxMeasurement: YellowLabTools
     type: int
   scriptEvaluation:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.scriptEvaluation.$function
+    Field: median
+    Measurement: scriptEvaluation
+    Tags:
+      page: $name
     type: int
   scriptParseCompile:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.scriptParseCompile.$function
+    Field: median
+    Measurement: scriptParseCompile
+    Tags:
+      page: $name
     type: int
   styleLayout:
-    graphiteAddress: sitespeed_io.default.pageSummary.$url._.chrome.native.browsertime.statistics.cpu.categories.styleLayout.$function
+    Field: median
+    Measurement: styleLayout
+    Tags:
+      page: $name
     type: int
   taskDuration:
+    Field: taskDuration
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Dur\xE9e totale des taches effectu\xE9 par le navigateur"
-    influxMeasurement: YellowLabTools
     type: int
 protocols:
   mainDomainHttpProtocol:
+    Field: mainDomainHttpProtocol
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Protocol HTTP sur domaine principal
-    influxMeasurement: YellowLabTools
     type: int
   mainDomainTlsProtocol:
+    Field: mainDomainTlsProtocol
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Protocol TLS du domaine principal
-    influxMeasurement: YellowLabTools
     type: int
   oldHttpProtocol:
+    Field: oldHttpProtocol
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de domaines utilisant un vieux protocol HTTP (1.0 ou 1.1)
-    influxMeasurement: YellowLabTools
     path: '*.domain'
     type: int
   oldTlsProtocol:
+    Field: oldTlsProtocol
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de domaines utilisant un vieux protocol TLS (1.2)
-    influxMeasurement: YellowLabTools
     path: '*.domain'
     type: int
 requests:
   HttpError:
+    Field: HttpError
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Eviter les requ\xEAtes en erreur"
-    influxMeasurement: eco_index
     type: str
-  HttpRequest:
+  HttpRequests:
+    Field: HttpRequests
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: "Limiter le nombre de requ\xEAtes HTTP"
-    influxMeasurement: eco_index
     type: str
   NoRedirect:
+    Field: NoRedirect
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Eviter les redirections
-    influxMeasurement: eco_index
     type: str
   UseETags:
+    Field: UseETags
+    Measurement: eco_index
+    Tags:
+      pageName: $name
     desc: Utiliser des ETags
-    influxMeasurement: eco_index
     type: str
   ajaxRequests:
+    Field: ajaxRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte AJAX"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   base64Count:
+    Field: base64Count
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fichier en base64
-    influxMeasurement: YellowLabTools
     type: int
   base64Size:
+    Field: base64Size
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume de fichier encod\xE9 en base64 (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   biggestLatency:
+    Field: biggestLatency
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps pour le premier byte de la r\xE9ponse la plus lente (ms)"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   biggestResponse:
+    Field: biggestResponse
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume de la plus grosse requ\xEAte (byte)"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   bodySize:
+    Field: bodySize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume total apr\xE8s d\xE9compression de toutes les r\xE9ponses"
-    influxMeasurement: YellowLabTools
     type: int
   closedConnections:
+    Field: closedConnections
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte dont la connection avec le serveur n'est pas persistante"
-    influxMeasurement: YellowLabTools
     type: int
   contentLength:
+    Field: contentLength
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume total des r\xE9ponses, i.e. ce qui a \xE9t\xE9 transf\xE9rer dans\
       \ les paquets"
-    influxMeasurement: YellowLabTools
     type: int
   cssCount:
+    Field: cssCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: <
     defaultValue: 3.0
     desc: Nombre de fichier CSS
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   emptyRequests:
+    Field: emptyRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE9ponse dont le body est vide"
-    influxMeasurement: YellowLabTools
     type: int
   fastestResponse:
+    Field: fastestResponse
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps pour le dernier byte de la r\xE9ponse la plus rapide (ms)"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   fontsCount:
+    Field: fontsCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichier de police de caract\xE8re"
-    influxMeasurement: YellowLabTools
     path: list.*.url
     type: int
   gzipRequests:
+    Field: gzipRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de r\xE9ponse compress\xE9e avec GZIP"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   htmlCount:
+    Field: htmlCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fichier HTML
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   htmlSize:
+    Field: htmlSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume de fichiers HTML charg\xE9s (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   httpsRequests:
+    Field: httpsRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     defaultComparison: <=
     defaultValue: 27.0
     desc: "Nombre de requ\xEAte HTTPS"
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   identicalFiles:
+    Field: identicalFiles
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de fichiers identiques obtenue \xE0 partir d'urls diff\xE9rents"
-    influxMeasurement: YellowLabTools
     path: list.*.urls.*
     type: int
   imageCount:
+    Field: imageCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'images
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   jsCount:
+    Field: jsCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fichier javascript
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   jsonCount:
+    Field: jsonCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fichier JSON
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   medianLatency:
+    Field: medianLatency
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "M\xE9diane du temps pour le premier byte sur toutes les r\xE9ponses (ms)"
-    influxMeasurement: YellowLabTools
     type: int
   medianResponse:
+    Field: medianResponse
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "M\xE9diane du temps pour le dernier byte sur toutes les r\xE9ponses (ms)"
-    influxMeasurement: YellowLabTools
     type: int
   notFound:
+    Field: notFound
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre d'erreurs 404 re\xE7u"
-    influxMeasurement: YellowLabTools
     type: int
   otherCount:
+    Field: otherCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre d'autres fichiers
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   otherSize:
+    Field: otherSize
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume d'autre type de fichier charg\xE9 (bytes)"
-    influxMeasurement: YellowLabTools
     type: int
   performanceTimingConnect:
+    Field: performanceTimingConnect
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9cessaire pour se connecter au serveur "
-    influxMeasurement: YellowLabTools
     type: int
   performanceTimingDNS:
+    Field: performanceTimingDNS
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9cessaire pour faire la r\xE9solution DNS"
-    influxMeasurement: YellowLabTools
     type: int
   postRequests:
+    Field: postRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte POST effectu\xE9 au chargement de la page"
-    influxMeasurement: YellowLabTools
     path: '*'
     type: int
   redirects:
+    Field: redirects
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de redirects (re\xE7u 301, 302, 303)"
-    influxMeasurement: YellowLabTools
     type: int
   redirectsTime:
+    Field: redirectsTime
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps n\xE9cessaire pour envoyer et recevoir les redirections"
-    influxMeasurement: YellowLabTools
     type: int
   requests:
+    Field: requests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre total de requ\xEAte effectu\xE9"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   requestsToDomComplete:
+    Field: requestsToDomComplete
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAtes pour atteindre l'\xE9tat DomComplete"
-    influxMeasurement: YellowLabTools
     type: int
   requestsToDomContentLoaded:
+    Field: requestsToDomContentLoaded
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte pour atteindre l'\xE9tat DomContentLoaded"
-    influxMeasurement: YellowLabTools
     type: int
   requestsToFirstPaint:
+    Field: requestsToFirstPaint
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte n\xE9cessaire pour faire le premier affichage"
-    influxMeasurement: YellowLabTools
     type: int
   slowestResponse:
+    Field: slowestResponse
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps pour le dernier byte de la r\xE9ponse la plus lente (ms)"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   smallestLatency:
+    Field: smallestLatency
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Temps pour le premier byte de la r\xE9ponse la plus rapide (ms)"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   smallestResponse:
+    Field: smallestResponse
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Volume de la plus petite requ\xEAte (byte)"
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int
   statusCodesTrail:
+    Field: statusCodesTrail
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Liste des code de r\xE9ponses que la requ\xEAte principale a suivi"
-    influxMeasurement: YellowLabTools
     type: str
   synchronousXHR:
+    Field: synchronousXHR
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de requ\xEAte XML synchrone"
-    influxMeasurement: YellowLabTools
     type: int
   totalRequests:
-    influxMeasurement: YellowLabTools
+    Field: totalRequests
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     path: total
     type: int
   totalWeight:
-    influxMeasurement: YellowLabTools
+    Field: totalWeight
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     path: totalWeight
     type: int
   videoCount:
+    Field: videoCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: "Nombre de vid\xE9o"
-    influxMeasurement: YellowLabTools
     type: int
   webfontCount:
+    Field: webfontCount
+    Measurement: YellowLabTools
+    Tags:
+      name: $name
     desc: Nombre de fichier de police web
-    influxMeasurement: YellowLabTools
     path: '*.url'
     type: int

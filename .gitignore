@@ -11,6 +11,7 @@ eco-index/results/**/*
 robot/tests/generated-ping.robot
 robot/tests/generated-resource.resource
 smartwatts/config.json
+sitespeed/config/config.json
 .env
 reports/reports/*
 yellowLabTools/reports/*

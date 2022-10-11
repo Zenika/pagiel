@@ -59,7 +59,7 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 - Cloner le répo en ligne
 - Copier le fichier `.env.exemple` vers le fichier `.env`.
 - Changer les couples nom d'utilisateur/mot de passe.
-- Lancer `docker-compose up`, cela lancera les conteneurs influxdb, graphite et Grafana qui sont prévus pour fonctionner en permanence.
+- Lancer `docker-compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
 - Se connecter à influxdb (`http://localhost:8086` par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
 - Executer le script setup.sh, il va créer certains fichiers de configuration nécéssaires pour les autres conteneurs à partir du fichier `.env`.
 
@@ -351,7 +351,7 @@ mais celui-ci apparait comme étant négligeable.
 **Sitespeed.io**
 
 - Un conteneur docker dédié SiteSpeed à exécuter
-- Dépendance avec un conteneur Graphite 
+- Dépendance avec un conteneur InfluxDB 
 - Dépendance avec un conteneur Grafana et un ensemble de dashboard
 
 **Yellow Lab Tools**

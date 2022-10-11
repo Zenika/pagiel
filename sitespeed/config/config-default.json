@@ -1,0 +1,19 @@
+{
+    "cpu": true,
+    "sustainable": {
+        "enable": true
+    },
+    "axe": {
+        "enable": true
+    },
+    "browsertime": {
+        "iterations": 1,
+        "browser": "chrome"
+    },
+    "chrome": {
+        "args": "no-sandbox"
+    },
+    "influxdb": {
+        "version": 2
+    }
+}

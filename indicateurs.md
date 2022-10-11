@@ -157,11 +157,6 @@ Type : entier
 
 Exemple de comparaison : `== 0.0`
 
-## cssCount
-Nombre total de fichier css
-
-Type : entier
-
 ## cssSize
 Volume total de fichier css
 
@@ -170,18 +165,8 @@ Type : entier
 ## fileMinification
 Type : entier
 
-## jsCount
-Nombre total de fichier javascript
-
-Type : entier
-
 ## jsSize
 Volume total de fichier javascript
-
-Type : entier
-
-## jsonCount
-Nombre total de fichier JSON
 
 Type : entier
 
@@ -855,9 +840,6 @@ Temps pour le premier octet de réponse par rapport au temps total de chargement
 
 Type : entier
 
-## contentSize
-Type : entier
-
 ## domComplete
 Timing du domComplete (windows.performance)
 
@@ -867,6 +849,12 @@ Type : entier
 Type : entier
 
 ## domContentLoadedEnd
+Type : entier
+
+## domContentLoadedEventEnd
+Type : entier
+
+## domContentLoadedEventStart
 Type : entier
 
 ## domContentLoadedTime
@@ -899,9 +887,6 @@ Temps nécéssaire pour recevoir le premier octet de la première réponse (ms)
 
 Type : entier
 
-## request
-Type : entier
-
 ## timeBackend
 Temps pour le premier octet de réponse par rapport au temps total de chargement (%)
 
@@ -912,27 +897,14 @@ Temps pour l'évènement window.load par rapport au temps total de chargement (%
 
 Type : entier
 
-## timeToContentfulPaint
-?
-
-Type : entier
-
 ## timeToFirstByte
 Temps nécéssaire pour recevoir le premier octet de la première réponse (ms)
-
-Type : entier
-
-## timeToFirstInteractive
-?
 
 Type : entier
 
 ## timeToLastByte
 Temps nécéssaire pour recevoir le dernière octet de la dernière réponse (ms)
 
-Type : entier
-
-## transfertSize
 Type : entier
 
 # performances_cpu
@@ -943,15 +915,6 @@ Type : entier
 Type : entier
 
 ## RunTask
-Type : entier
-
-## UpadteLayoutTree
-Type : entier
-
-## V8_Execute
-Type : entier
-
-## V8_NewContext
 Type : entier
 
 ## documentWriteCalls
@@ -992,13 +955,7 @@ Durée total des calculs de layout
 
 Type : entier
 
-## other
-Type : entier
-
 ## paintCompositeRender
-Type : entier
-
-## parseHTML
 Type : entier
 
 ## recalcStyleCount
@@ -1057,7 +1014,7 @@ Eviter les requêtes en erreur
 
 Type : chaine de charactère
 
-## HttpRequest
+## HttpRequests
 Limiter le nombre de requêtes HTTP
 
 Type : chaine de charactère

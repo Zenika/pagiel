@@ -72,7 +72,7 @@ def process(args):
         save_yaml_file(args.yellowLabToolsFile, url_list, YELLOWLABTOOLS_INPUT_FILE_ARGS)
 
         with open(args.sitespeedFile, 'w') as sitespeed_urls:
-            sitespeed_urls.write("\n".join([url["url"] for url in url_list]))
+            sitespeed_urls.write("\n".join([f'{url["url"]} {url["name"]}' for url in url_list]))
 
         save_robot_files(args.robotFolder, url_list)
 

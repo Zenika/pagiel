@@ -6,7 +6,6 @@ from collections import defaultdict
 
 from yaml import load as yamlload, FullLoader
 
-from reportGenerator.graphite import GraphiteClient
 from reportGenerator.influxdb import InfluxClient
 from reportGenerator.exceptions import ComparatorException, CategoryException, IndicatorException, MissingComparison
 
@@ -19,8 +18,7 @@ def load_json_data_file(src: str) -> Any:
         return loadJson(offenderJSON)
 
 class IndicatorComparator:
-    def __init__(self, graphite_client: GraphiteClient, influxdb_client: InfluxClient, indicators_by_category: dict) -> None:
-        self.graphite_client = graphite_client
+    def __init__(self, influxdb_client: InfluxClient, indicators_by_category: dict) -> None:
         self.influxdb_client = influxdb_client
         self.indicators_by_category = indicators_by_category
         self.some_failed = False
@@ -46,9 +44,7 @@ class IndicatorComparator:
         """
             Query database for last value
         """
-        if indicator.get("influxMeasurement"):
-            return self.influxdb_client.query_last_value(indicator["influxMeasurement"], indicator_key, test["name"])
-        return self.graphite_client.query_last_value(indicator["graphiteAddress"], test["url"])
+        return self.influxdb_client.query_last_value(indicator["Measurement"], indicator["Field"], test["name"], indicator["Tags"].copy())
 
     def test_indicator(self, test: dict, indicator: str, comparisons: dict, indicators_details: dict) -> dict:
         """
@@ -190,9 +186,9 @@ class JunitReportGenerator:
         testsuites.set("failures", str(total_failure))
         return ElementTree(testsuites)
 
-def main(graphite_client: GraphiteClient, influxdb_client: InfluxClient, indicators_by_category: dict, offenders: list) -> bool:
+def main(influxdb_client: InfluxClient, indicators_by_category: dict, offenders: list) -> bool:
     url_list = load_yaml_data_file("/opt/report/urls.yaml")
-    indicator_comparator = IndicatorComparator(graphite_client, influxdb_client, indicators_by_category)
+    indicator_comparator = IndicatorComparator(influxdb_client, indicators_by_category)
     comparison_results = indicator_comparator.test_url_list(url_list)
 
     if len(comparison_results) > 0:
