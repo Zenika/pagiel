@@ -110,7 +110,27 @@ Pour plus de détails sur la configuration des actions voir https://github.com/c
 ### Utilisation seule
 
 - Remplir le fichier input/urls.yaml avec une liste d'url à tester
-- Lancer le script parcours.sh
+- Lancer le script pagiel.sh
+
+Ce script dispose de plusieurs options
+
+| Option | Description |
+|--------|-------------|
+| `-P` | Désactive PowerAPI pour le test |
+| `-G` | Désactive GreenIt Analysis CLI pour le test |
+| `-S` | Désactive Sitespeed pour le test |
+| `-Y` | Désactive Yellow Lab Tools pour le test |
+| `-F` | Désactive Robot Framework pour le test |
+| `-R` | Ne pas générer de rapport pour le test |
+| `-d` | Tester une simple image de container docker |
+| `-D` | Tester un fichier docker-compose |
+| `--docker-front-container` | Nom du container front a tester (défaut test-container) |
+| `--docker-port` | Port sur lequel se connecter pour le front (défaut 80) |
+| `--docker-image` | Nom de l'image à tester (obligatoire avec -d, inutile sinon) |
+| `--docker-compose-file` | Nom du fichier docker-compose à tester (obligatoire avec -D, inutile sinon) |
+
+Pour le test d'image, il nécéssaire que l'image soit accessible en ligne (il est toujours possible de se connecté à un repository docker privé)
+Pour le test de docker-compose, il faut que le projet démarre avec un simple `docker-compose up`. Pour éviter des risques de chevauchement de port avec ceux utiliser par le projet, un script python supprime tout les attibuts `ports` de la définition des services. De même, afin que les conteneurs du projet aient accès au conteneurs exposant le front-end, il est nécéssaire que celui-ci soit sur le network `default`, qui sera redéfini par le script python pour se connecté au réseau du projet.
 
 ### Via les CI/CD
 
@@ -126,7 +146,7 @@ eco test:
     - initialDirectory=$(pwd)
     - cd $PROJECT_DIRECTORY
     - echo "$URLS" > ./input/urls.yaml
-    - ./parcours.sh
+    - ./pagiel.sh
     - cp reports/reports/report.xml $initialDirectory
   artifacts:
     when: always
