@@ -56,12 +56,12 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 
 ### Préparation
 
-- Cloner le répo en ligne
-- Copier le fichier `.env.exemple` vers le fichier `.env`.
-- Changer les couples nom d'utilisateur/mot de passe.
+- Cloner le dépot en ligne
+- Copier le fichier [`.env-default`](.env-default) vers le fichier `.env`.
+- Changer les couples nom d'utilisateur/mot de passe si besoin.
 - Lancer `docker-compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
 - Se connecter à influxdb (`http://localhost:8086` par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
-- Executer le script setup.sh, il va créer certains fichiers de configuration nécéssaires pour les autres conteneurs à partir du fichier `.env`.
+- Exécuter le script setup.sh, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
 
 > Ce projet utilise des git submodules, ils sont clonés par le script de setup.
 
@@ -69,8 +69,9 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 
 Le runner est installé directement sur la machine (cf. https://docs.gitlab.com/runner/register/#linux).
 
-Exemple de configuration de runner gitlab
-```
+Exemple de configuration de runner gitlab :
+
+```toml
 concurrent = 1
 check_interval = 0
 
@@ -112,7 +113,7 @@ Pour plus de détails sur la configuration des actions voir https://github.com/c
 - Remplir le fichier input/urls.yaml avec une liste d'url à tester
 - Lancer le script pagiel.sh
 
-Ce script dispose de plusieurs options
+Ce script dispose de plusieurs options :
 
 | Option | Description |
 |--------|-------------|
@@ -134,8 +135,9 @@ Pour le test de docker-compose, il faut que le projet démarre avec un simple `d
 
 ### Via les CI/CD
 
-Voici un exemple de script d'une pipeline gitlab
-```
+Voici un exemple de script d'une pipeline gitlab :
+
+```yaml
 eco test:
   stage: eco
   tags: 
@@ -154,13 +156,14 @@ eco test:
       junit: 
         - report.xml
 ```
+
 Où :
  - `stage: eco` est un stage personnalisé ;
  - Le tag `eco` est le tag du runner ;
  - Le `cd` en début de script met le runner dans le répertoire du projet ;
  - On stocke dans une variable le dossier du runner afin de pouvoir y copier le rapport.
- - $URL contient le fichier yaml à utiliser (cf [ici](#fichier-inputurlsyaml))
- - $PROJECT_DIRECTORY est le dossier dans lequel est installé le projet sur la machine du runner
+ - `$URL` contient le fichier yaml à utiliser (cf [ici](#fichier-inputurlsyaml))
+ - `$PROJECT_DIRECTORY` est le dossier dans lequel est installé le projet sur la machine du runner
 
  ### Rapport au format junit
 
@@ -204,15 +207,15 @@ Les navigateurs supportés sont : Chrome, Firefox, Edge et Safari.
 
 Cet outil peut être utilisé en standalone en local via docker ou dans un pipeline de CI/CD en mode docker. 
 
-> Exemple de son usage via docker en local
+> Exemple de son usage via docker en local :
 
-```console
+```sh
 docker run --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.10.3 https://www.sitespeed.io/
 ```
 
 > Exemple de son usage dans une CI, il faudra passer la configuration du endpoint de sortie, ici graphite.
 
-```console
+```sh
 docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" \ 
     sitespeedio/sitespeed.io:16.10.3 https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome \
     --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
@@ -220,7 +223,8 @@ docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-si
 
 L'ensemble des configurations possibles sont exposées ici : https://www.sitespeed.io/documentation/sitespeed.io/configuration/
 
-Sitespeed génère par défaut les résultats d'analyses au format HTML à la racine de l'exécution du conteneur, mais il est possible de connecter plusieurs types de endpoints en sorties : 
+Sitespeed génère par défaut les résultats d'analyses au format HTML à la racine de l'exécution du conteneur, mais il est possible de connecter plusieurs types de endpoints en sorties :
+
 - S3
 - Influx
 - Graphite (à utiliser pour les dashboard proposés par sitespeed)
@@ -236,10 +240,10 @@ Sitespeed génère par défaut les résultats d'analyses au format HTML à la ra
 
 ### Scoring EcoIndex Green IT http://www.ecoindex.fr/ 
 
-> Scoring basé sur l'évaluation des règles d'éco-conceptions
+> Scoring basé sur l'évaluation des règles d'écoconceptions
 
 Utilisation du fork du plugin GreenIT https://github.com/cnumr/GreenIT-Analysis-cli.
-Cet outil est à la base un plugin pour Chrome et Firefox permettant de réaliser un scoring des bonnes pratiques d'éco-conception.
+Cet outil est à la base un plugin pour Chrome et Firefox permettant de réaliser un scoring des bonnes pratiques d'écoconception.
 
 Les bonnes pratiques sont issues du [référentiel édité par GreenIT.fr](https://collectif.greenit.fr/ecoconception-web/).
 
@@ -280,7 +284,7 @@ https://powerapi-ng.github.io/hwpc.html
 
 **Intégration**
 
-```console
+```sh
 docker run --net=host --privileged --name hwpc-sensor -d 
     -v /sys:/sys 
     -v /var/lib/docker/containers:/var/lib/docker/containers:ro 
@@ -302,12 +306,14 @@ docker run --net=host --privileged --name hwpc-sensor -d
 Il est nécessaire de fournir des informations à propos du CPU (lequel a été monitoré par HWPC) afin de réaliser la conversion.
 Documentation : https://powerapi-ng.github.io/howto_monitor_process/deploy_formula.html#cpu-ratio
 
-Ces informations sont les suivantes : 
+Ces informations sont les suivantes :
+
 - ratio de fréquence nominale
 - ratio de fréquence minimale
 - ratio de fréquence maximale
 
-Ce qui pour un CPU (utilisé dans le développement du POC) de 1800mhz avec un min de 400mhz et un max de 4000mhz donne
+Ce qui pour un CPU (utilisé dans le développement du POC) de 1800mhz avec un min de 400mhz et un max de 4000mhz donne :
+
 - BASE_CPU_RATIO=18 
 - MIN_CPU_RATIO=4 
 - MAX_CPU_RATIO=40
@@ -316,7 +322,7 @@ Formula supporte l'écriture des données dans une base InfluxDB qui permettra d
 
 https://powerapi-ng.github.io/howto_monitor_global/deploy_formula.html
 
-```console
+```sh
 sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formula \
     -s \
     --input mongodb --model HWPCReport \
@@ -340,8 +346,9 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 ![dashboard_conso_energetique](media/dashboard_conso_energetique.png)
 
 À noter qu'il faudra aller plus loin dans la façon d'exploiter ces données :
-- Dans un premier temps, il peut être pertinent de corréler les mesures réalisées dans le temps et l'exécution des tests Robot Framework
-- Dans un second temps, il faudra réaliser un calcul de type intégration (dans Grafana) en fonction de la durée des tests, dans l'idée d'avoir une valeur unique à la place d'une courbe  
+
+- dans un premier temps, il peut être pertinent de corréler les mesures réalisées dans le temps et l'exécution des tests Robot Framework
+- dans un second temps, il faudra réaliser un calcul de type intégration (dans Grafana) en fonction de la durée des tests, dans l'idée d'avoir une valeur unique à la place d'une courbe  
 
 
 ### Selenium & Robot Framework
@@ -403,7 +410,7 @@ https://docs.docker.com/compose/install/
 
 2. node 14
 
-```console
+```sh
 sudo apt-get update
 sudo apt-get install nodejs npm
 ```
@@ -417,13 +424,13 @@ en spécifiant le registration_token et l'url du Gitlab à votre runner local.
 
 > Donner les droits du process docker au daemon Gitlab runner
 
-```console
+```sh
 sudo usermod -aG docker gitlab-runner
 ```
 
 4. Installation du package Cgroup
 
-```console
+```sh
 sudo apt-get install cgroup-bin
 ```
 
@@ -444,13 +451,14 @@ user:/usr/lib/firefox/firefox	perf_event	firefoxEvent
 ```
 
 Charger la configuration
-```console
+
+```sh
 sudo cgconfigparser -l /etc/cgconfig.conf
 ```
 
 Charger les règles
 
-```console
+```sh
 sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 ```
 
@@ -490,7 +498,7 @@ Un début d'implémentation est disponible sur ce repository : https://github.co
    - https://github.com/hubblo-org/scaphandre
    - https://github.com/chakib-belgaid/async-profiler
    
-* Concevoir un index d'éco-conception à partir des métriques générées par ces différents outils
+* Concevoir un index d'écoconception à partir des métriques générées par ces différents outils
 
 * Concevoir des dashboards personnalisé pour chaque type de profil 
 
@@ -500,7 +508,7 @@ Un problème, une idée, la [page des issues](https://github.com/Zenika/pagiel/i
 
 ## Licence
 
-The LCA values used by GreenIT to evaluate environmental impacts are not under free license - © Frédéric Bordage. Please also refer to the mentions provided in the code files for specifics on the IP regime.
+> The LCA values used by GreenIT to evaluate environmental impacts are not under free license - © Frédéric Bordage. Please also refer to the mentions provided in the code files for specifics on the IP regime.
    
 ## Références 
 
@@ -564,7 +572,6 @@ The LCA values used by GreenIT to evaluate environmental impacts are not under f
 ### Divers
   * https://dev.to/ryansolid/making-sense-of-the-js-framework-benchmark-25hl
   * https://github.com/cnumr/GreenIT-Analysis
-  * https://collectif.greenit.fr/ecoconception-web/115-bonnes-pratiques-eco-conception_web.html
+  * https://collectif.greenit.fr/ecoconception-web/115-bonnes-pratiques-ecoconception_web.html
   * https://github.com/rlemaire/bookmarks-green-it
   * https://github.com/cnumr/GreenIT-Analysis
- 
