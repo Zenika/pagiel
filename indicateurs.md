@@ -407,7 +407,7 @@ Nombre de fixes pour des vieille version d'Internet Explorer
 Type : entier
 
 ## cssOldPropertyPrefixes
-Nombre de propriétés avec un préfixe non nécéssaire
+Nombre de propriétés avec un préfixe non nécessaire
 
 Type : entier
 
@@ -878,12 +878,12 @@ Type : entier
 Type : entier
 
 ## performanceTimingPageLoad
-Temps nécéssaire pour charger entièrement la page (ms)
+Temps nécessaire pour charger entièrement la page (ms)
 
 Type : entier
 
 ## performanceTimingTTFB
-Temps nécéssaire pour recevoir le premier octet de la première réponse (ms)
+Temps nécessaire pour recevoir le premier octet de la première réponse (ms)
 
 Type : entier
 
@@ -898,12 +898,12 @@ Temps pour l'évènement window.load par rapport au temps total de chargement (%
 Type : entier
 
 ## timeToFirstByte
-Temps nécéssaire pour recevoir le premier octet de la première réponse (ms)
+Temps nécessaire pour recevoir le premier octet de la première réponse (ms)
 
 Type : entier
 
 ## timeToLastByte
-Temps nécéssaire pour recevoir le dernière octet de la dernière réponse (ms)
+Temps nécessaire pour recevoir le dernière octet de la dernière réponse (ms)
 
 Type : entier
 
