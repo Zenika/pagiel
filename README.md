@@ -51,19 +51,19 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 
 ### Prérequis 
 
-- docker-compose
-- python (script d'installation uniquement)
+- Docker compose
+- Python (script d'installation uniquement)
 
 ### Préparation
 
 - Cloner le dépot en ligne
 - Copier le fichier [`.env-default`](.env-default) vers le fichier `.env`.
 - Changer les couples nom d'utilisateur/mot de passe si besoin.
-- Lancer `docker-compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
-- Se connecter à influxdb (`http://localhost:8086` par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
-- Exécuter le script setup.sh, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
+- Lancer `docker compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
+- Se connecter à influxdb (http://localhost:8086 par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
+- Exécuter le script `setup.sh`, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
 
-> Ce projet utilise des git submodules, ils sont clonés par le script de setup.
+> Ce projet utilise des git submodules, ils sont clonés par le script [setup.sh](setup.sh).
 
 ### Runner gitlab
 
@@ -89,7 +89,7 @@ check_interval = 0
 
 ### Fichier input/urls.yaml
 
-Construire le fichier input/urls.yaml qui liste les URL à analyser. Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
+Construire le fichier [input/urls.yaml](input/urls.yaml) qui liste les URL à analyser. Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
 
 Sa structure est la suivante :
 
@@ -103,20 +103,21 @@ Sa structure est la suivante :
 | `screenshot`        | string | Non         | Réalise une capture d'écran de la page à analyser. La valeur à renseigner est le nom de la capture d'écran. La capture d'écran est réalisée même si le chargement de la page est en erreur. |
 | `actions`           | list   | Non         | Réalise une suite d'actions avant d'analyser la page                |
 | `final_url`               | string | Non         | URL final de la page après chargement                              |
-| `cookie_btn`               | string | Non         | Selecteur pour fermer le popup des cookies       |
+| `cookie_btn`               | string | Non         | Sélecteur pour fermer le popup des cookies       |
 | `require`               | map | Non         | Entraine la génération d'un rapport junit, plus d'information dans la partie dédiée       |
 
 Pour plus de détails sur la configuration des actions voir https://github.com/cnumr/GreenIT-Analysis-cli#actions
 
 ### Utilisation seule
 
-- Remplir le fichier input/urls.yaml avec une liste d'url à tester
-- Lancer le script pagiel.sh
+- Remplir le fichier [input/urls.yaml](input/urls.yaml) avec une liste d'url à tester
+- Lancer le script `pagiel.sh`
 
 Ce script dispose de plusieurs options :
 
 | Option | Description |
 |--------|-------------|
+| `-h` | Affiche l'aide |
 | `-P` | Désactive PowerAPI pour le test |
 | `-G` | Désactive GreenIt Analysis CLI pour le test |
 | `-S` | Désactive Sitespeed pour le test |
@@ -125,13 +126,15 @@ Ce script dispose de plusieurs options :
 | `-R` | Ne pas générer de rapport pour le test |
 | `-d` | Tester une simple image de container docker |
 | `-D` | Tester un fichier docker-compose |
-| `--docker-front-container` | Nom du container front a tester (défaut test-container) |
+| `--docker-front-container` | Nom du container front à tester (défaut test-container) |
 | `--docker-port` | Port sur lequel se connecter pour le front (défaut 80) |
 | `--docker-image` | Nom de l'image à tester (obligatoire avec -d, inutile sinon) |
-| `--docker-compose-file` | Nom du fichier docker-compose à tester (obligatoire avec -D, inutile sinon) |
+| `--docker-compose-file` | Nom du fichier docker-compose à tester (obligatoire avec `-D`, inutile sinon) |
 
-Pour le test d'image, il nécéssaire que l'image soit accessible en ligne (il est toujours possible de se connecté à un repository docker privé)
-Pour le test de docker-compose, il faut que le projet démarre avec un simple `docker-compose up`. Pour éviter des risques de chevauchement de port avec ceux utiliser par le projet, un script python supprime tout les attibuts `ports` de la définition des services. De même, afin que les conteneurs du projet aient accès au conteneurs exposant le front-end, il est nécéssaire que celui-ci soit sur le network `default`, qui sera redéfini par le script python pour se connecté au réseau du projet.
+Pour le test d'image, il nécessaire que l'image soit accessible en ligne (il est toujours possible de se connecter à un repository Docker privé).
+Pour le test de `docker compose`, il faut que le projet démarre avec un simple `docker compose up`.
+Pour éviter des risques de chevauchement de port avec ceux utilisés par le projet, un script Python supprime tout les attibuts `ports` de la définition des services.
+De même, afin que les conteneurs du projet aient accès au conteneur exposant le front-end, il est nécessaire que celui-ci soit sur le network `default`, qui sera redéfini par le script Python pour se connecter au réseau du projet.
 
 ### Via les CI/CD
 
