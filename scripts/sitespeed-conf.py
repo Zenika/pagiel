@@ -9,31 +9,27 @@ port = 0
 try:
     port = int(strport)
 except ValueError:
-    print("Invalid port value : {}.".format(strport))
-    sys.exit()
+    print(f'Invalid port value: {strport}, must be an integer.')
+    sys.exit(1)
 
-# trying to read the default config file
 try:
-    default_file = open("sitespeed/config/config-default.json")
-except FileNotFoundError:
-    print("Default config file do not exists.")
-    sys.exit()
-else: 
-    with default_file:
-        try:
-            json_config = json.load(default_file)
-        except json.decoder.JSONDecodeError:
-            print("Can't read default config.")
-            sys.exit()
-            
-        # saving good config
-        json_config["influxdb"]["host"] = host
-        json_config["influxdb"]["port"] = int(port)
-        json_config["influxdb"]["database"] = bucket
-        json_config["influxdb"]["token"] = token
-        json_config["influxdb"]["org"] = org
+    # trying to read the default config file
+    with open('smartwatts/config-default.json', encoding='utf8') as sitespeed_default_config_file:
+        json_config = json.load(sitespeed_default_config_file)
+    # customize the config
+    json_config['output']['pusher_power']['uri'] = f'http://{host}'
+    json_config['output']['pusher_power']['port'] = port
+    json_config['output']['pusher_power']['db'] = bucket
+    json_config['output']['pusher_power']['token'] = token
+    json_config['output']['pusher_power']['org'] = org
 
-        # create or overwrite the file, no need for test
-        with open("sitespeed/config/config.json", "w") as config:
-            json.dump(json_config, config)
-            print("Sitespeed config saved.")
+    # create or overwrite the config file, no need for test
+    with open('sitespeed/config/config.json', 'w', encoding='utf8') as sitespeed_config_file:
+        json.dump(json_config, sitespeed_config_file)
+        print('Sitespeed config saved.')
+except FileNotFoundError:
+    print('Default config file does not exist.')
+    sys.exit(1)
+except json.decoder.JSONDecodeError:
+    print('Cannot read default config.')
+    sys.exit(1)
