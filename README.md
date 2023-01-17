@@ -89,7 +89,8 @@ check_interval = 0
 
 ### Fichier input/urls.yaml
 
-Construire le fichier [input/urls.yaml](input/urls.yaml) qui liste les URL à analyser. Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
+À partir de l'exemple [input/urls.yaml-default](input/urls.yaml-default) Construire le fichier [input/urls.yaml](input/urls.yaml) qui liste les URL à analyser.
+Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
 
 Sa structure est la suivante :
 
