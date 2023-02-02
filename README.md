@@ -469,11 +469,11 @@ sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 
 ## Cas d'usage à imaginer ou améliorations
 
-* Aggregation des runtime de browser
+* Aggrégation des runtimes de browser
 
-    Les 3 outils : eco index, site speed et robot framework utilisent chacun leurs propres runtime de browser.
+    Les 3 outils : eco index, site speed et robot framework utilisent chacun leurs propres runtimes de browser.
     - GreenIT CLI Analysis utilise un Chronium par défaut et n'est pas configurable
-    - Sitespeed.io utilise sa propre runtinme mais peut apparemment être configuré pour utiliser un Selenium serveur
+    - Sitespeed.io utilise son propre runtinme mais peut apparemment être configuré pour utiliser un serveur Selenium
     - Robot Framework utilise Selenium
 
     Le plus intéressant serait de converger sur un usage unique de Selenium et donc de réaliser une contribution sur
@@ -494,7 +494,7 @@ Un début d'implémentation est disponible sur ce repository : https://github.co
     Il pourrait également être intéressant d'exécuter Sitespeed à distance afin de monitorer les performances de navigation.
     Cela permettrait d'avoir une historisation de la consommation énergétique d'un front donné sur une machine donnée.
     
-* Mesure de la consommation énergétique des VM's côté Data Center main frame  
+* Mesure de la consommation énergétique des VM côté Data Center main frame  
 
    À noter qu'il existe d'autres outils exploitant la partie RAPL : 
    - Intel Power Gadget
@@ -504,7 +504,7 @@ Un début d'implémentation est disponible sur ce repository : https://github.co
    
 * Concevoir un index d'écoconception à partir des métriques générées par ces différents outils
 
-* Concevoir des dashboards personnalisé pour chaque type de profil 
+* Concevoir des dashboards personnalisés pour chaque type de profil 
 
 ## Contribution
 
