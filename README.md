@@ -576,6 +576,6 @@ Un problème, une idée, la [page des issues](https://github.com/Zenika/pagiel/i
 ### Divers
   * https://dev.to/ryansolid/making-sense-of-the-js-framework-benchmark-25hl
   * https://github.com/cnumr/GreenIT-Analysis
-  * https://collectif.greenit.fr/ecoconception-web/115-bonnes-pratiques-ecoconception_web.html
+  * https://collectif.greenit.fr/ecoconception-web/115-bonnes-pratiques-eco-conception_web.html
   * https://github.com/rlemaire/bookmarks-green-it
   * https://github.com/cnumr/GreenIT-Analysis
