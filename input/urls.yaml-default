@@ -1,0 +1,35 @@
+- url: https://zenika.com/
+  name: Zenika-page_d_accueil
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    images:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0
+
+- url: https://zenika.com/pages/green-it
+  name: Zenika-green-it
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    images:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0
+    DOM:
+      DOMelementMaxDepth:
+        "<=": 20
+
+- url: https://zenika.com/fr-FR/agency/rennes
+  name: Zenika-agences-Rennes
+  require:
+    eco:
+      ecoindex:
+        ">=": 80
+    images:
+      lazyLoadableImagesBelowTheFold:
+        "==": 0
+    DOM:
+      DOMelementMaxDepth:
+        "<=": 20

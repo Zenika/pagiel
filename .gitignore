@@ -15,3 +15,4 @@ sitespeed/config/config.json
 .env
 reports/reports/*
 yellowLabTools/reports/*
+input/urls.yaml

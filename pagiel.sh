@@ -1,3 +1,7 @@
+
+# sets the docker compose command used to launch the Docker stacks
+docker_compose_cmd=${DOCKER_COMPOSE_CMD:-docker compose}
+
 # function
 
 # help function
@@ -5,11 +9,16 @@
 help() {
     echo "Process script to start PAGIEL"
     echo ""
+    echo "This script uses the 'docker compose' command by default to launch the tools."
+    echo "If you want to use 'docker-compose', run the script as follows:"
+    echo "DOCKER_COMPOSE_CMD=""docker-compose"" bash pagiel.sh [...]"
+    echo "Command used to call Docker compose: '${docker_compose_cmd}'."
+    echo ""
     echo "Syntax : ./pagiel.sh [-h|P|G|S|Y|R|F|d|D] [--docker-image|docker-port|docker-compose-file|docker-front-contanier]"
     echo
     echo "-h : print this and exit"
     echo "-P : disable PowerAPI"
-    echo "-G : disable GreenIT Analisys CLI"
+    echo "-G : disable GreenIT Analysis CLI"
     echo "-S : disable Sitespeed"
     echo "-Y : disable Yellow Lab Tools"
     echo "-R : disable report generation"
@@ -25,31 +34,31 @@ help() {
 # Powerapi section
 
 startPowerAPI () {
-    docker-compose up -d smartwatts
-    docker-compose up -d powerapi-hwpc-sensor
+    ${docker_compose_cmd} up -d smartwatts
+    ${docker_compose_cmd} up -d powerapi-hwpc-sensor
 }
 
 stopPowerAPI () {
-    docker-compose stop smartwatts
-    docker-compose stop powerapi-hwpc-sensor
+    ${docker_compose_cmd} stop smartwatts
+    ${docker_compose_cmd} stop powerapi-hwpc-sensor
 }
 
 # Selenium section
 startSelenium () {
-    docker-compose up -d chrome
-    docker-compose up -d selenium-hub
+    ${docker_compose_cmd} up -d chrome
+    ${docker_compose_cmd} up -d selenium-hub
 }
 
 stopSelenium () {
-    docker-compose stop chrome
-    docker-compose stop selenium-hub
+    ${docker_compose_cmd} stop chrome
+    ${docker_compose_cmd} stop selenium-hub
 }
 
 # Input file conversion for others tools
 convertInput() {
     errCode=0
     echo "Converting input file"
-    docker-compose run --rm url-converter
+    ${docker_compose_cmd} run --rm url-converter
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -60,7 +69,7 @@ convertInput() {
 
 convertInputDocker() {
     echo "Converting docker input file"
-    docker-compose run --rm url-converter /home/urlconverter/urls.yaml --localContainerName $1 --localContainerPort $2
+    ${docker_compose_cmd} run --rm url-converter /home/urlconverter/urls.yaml --localContainerName $1 --localContainerPort $2
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -85,16 +94,16 @@ stopContainer() { # dockerImage containerName
 # docker-compose
 startDockerCompose(){ # dockerComposeFile dockerNetwork
     python3 ./scripts/docker-compose-conf.py $1 $2
-    docker-compose --file=$1 up -d
+    ${docker_compose_cmd} --file=$1 up -d
 }
 
 stopDockerCompose(){ # dockerComposeFile
-    docker-compose --file=$1 down
+    ${docker_compose_cmd} --file=$1 down
 }
 
 # Test function
 testGreenITAnalysis() {
-    docker-compose run --rm eco-index
+    ${docker_compose_cmd} run --rm eco-index
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -104,7 +113,7 @@ testGreenITAnalysis() {
 }
 
 testSitespeed() {
-    docker-compose run --rm sitespeed 
+    ${docker_compose_cmd} run --rm sitespeed 
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -114,7 +123,7 @@ testSitespeed() {
 }
 
 testYellowLabTools() {
-    docker-compose --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools 
+    ${docker_compose_cmd} --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools 
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -124,7 +133,7 @@ testYellowLabTools() {
 }
 
 testsrobot() {
-    docker-compose run --rm robot-chrome-test
+    ${docker_compose_cmd} run --rm robot-chrome-test
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -136,7 +145,7 @@ testsrobot() {
 makeReport() {
     # Démarrage du conteneur de génération de raport
     echo "Start report generation"
-    docker-compose run --rm report
+    ${docker_compose_cmd} run --rm report
     errCode=$?
     if [ $errCode -ne 0 ];
     then
