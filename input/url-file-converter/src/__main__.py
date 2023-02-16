@@ -17,9 +17,11 @@ Open Browser To {name}
 """
 ROBOT_TEST_TEMPLATE = """
 {name}
+    INFLUXDB MARK BEGINNING
     Open Browser To {name}
     {cookie}
     sleep  10s
+    INFLUXDB MARK END
     [Teardown]    Close Browser
     sleep  20s
 """

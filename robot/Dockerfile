@@ -4,6 +4,8 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r /tmp/requirements.txt
 
-COPY tests /tests
+WORKDIR /robot
+
+COPY Helper.py .
 
 ENTRYPOINT [ "robot" ]

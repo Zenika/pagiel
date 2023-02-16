@@ -80,6 +80,12 @@ services:
       - ./robot-results/gc:/out:rw
     profiles:
       - conso
+    environment:
+      - INFLUXDB_ORG_NAME=${INFLUXDB_ORG_NAME}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
+      - INFLUXDB_HOST=${INFLUXDB_HOST}
+      - INFLUXDB_PORT=${INFLUXDB_PORT}
 
   eco-index:
     build: eco-index/GreenIT-analysis-cli
