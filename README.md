@@ -1,37 +1,43 @@
+## Languages
 
-<h1 align="center">Plateforme Automatisée de Génération d'Indicateurs Environnementaux sur le Logiciel (PAGIEL)</h1>
+🇫🇷 [Voir la documentation en français](documentation/README.fr.md)
+
+#  
+
+<h1 align="center">Automated Generation of Software Environmental Indicators</h1>
 <p>
   <a href="https://github.com/Zenika/pagiel/blob/main/LICENSE" target="_blank">
     <img alt="License: GNU GPL" src="https://img.shields.io/badge/License-GNU GPL-yellow.svg" />
   </a>
 </p>
 
-Sommaire
-- [Présentation du projet](#présentation-du-projet)
+## Summary
+
+- [Presentation of the project](#presentation-of-the-project)
 - [Installation](#installation)
-  - [Prérequis](#prérequis)
-  - [Préparation](#préparation)
-  - [Runner gitlab](#runner-gitlab)
-- [Utilisation](#utilisation)
-  - [Fichier input/urls.yaml](#fichier-inputurlsyaml)
-  - [Utilisation seule](#utilisation-seule)
-  - [Via les CI/CD](#via-les-cicd)
-  - [Rapport au format junit](#rapport-au-format-junit)
-- [Outillage](#outillage)
+  - [Prerequisites](#prerequisites)
+  - [Getting started](#getting-started)
+  - [GitLab runner](#gitlab-runner)
+- [Usage](#usage)
+  - [Input files](#input-files)
+  - [Standalone usage](#standalone-usage)
+  - [Through CI/CD](#through-cicd)
+  - [JUnit report](#junit-report)
+- [Tools](#tools)
   - [Sitespeed.io](#sitespeedio)
-  - [Scoring EcoIndex Green IT](#scoring-ecoindex-green-it-httpwwwecoindexfr)
+  - [EcoIndex Green IT Scoring](#ecoindex-green-it-scoring)
   - [Yellow Lab Tools](#yellow-lab-tools)
-  - [Mesure de la consommation énergétique](#mesure-de-la-consommation-énergétique)
+  - [Energy consumption measure](#energy-consumption-measure)
     - [HWPC](#hpwc)
     - [Formula](#formula)
     - [Dashboards](#dashboards)
   - [Selenium & Robot Framework](#selenium--robot-framework)
 - [Architecture](#architecture)
- - [Configuration suplémentaire pour l'analyse de la consomation énergétique](#installation-et-configuration-de-lenvironnement-pour-lanalyse-de-la-consommation-énergétique)
-- [Cas d'usage à imaginer ou amélioration](#cas-dusage-à-imaginer-ou-améliorations)
-- [Licence](#licence)
-- [Référence](#références)
-  - [Mesure de consomation énergétique](#mesure-de-consommation-énergétique)
+- [Additional configuration for energy consumption analysis](#additional-configuration-for-energy-consumption-analysis)
+- [Use cases to imagine or improve](#use-cases-to-imagine-or-improve)
+- [License](#license)
+- [Reference](#references)
+  - [Energy consumption measurement](#energy-consumption-measurement)
     - [RAPL (Running Average Power Limit)](#rapl-running-average-power-limit)
     - [Android](#android)
     - [iOS](#ios)
@@ -39,39 +45,39 @@ Sommaire
     - [PowerAPI](#power-api)
     - [Power consumption](#power-consumption)
     - [Power consumption tools](#power-consumption-tools)
-  - [Framework Front Web](#framework-front-web)
+  - [Front web framework](#front-web-framework)
     - [SvelteJS](#sveltejs)
-  - [Divers](#divers)
+  - [Miscellaneous](#miscellaneous)
 
-## Présentation du projet
+## Presentation of the project
 
-Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. Mais ces outils sont pour la plupart prévus pour un usage ponctuel et manuel. L'objectif de PAGIEL est de permettre l'utilisation de ces outils tout au long du développement d'un projet web, en rendant possible leur utilisation depuis les pipelines de CI/CD. PAGIEL rend possible l'utilisation de quatre projets web open source que sont GreenIT Analysis, SiteSpeed, Yellow Lab Tools et PowerAPI depuis un runner GitLab, en pouvant configurer les attendus sur tout ou partie des indicateurs remontés par la plateforme, et stopper le pipeline de déploiement en cas de problème avec un des indicateurs surveillés.
+Today, there are many tools for measuring environmental impacts. However, most of these tools are intended to be used on a one-time basis and manually. The objective of PAGIEL is to allow the use of these tools throughout the development of a web project, by making it possible to use them from the CI/CD pipelines. PAGIEL makes it possible to use four open source web projects such as GreenIT Analysis, SiteSpeed, Yellow Lab Tools and PowerAPI from a GitLab runner, by being able to configure the expectations on all or part of the indicators reported by the platform, and to stop the deployment pipeline in case of a problem with one of the monitored indicators.
 
 ## Installation
 
-### Prérequis 
+### Prerequisites
 
-- Docker compose
-- Python (script d'installation uniquement)
+- docker-compose
+- python (install script only)
 
-### Préparation
+### Getting started
 
-- Cloner le dépot en ligne
-- Copier le fichier [`.env-default`](.env-default) vers le fichier `.env`.
-- Changer les couples nom d'utilisateur/mot de passe si besoin.
-- Lancer `docker compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
-- Se connecter à influxdb (http://localhost:8086 par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
-- Exécuter le script `setup.sh`, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
+- Clone the repo online
+- Copy the `.env.example` file to the `.env` file
+- Change the username/password pairs
+- Launch `docker-compose up`, this will launch the InfluxDB and Grafana containers which are designed to run permanently
+- Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<org id>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
+- Run the setup.sh script. It will create some configuration files needed for the other containers from the `.env` file
 
-> Ce projet utilise des git submodules, ils sont clonés par le script [setup.sh](setup.sh).
+> This project uses git submodules, they are cloned by the setup script
 
-### Runner gitlab
+### Gitlab runner
 
-Le runner est installé directement sur la machine (cf. https://docs.gitlab.com/runner/register/#linux).
+The runner is installed directly on the machine (see [Gitlab runner](https://docs.gitlab.com/runner/register/#linux))
 
-Exemple de configuration de runner gitlab :
+Example of gitlab runner configuration
 
-```toml
+```yaml
 concurrent = 1
 check_interval = 0
 
@@ -85,61 +91,56 @@ check_interval = 0
   executor = "shell"
 ```
 
-## Utilisation
+## Usage
 
-### Fichier input/urls.yaml
+### Input files
 
-À partir de l'exemple [input/urls.yaml-default](input/urls.yaml-default) Construire le fichier [input/urls.yaml](input/urls.yaml) qui liste les URL à analyser.
-Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
+Build the file input/urls.yaml which lists the URLs to analyze. The file is in YAML format. (Warning: the `.yml` extension will not work)
+Its structure is as follows:
 
-Sa structure est la suivante :
+| Paramètre           | Type   | Obligatoire | Description                                                          |
+| ------------------- | ------ | ----------- | -------------------------------------------------------------------- |
+| `url`               | string | Yes         | URL of the page to analyze                                           |
+| `name`              | string | Yes         | Name of the page to analyze, displayed in the report                 |
+| `waitForSelector`   | string | No          | Waits for the HTML element defined by the CSS selector to be visible |
+| `waitForXPath`      | string | No          | Waits for the HTML element defined by the XPath to be visible        |
+| `waitForNavigation` | string | No          | Waits for the end of the page loading. 4 possible values : load, domcontentloaded, networkidle0, networkidle2 |
+| `screenshot`        | string | No          | Take a screenshot of the page to analyze. The value to fill in is the name of the screenshot.
+ The screenshot is taken even if the page is loading in error.                                                      |
+| `actions`           | list   | No          | Performs a series of actions before analyzing the page               |
+| `final_url`         | string | No          | Final URL of the page after loading                                  |
+| `cookie_btn`        | string | No          | Selector to close the cookie popup                                   |
+| `require`           | map | No             | Generates a junit report, more information in the dedicated section  |
 
-| Paramètre           | Type   | Obligatoire | Description                                                         |
-| ------------------- | ------ | ----------- | ------------------------------------------------------------------- |
-| `url`               | string | Oui         | URL de la page à analyser                                           |
-| `name`              | string | Oui         | Nom de la page à analyser, affiché dans le rapport                   |
-| `waitForSelector`   | string | Non         | Attend que l'élément HTML définit par le sélecteur CSS soit visible |
-| `waitForXPath`      | string | Non         | Attend que l'élément HTML définit par le XPath soit visible         |
-| `waitForNavigation` | string | Non         | Attend la fin du chargement de la page. 4 valeurs possibles : `load`, `domcontentloaded`, `networkidle0`, `networkidle2` |
-| `screenshot`        | string | Non         | Réalise une capture d'écran de la page à analyser. La valeur à renseigner est le nom de la capture d'écran. La capture d'écran est réalisée même si le chargement de la page est en erreur. |
-| `actions`           | list   | Non         | Réalise une suite d'actions avant d'analyser la page                |
-| `final_url`               | string | Non         | URL final de la page après chargement                              |
-| `cookie_btn`               | string | Non         | Sélecteur pour fermer le popup des cookies       |
-| `require`               | map | Non         | Entraine la génération d'un rapport junit, plus d'information dans la partie dédiée       |
+For more details on the configuration of the actions see [GreenIT analysis documentation](https://github.com/cnumr/GreenIT-Analysis-cli#actions)
 
-Pour plus de détails sur la configuration des actions voir https://github.com/cnumr/GreenIT-Analysis-cli#actions
+### Standalone usage
 
-### Utilisation seule
+- Fill the file input/urls.yaml with a list of url to test
+- Run the pagiel.sh script
 
-- Remplir le fichier [input/urls.yaml](input/urls.yaml) avec une liste d'url à tester
-- Lancer le script `pagiel.sh`
-
-Ce script dispose de plusieurs options :
+This script has several options
 
 | Option | Description |
 |--------|-------------|
-| `-h` | Affiche l'aide |
-| `-P` | Désactive PowerAPI pour le test |
-| `-G` | Désactive GreenIt Analysis CLI pour le test |
-| `-S` | Désactive Sitespeed pour le test |
-| `-Y` | Désactive Yellow Lab Tools pour le test |
-| `-F` | Désactive Robot Framework pour le test |
-| `-R` | Ne pas générer de rapport pour le test |
-| `-d` | Tester une simple image de container docker |
-| `-D` | Tester un fichier docker-compose |
-| `--docker-front-container` | Nom du container front à tester (défaut test-container) |
-| `--docker-port` | Port sur lequel se connecter pour le front (défaut 80) |
-| `--docker-image` | Nom de l'image à tester (obligatoire avec -d, inutile sinon) |
-| `--docker-compose-file` | Nom du fichier docker-compose à tester (obligatoire avec `-D`, inutile sinon) |
+| `-P` | Disable PowerAPI for testing |
+| `-G` | Disable GreenIt Analysis CLI for testing |
+| `-S` | Disable Sitespeed for testing |
+| `-Y` | Disable Yellow Lab Tools for testing |
+| `-F` | Disable Robot Framework for testing |
+| `-R` | Do not generate a report for the test |
+| `-d` | Test a single docker container image |
+| `-D` | Test a docker-compose file |
+| `--docker-front-container` | Name of the front-end container to test (default test-container) |
+| `--docker-port` | Port to connect to for the front (default: 80) |
+| `--docker-image` | Name of the image to test (required with -d, useless otherwise) |
+| `--docker-compose-file` | Name of the docker-compose file to test (required with -D, useless otherwise) |
 
-Pour le test d'image, il nécessaire que l'image soit accessible en ligne (il est toujours possible de se connecter à un repository Docker privé).
-Pour le test de `docker compose`, il faut que le projet démarre avec un simple `docker compose up`.
-Pour éviter des risques de chevauchement de port avec ceux utilisés par le projet, un script Python supprime tout les attibuts `ports` de la définition des services.
-De même, afin que les conteneurs du projet aient accès au conteneur exposant le front-end, il est nécessaire que celui-ci soit sur le network `default`, qui sera redéfini par le script Python pour se connecter au réseau du projet.
+For the image test, it is necessary that the image is accessible online (it is always possible to connect to a private docker repository). For the docker-compose test, it is necessary that the project starts with a simple `docker-compose up`. To avoid risks of port overlap with those used by the project, a python script removes all `ports` attributes from the service definition. Also, in order for the project's containers to have access to the containers exposing the front-end, it is necessary that this one is on the `default` network, which will be redefined by the python script to connect to the project's network.
 
-### Via les CI/CD
+### Through CI/CD
 
-Voici un exemple de script d'une pipeline gitlab :
+Here is an example script of a gitlab pipeline:
 
 ```yaml
 eco test:
@@ -161,73 +162,70 @@ eco test:
         - report.xml
 ```
 
-Où :
- - `stage: eco` est un stage personnalisé ;
- - Le tag `eco` est le tag du runner ;
- - Le `cd` en début de script met le runner dans le répertoire du projet ;
- - On stocke dans une variable le dossier du runner afin de pouvoir y copier le rapport.
- - `$URL` contient le fichier yaml à utiliser (cf [ici](#fichier-inputurlsyaml))
- - `$PROJECT_DIRECTORY` est le dossier dans lequel est installé le projet sur la machine du runner
+Where:
 
- ### Rapport au format junit
+- `stage: eco` is a personalized stage
+- The tag `eco` is the tag of the runner
+- The `cd` at the beginning of the script puts the runner in the project directory
+- We store in a variable the folder of the runner in order to copy the report
+- $URL contains the yaml file to use ([see here](#input-files))
+- $PROJECT_DIRECTORY is the folder where the project is installed on the runner's machine
 
- Un rapport au format junit est rédigé si la clé `require` est présente sur l'un des tests à réaliser. Ce rapport peut être récupéré par le runner s'il est déplacé dans le dossier de celui-ci.
+### JUnit report
 
- Ce rapport indique les résultats d'assertions réalisées sur les indicateurs récupérés lors des tests. La liste exhaustive de ces indicateurs est disponible [ici](./indicateurs.md).
+A report in junit format is written if the `require` key is present on one of the tests to be performed. This report can be retrieved by the runner if it is moved to the runner's folder.
+This report indicates the results of assertions made on the indicators recovered during the tests. The exhaustive list of these indicators is available [here](../indicateurs.md).
+By default, no assertion is made on the indicators. To add one, it is necessary to specify the category and the name of the indicator, as well as one or more assertions to be verified. The list of available comparisons is as follows: ">", "=>", "==", "<=", "!=".
 
- Par défaut aucune assertion n'est faite sur les indicateurs. Pour en rajouter, il est nécessaire de préciser la catégorie et le nom de l'indicateur, ainsi qu'une ou plusieurs assertions à vérifier. La liste des comparaisons disponible est la suivante : ">", "=>", "==", "<=", "<", "!=".
-
- Un exemple de configuration de tests :
+An example of a test configuration:
 
  ```yaml
-- url: https://exemple.com/
-  name: Exemple
+- url: https://example.com/
+  name: Example
   require:
     eco:
       ecoindex:
         ">=": 80
     assets:
-      cssCount: #Plusieurs assertions peuvent être faites sur le même indicateur
+      cssCount: # many assertions can be performed on the same indicator
         ">=": 2
         "<=": 5
  ```
-   
 
-## Outillage
-
+## Tools
 
 ### SiteSpeed.io
 
-> Monitoring et analyse des performances dans un navigateur 
+> Performance monitoring and analysis in a browser
 
 **Description**
 
-Pour réaliser ce type d'analyse nous avons retenu http://sitespeed.io/ qui est composé d'un ensemble d'outils de mesures. 
-Cet outil exploite les datas exposées par les debuggers des navigateurs.
-Nous y retrouvons l'ensemble des informations nécessaires à la réalisation de métriques : performance, timing, réseaux, ressources, etc.
-Les navigateurs supportés sont : Chrome, Firefox, Edge et Safari.
+To carry out this type of analysis we have chosen [Sitespeed IO](http://sitespeed.io/) which is composed of a set of measurement tools.
+This tool exploits the data exposed by the browser debuggers.
+We find all the information necessary to the realization of metrics: performance, timing, networks, resources, etc.
+Supported browsers are : Chrome, Firefox, Edge and Safari.
 
 **Intégration**
 
-Cet outil peut être utilisé en standalone en local via docker ou dans un pipeline de CI/CD en mode docker. 
+This tool can be used in standalone locally via docker or in a CI/CD pipeline in docker mode.
 
-> Exemple de son usage via docker en local :
+> Example of its use via local docker
 
-```sh
+```console
 docker run --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.10.3 https://www.sitespeed.io/
 ```
 
-> Exemple de son usage dans une CI, il faudra passer la configuration du endpoint de sortie, ici graphite.
+> Example of its use in a CI, it will be necessary to pass the configuration of the output endpoint, here graphite.
 
-```sh
+```console
 docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" \ 
     sitespeedio/sitespeed.io:16.10.3 https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome \
     --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
 ```
 
-L'ensemble des configurations possibles sont exposées ici : https://www.sitespeed.io/documentation/sitespeed.io/configuration/
+All possible configurations are shown in [Sitespeed documentation](https://www.sitespeed.io/documentation/sitespeed.io/configuration/)
 
-Sitespeed génère par défaut les résultats d'analyses au format HTML à la racine de l'exécution du conteneur, mais il est possible de connecter plusieurs types de endpoints en sorties :
+Sitespeed by default generates HTML scan results at the root of the container run, but it is possible to connect several types of endpoints as output:
 
 - S3
 - Influx
@@ -236,59 +234,56 @@ Sitespeed génère par défaut les résultats d'analyses au format HTML à la ra
 
 **Dashboard**
 
-[Documentation sur les dashboard proposés par sitespeed](https://www.sitespeed.io/documentation/sitespeed.io/performance-dashboard/#page-summary)
+[Documentation on the dashboards offered by sitespeed](https://www.sitespeed.io/documentation/sitespeed.io/performance-dashboard/#page-summary)
 
-[Image docker des dashboards Grafana](https://github.com/sitespeedio/grafana-bootstrap-docker)
+[Docker image of the Grafana dashboards](https://github.com/sitespeedio/grafana-bootstrap-docker)
 
+### EcoIndex Green IT Scoring
 
+[EcoIndex website](http://www.ecoindex.fr/)
 
-### Scoring EcoIndex Green IT http://www.ecoindex.fr/ 
+> Scoring based on the evaluation of eco-design rules
 
-> Scoring basé sur l'évaluation des règles d'écoconceptions
+Usage of the fork of the [GreenIT plugin](https://github.com/cnumr/GreenIT-Analysis-cli).
+This tool is basically a plugin for Chrome and Firefox allowing to score eco-design best practices.
 
-Utilisation du fork du plugin GreenIT https://github.com/cnumr/GreenIT-Analysis-cli.
-Cet outil est à la base un plugin pour Chrome et Firefox permettant de réaliser un scoring des bonnes pratiques d'écoconception.
+The good practices are from [the repository published by GreenIT.fr](https://collectif.greenit.fr/ecoconception-web/).
 
-Les bonnes pratiques sont issues du [référentiel édité par GreenIT.fr](https://collectif.greenit.fr/ecoconception-web/).
-
-Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consiste en l'ajout de l'écriture des résultats en base influx et d'un dahsboard Grafana.
+We have made a contribution to this project, which consists in adding the writing of the results in influx base and a Grafana dahsboard.
 
 **Dashboard**
 
-![dashboard_ecoindex](media/dashboard_ecoindex.png)
+![dashboard_ecoindex](../media/dashboard_ecoindex.png)
 
 ### Yellow Lab Tools
 
-> Monitoring et analyse de code dans un navigateur 
+> Monitoring and analysis of code in a browser
 
-Utilisation du projet Yellow Lab Tools pour récupérer une grande quantitée de métrique permettant de remonter aux causes des problèmes reportés par les projets précédents. 
-Cet outil collecte des métriques sur des sujets aussi variés que la complexité du DOM, une analyse du JS et du CSS, le cache configuré, etc.
+Use of the Yellow Lab Tools project to retrieve a large amount of metrics to trace the causes of problems reported by previous projects.
+This tool collects metrics on topics as varied as DOM complexity, JS and CSS analysis, configured cache, etc.
 
+### Energy consumption measure
 
-### Mesure de la consommation énergétique 
+Use of the tools exposed by the [framework PowerAPI](https://github.com/powerapi-ng)
 
-Utilisation de la suite d'outils exposée par le framework *PowerAPI* https://github.com/powerapi-ng
-/!\ Ces outils sont utilisables uniquement sur une machine physique disposant des accès root /!\ 
+/!\ These tools can only be used on a physical machine with root /!\ access.
+For our needs, we have selected the HWPC Sensor and Formula tools, which are available in a containerized way.
 
-Pour le besoin nous avons retenu les outils HWPC Sensor et Formula, ces derniers sont disponibles de manière conteneurisés.
+#### HPWC
 
-#### HPWC 
-
-> La mesure de consommation énergétique est possible par le biais de RAPL (RUNNING AVERAGE POWER LIMIT).
+> The measurement of energy consumption is possible through RAPL (RUNNING AVERAGE POWER LIMIT).
 
 **Description**
 
-RAPL expose des données de consommation sous forme de clé valeur : `Timestamp (ns) / joules`.
-> Article expliquant succinctement le fonctionnement de RAPL : https://01.org/blogs/2014/running-average-power-limit-%E2%80%93-rapl 
+RAPL exposes consumption data in the form of a value key: `Timestamp (ns) / joules`.
+> Article explaining [how RAPL works](https://01.org/blogs/2014/running-average-power-limit-%E2%80%93-rapl)
+> HPWC scrapes the data via the linux kernel, itself re-exposing this data from the CPU/DRAM/GPU. This data is then pushed into a mongo database or a text file.
 
-> HPWC scrap la données via le kernel linux, lui-même ré-exposant ces données issues du CPU/DRAM/GPU. 
-Ces données sont ensuite poussées au choix dans une base mongo ou dans un fichier texte.
+[HWPC documentation](https://powerapi-ng.github.io/hwpc-sensor.html)
 
-https://powerapi-ng.github.io/hwpc.html
+**Integration**
 
-**Intégration**
-
-```sh
+```console
 docker run --net=host --privileged --name hwpc-sensor -d 
     -v /sys:/sys 
     -v /var/lib/docker/containers:/var/lib/docker/containers:ro 
@@ -301,32 +296,31 @@ docker run --net=host --privileged --name hwpc-sensor -d
     -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
 ```
 
-#### Formula 
+#### Formula
 
-> Formula réalise la conversion des données issues de HWPC en données exploitables.
+> Formula converts the data from HWPC into usable data.
 
-**Description & intégration**
+**Description & integration**
 
-Il est nécessaire de fournir des informations à propos du CPU (lequel a été monitoré par HWPC) afin de réaliser la conversion.
-Documentation : https://powerapi-ng.github.io/howto_monitor_process/deploy_formula.html#cpu-ratio
+It is necessary to provide information about the CPU (which has been monitored by HWPC) in order to perform the conversion. 
+[HWPC documentation](https://powerapi-ng.github.io/hwpc-sensor.html)
 
-Ces informations sont les suivantes :
+This information is as follows:
 
-- ratio de fréquence nominale
-- ratio de fréquence minimale
-- ratio de fréquence maximale
+- nominal frequency ratio
+- minimum frequency ratio
+- maximum frequency ratio  
 
-Ce qui pour un CPU (utilisé dans le développement du POC) de 1800mhz avec un min de 400mhz et un max de 4000mhz donne :
+This for a CPU (used in the development of the POC) of 1800mhz with a min of 400mhz and a max of 4000mhz gives
 
-- BASE_CPU_RATIO=18 
-- MIN_CPU_RATIO=4 
+- BASE_CPU_RATIO=18
+- MIN_CPU_RATIO=4
 - MAX_CPU_RATIO=40
 
-Formula supporte l'écriture des données dans une base InfluxDB qui permettra de réaliser des graphs dans un outil comme Grafana.
+Formula supports the writing of data in an InfluxDB database which will allow to make graphs in a tool like Grafana.
+[See schema](https://powerapi-ng.github.io/introduction.html#power-meter-architecture)
 
-https://powerapi-ng.github.io/howto_monitor_global/deploy_formula.html
-
-```sh
+```console
 sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formula \
     -s \
     --input mongodb --model HWPCReport \
@@ -342,240 +336,162 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
                         --dram-error-threshold 2.0 \
                         --disable-dram-formula
 ```
- 
+
 #### Dashboards
 
-> Exemple d'un premier dashboard
+> Example of an initial dashboard
 
-![dashboard_conso_energetique](media/dashboard_conso_energetique.png)
+![dashboard_conso_energetique](../media/dashboard_conso_energetique.png)
 
-À noter qu'il faudra aller plus loin dans la façon d'exploiter ces données :
+Note that it will be necessary to go further in the way of exploiting this data:
 
-- dans un premier temps, il peut être pertinent de corréler les mesures réalisées dans le temps et l'exécution des tests Robot Framework
-- dans un second temps, il faudra réaliser un calcul de type intégration (dans Grafana) en fonction de la durée des tests, dans l'idée d'avoir une valeur unique à la place d'une courbe  
-
-
+- First, it may be relevant to correlate the measurements made over time and the execution of the Robot Framework tests
+- In a second step, it will be necessary to perform an integration type calculation (in Grafana) according to the duration of the tests, with the idea of having a unique value instead of a curve
+  
 ### Selenium & Robot Framework
 
-Pour la mesure de consommation énergétique d'un browser, nous avons retenu l'utilisation du framework Selenium.
-Selenium expose un mécanisme de hub et de node afin de paralléliser les executions de tests et ce sur différents navigateurs.
-Les tests sont pilotés par Robot Framework, celui-ci va permettre de programmer la simulation de parcours utilisateur, 
-les mesures de consommation énergétique seront réalisées en arrière-plan par écoute du PID des nodes par HWPC.
+To measure the energy consumption of a browser, we have chosen to use the Selenium framework.
+Selenium exposes a hub and node mechanism in order to parallelize test executions on different browsers.
+The tests are driven by the Robot Framework, which will allow to program the simulation of the user path,
+the energy consumption measurements will be performed in the background by listening to the PID of the nodes by HWPC.
 
-Il est toutefois envisageable de monitorer avec HWPC le PID d'un browser installé directement sur la machine.
-Il faudra alors installer et configurer GeckoDriver afin de piloter le browser au travers de Selenium hub.
-Nous n'avons pas été en mesure de quantifier précisément le "bruit" généré dans un node Selenium conteneurisé,
-mais celui-ci apparait comme étant négligeable.
-
-
+It is however possible to monitor with HWPC the PID of a browser installed directly on the machine.
+It will then be necessary to install and configure GeckoDriver in order to drive the browser through the Selenium hub.
+We have not been able to quantify precisely the "noise" generated in a containerized Selenium node, but it appears to be negligible.
 
 ## Architecture
 
-![architecture](media/architecture.png)
+![architecture](../media/architecture.png)
 
 **EcoIndex**
 
-- Un conteneur docker dédié GreenIT CLI Analysis
-- Dépendance avec le conteneur InfluxDB
-- Dépendance avec un conteneur Grafana et un dashboard
+- A dedicated GreenIT CLI Analysis docker container
+- Dependency on InfluxDB container
+- Dependency on Grafana container and dashboard
 
 **Sitespeed.io**
 
-- Un conteneur docker dédié SiteSpeed à exécuter
-- Dépendance avec un conteneur InfluxDB 
-- Dépendance avec un conteneur Grafana et un ensemble de dashboard
+- A dedicated SiteSpeed docker container to run
+- Dependency on an InfluxDB container
+- Dependency on a Grafana container and a set of dashboards
 
 **Yellow Lab Tools**
 
-- Un conteneur docker dédié Yellow Lab Tools
-- Dépendance avec le conteneur InfluxDB
-- Dépendance avec un conteneur Grafana et un dashboard
+- A dedicated Yellow Lab Tools docker container
+- Dependency with the InfluxDB container
+- Dependency with a Grafana container and a dashboard
 
 **PowerAPI**
 
-L'analyse de la consommation énergétique est la partie nécessitant le plus d'outillage et de configuration.
+The energy consumption analysis is the part that requires the most tooling and configuration.
 
-- Une machine physique dédiée
-- Un conteneur HWPC
-- Un conteneur SmartWatts
-- Dépendance avec un conteneur InfluxDB 
-- Dépendance avec un conteneur Grafana et un dashboard
+- A dedicated physical machine
+- An HWPC container
+- A SmartWatts container
+- Dependency with an InfluxDB container
+- Dependency with a Grafana container and a dashboard
 
 **NB**
 
-À noter que l'utilisation de ces différents outils est totalement modulaire en fonction des besoins.
+Note that the use of these different tools is totally modular according to the needs.
 
-### Installation et configuration de l'environnement pour l'analyse de la consommation énergétique 
+### Additional configuration for energy consumption analysis
 
-1. docker et de docker-compose
+1. docker and docker-compose
 
-https://docs.docker.com/engine/install/ubuntu/
-https://docs.docker.com/compose/install/
+[docker](https://docs.docker.com/engine/install/ubuntu/)
+[docker-compose](https://docs.docker.com/compose/install/)
 
 2. node 14
 
-```sh
+```console
 sudo apt-get update
 sudo apt-get install nodejs npm
 ```
 
 3. gitlab runner
 
-https://docs.gitlab.com/runner/install/linux-manually.html
+[Gitlab runner](https://docs.gitlab.com/runner/install/linux-manually.html)
 
-Vous devez ajouter le runner à la configuration de votre repository Gitlab https://gitlab.com/your_project/-/settings/ci_cd,
-en spécifiant le registration_token et l'url du Gitlab à votre runner local.
+You must add the runner to the configuration of your Gitlab repository, by specifying the registration_token and the url of the Gitlab to your local runner.
+(i.e `https://gitlab.com/<your_project>/-/settings/ci_cd`)
 
-> Donner les droits du process docker au daemon Gitlab runner
+> Give docker process rights to the Gitlab runner daemon
 
-```sh
+```console
 sudo usermod -aG docker gitlab-runner
 ```
 
-4. Installation du package Cgroup
+4. Installation of Cgroup package
 
-```sh
+```console
 sudo apt-get install cgroup-bin
 ```
 
-4. 1. Pour un usage de powerapi avec un navigateur en local
+5. Use powerapi with a local browser
 
-Créer / éditer le fichier `/etc/cgconfig.conf` et y ajouter un event custom :
+Create / edit file `/etc/cgconfig.conf` and add a custom event:
 
 ```
 group firefoxEvent{
-        perf_event{}
+  perf_event{}
 }
 ```
 
-Créer / éditer le fichier `/etc/cgrules.conf` et réaliser un lien entre l'événement cgroup et le path du process à écouter :
+Create / edit file `/etc/cgrules.conf` and make a link between the cgroup event and the process path to listen to:
 
 ```
-user:/usr/lib/firefox/firefox	perf_event	firefoxEvent
+user:/usr/lib/firefox/firefox perf_event firefoxEvent
 ```
 
-Charger la configuration
+Load configuration
 
-```sh
+```console
 sudo cgconfigparser -l /etc/cgconfig.conf
 ```
 
-Charger les règles
+Load rules
 
-```sh
+```console
 sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 ```
 
+## Use cases to imagine or improve
 
-## Cas d'usage à imaginer ou améliorations
+* Aggregation of browser runtime
 
-* Aggrégation des runtimes de browser
+- The 3 tools: eco index, site speed and robot framework each use their own browser runtime.
+- GreenIT CLI Analysis uses a default Chronium and is not configurable
+- Sitespeed.io uses its own runtime but can apparently be configured to use a Selenium server
+- Robot Framework is using Selenium
 
-    Les 3 outils : eco index, site speed et robot framework utilisent chacun leurs propres runtimes de browser.
-    - GreenIT CLI Analysis utilise un Chronium par défaut et n'est pas configurable
-    - Sitespeed.io utilise son propre runtinme mais peut apparemment être configuré pour utiliser un serveur Selenium
-    - Robot Framework utilise Selenium
+The most interesting thing would be to converge on a single use of Selenium and therefore to make a contribution to the GreenIT CLI Analysis plugin to make it compatible with Selenium.
 
-    Le plus intéressant serait de converger sur un usage unique de Selenium et donc de réaliser une contribution sur
-    le plugin GreenIT CLI Analysis afin de le rendre compatible avec Selenium.   
-    
-* Analyse statique de code avec un plugin Sonar dédié 
+* Static code analysis with a dedicated Sonar plugin
+![architecture_sonar](../media/architecture_sonar.png)
+Like the GreenIT CLI Analysis plugin, it is possible to perform the same type of analysis via a custom Sonar plugin. A first implementation is available on [this repository](https://github.com/cnumr/SonarQube)
 
-![architecture_sonar](media/architecture_sonar.png)
+* Test bench
+The objective would be to build up a pool of machines with different performances. These machines would have at their disposal a PowerAPI installation with one or more Selenium nodes. These would be driven by Robot Framework tests. It could also be interesting to run Sitespeed remotely in order to monitor the browsing performance. This would provide a history of the energy consumption of a given front-end on a given machine.
 
-À l'image du plugin GreenIT CLI Analysis, il est possible de réaliser le même type d'analyse via un plugin Sonar custom.
-Un début d'implémentation est disponible sur ce repository : https://github.com/cnumr/SonarQube
+* Measurement of VM's energy consumption on the Data Center main frame side
 
-* Banc de tests
-
-    L'objectif serait de constituer un parc de machines aux performances diverses.
-    Lesquelles auraient à leurs dispositions une installation de PowerAPI avec un ou plusieurs node Selenium.
-    Ces derniers seraient pilotés par des tests Robot Framework.
-    Il pourrait également être intéressant d'exécuter Sitespeed à distance afin de monitorer les performances de navigation.
-    Cela permettrait d'avoir une historisation de la consommation énergétique d'un front donné sur une machine donnée.
-    
-* Mesure de la consommation énergétique des VM côté Data Center main frame  
-
-   À noter qu'il existe d'autres outils exploitant la partie RAPL : 
-   - Intel Power Gadget
-   - https://github.com/mlco2/codecarbon
-   - https://github.com/hubblo-org/scaphandre
-   - https://github.com/chakib-belgaid/async-profiler
-   
-* Concevoir un index d'écoconception à partir des métriques générées par ces différents outils
-
-* Concevoir des dashboards personnalisés pour chaque type de profil 
+- Note that there are other tools that use the RAPL part:
+- Intel Power Gadget
+- [Codecarbon](https://github.com/mlco2/codecarbon)
+- [Scaphandre](https://github.com/hubblo-org/scaphandre)
+- [Async Profiler](https://github.com/chakib-belgaid/async-profiler)
+- Design an eco-design index from the metrics generated by these different tools
+- Design customized dashboards for each type of profile
 
 ## Contribution
 
-Un problème, une idée, la [page des issues](https://github.com/Zenika/pagiel/issues) est ouverte.
+Any issue or idea ? The [issues page](https://github.com/Zenika/pagiel/issues) is open!
 
-## Licence
+## License
 
-> The LCA values used by GreenIT to evaluate environmental impacts are not under free license - © Frédéric Bordage. Please also refer to the mentions provided in the code files for specifics on the IP regime.
-   
-## Références 
+The LCA values used by GreenIT to evaluate environmental impacts are not under free license - © Frédéric Bordage. Please also refer to the mentions provided in the code files for specifics on the IP regime.
 
-### Mesure de consommation énergétique 
+## References
 
-#### RAPL (Running Average Power Limit)
-
-  * https://www.kernel.org/doc/html/latest/power/powercap/powercap.html
-  * http://web.eece.maine.edu/~vweaver/projects/rapl/index.html
-  * https://01.org/blogs/2014/running-average-power-limit-%E2%80%93-rapl
-  * https://blog.chih.me/read-cpu-power-with-RAPL.html
-  * https://github.com/mozilla/gecko-dev/blob/master/tools/power/rapl.cpp
-  * https://software.intel.com/content/www/us/en/develop/articles/intel-power-gadget.html
-
-#### Android 
-
-  * https://developer.android.com/studio/profile/energy-profiler
-  * https://fpalomba.github.io/pdf/Conferencs/C15.pdf
-
-#### iOS 
-
-  * https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/MonitorEnergyWithInstruments.html
-
-#### cgroups 
-
-  * https://zarak.fr/linux/exploration-des-cgroups/
-  * https://wiki.archlinux.org/index.php/cgroups
-  * http://libcg.sourceforge.net/html/index.html
-  * https://linux.die.net/man/1/cgcreate
-  * https://linux.die.net/man/1/cgclassify
-
-#### Power API 
-
-  * https://gitter.im/Spirals-Team/powerapi
-  * https://hal.inria.fr/hal-02470128/document
-  * https://hal.inria.fr/hal-02470128
-  * https://github.com/powerapi-ng
-  * https://www.youtube.com/watch?v=NAGeLmgYNTw
-  * https://github.com/chakib-belgaid/powerapi-g5k
-
-#### Power consumption 
-  * https://hal.inria.fr/hal-02470128/document
-  * https://hal.inria.fr/hal-01403486/document
-  * https://blog.theodo.com/2020/05/greenit-measure-server-energy-consumption-powerapi/
-  * https://www.apiscene.io/sustainability/measuring-the-energy-consumption-of-an-api/
-
-#### Power consumption tools
-  * https://github.com/powerapi-ng
-  * https://github.com/hubblo-org/scaphandre
-  * https://github.com/chakib-belgaid/async-profiler
-  * https://github.com/mlco2/codecarbon
-
-### Framework Front Web 
-
-#### SvelteJS 
-  * https://blog.ippon.fr/2020/12/16/svelte-compiler-pour-mieux-regner/
-  * https://www.svelteradio.com/episodes/whats-new-in-sveltia
-  * https://dev.to/lukocastillo/svelte-3-how-to-integrate-with-svelte-routing-4j3b
-  * https://sapper.svelte.dev/
-
-### Divers
-  * https://dev.to/ryansolid/making-sense-of-the-js-framework-benchmark-25hl
-  * https://github.com/cnumr/GreenIT-Analysis
-  * https://collectif.greenit.fr/ecoconception-web/115-bonnes-pratiques-eco-conception_web.html
-  * https://github.com/rlemaire/bookmarks-green-it
-  * https://github.com/cnumr/GreenIT-Analysis
+[See references](./documentation/references.en.md)
