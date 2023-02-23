@@ -1,6 +1,6 @@
 ## Languages
 
-🇬🇧 [See english documentation](../README.md)
+🇬🇧 [See english documentation](/README.md)
 
 #  
 
@@ -62,13 +62,13 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 ### Préparation
 
 - Cloner le dépot en ligne
-- Copier le fichier [`.env-default`](../.env-default) vers le fichier `.env`.
+- Copier le fichier [`.env-default`](/.env-default) vers le fichier `.env`.
 - Changer les couples nom d'utilisateur/mot de passe si besoin.
 - Lancer `docker compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
 - Se connecter à influxdb (http://localhost:8086 par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
 - Exécuter le script `setup.sh`, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
 
-> Ce projet utilise des git submodules, ils sont clonés par le script [setup.sh](../setup.sh).
+> Ce projet utilise des git submodules, ils sont clonés par le script [setup.sh](/setup.sh).
 
 ### Runner gitlab
 
@@ -94,7 +94,7 @@ check_interval = 0
 
 ### Fichier input/urls.yaml
 
-À partir de l'exemple [input/urls.yaml-default](../input/urls.yaml-default), construire le fichier [input/urls.yaml](../input/urls.yaml) qui liste les URL à analyser.
+À partir de l'exemple [input/urls.yaml-default](/input/urls.yaml-default), construire le fichier `input/urls.yaml` qui liste les URL à analyser.
 Le fichier est au format YAML. (Attention, l'extension `.yml` ne fonctionnera pas)
 
 Sa structure est la suivante :
@@ -116,7 +116,7 @@ Pour plus de détails sur la configuration des actions voir [la documentation de
 
 ### Utilisation seule
 
-- Remplir le fichier [input/urls.yaml](../input/urls.yaml) avec une liste d'url à tester
+- Remplir le fichier [input/urls.yaml](/input/urls.yaml) avec une liste d'url à tester
 - Lancer le script `pagiel.sh`
 
 Ce script dispose de plusieurs options :
@@ -179,7 +179,7 @@ Où :
 
 Un rapport au format junit est rédigé si la clé `require` est présente sur l'un des tests à réaliser. Ce rapport peut être récupéré par le runner s'il est déplacé dans le dossier de celui-ci.
 
-Ce rapport indique les résultats d'assertions réalisées sur les indicateurs récupérés lors des tests. La liste exhaustive de ces indicateurs est disponible [ici](../indicateurs.md).
+Ce rapport indique les résultats d'assertions réalisées sur les indicateurs récupérés lors des tests. La liste exhaustive de ces indicateurs est disponible [ici](/indicateurs.md).
 
 Par défaut aucune assertion n'est faite sur les indicateurs. Pour en rajouter, il est nécessaire de préciser la catégorie et le nom de l'indicateur, ainsi qu'une ou plusieurs assertions à vérifier. La liste des comparaisons disponible est la suivante : ">", "=>", "==", "<=", "<", "!=".
 
@@ -259,7 +259,7 @@ Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consis
 
 **Dashboard**
 
-![dashboard_ecoindex](../media/dashboard_ecoindex.png)
+![dashboard_ecoindex](/media/dashboard_ecoindex.png)
 
 ### Yellow Lab Tools
 
@@ -348,7 +348,7 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 
 > Exemple d'un premier dashboard
 
-![dashboard_conso_energetique](../media/dashboard_conso_energetique.png)
+![dashboard_conso_energetique](/media/dashboard_conso_energetique.png)
 
 À noter qu'il faudra aller plus loin dans la façon d'exploiter ces données :
 
@@ -369,7 +369,7 @@ mais celui-ci apparait comme étant négligeable.
 
 ## Architecture
 
-![architecture](../media/architecture.png)
+![architecture](/media/architecture.png)
 
 **EcoIndex**
 
@@ -479,7 +479,7 @@ le plugin GreenIT CLI Analysis afin de le rendre compatible avec Selenium.
 
 * Analyse statique de code avec un plugin Sonar dédié
 
-![architecture_sonar](../media/architecture_sonar.png)
+![architecture_sonar](/media/architecture_sonar.png)
 
 À l'image du plugin GreenIT CLI Analysis, il est possible de réaliser le même type d'analyse via un plugin Sonar custom.
 Un début d'implémentation est disponible sur [ce repository](https://github.com/cnumr/SonarQube)
