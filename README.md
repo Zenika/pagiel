@@ -105,8 +105,7 @@ Its structure is as follows:
 | `waitForSelector`   | string | No          | Waits for the HTML element defined by the CSS selector to be visible |
 | `waitForXPath`      | string | No          | Waits for the HTML element defined by the XPath to be visible        |
 | `waitForNavigation` | string | No          | Waits for the end of the page loading. 4 possible values : load, domcontentloaded, networkidle0, networkidle2 |
-| `screenshot`        | string | No          | Take a screenshot of the page to analyze. The value to fill in is the name of the screenshot.
- The screenshot is taken even if the page is loading in error.                                                      |
+| `screenshot`        | string | No          | Take a screenshot of the page to analyze. The value to fill in is the name of the screenshot. The screenshot is taken even if the page is loading in error.                                                      |
 | `actions`           | list   | No          | Performs a series of actions before analyzing the page               |
 | `final_url`         | string | No          | Final URL of the page after loading                                  |
 | `cookie_btn`        | string | No          | Selector to close the cookie popup                                   |
