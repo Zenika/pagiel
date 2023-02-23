@@ -173,7 +173,7 @@ Where:
 ### JUnit report
 
 A report in junit format is written if the `require` key is present on one of the tests to be performed. This report can be retrieved by the runner if it is moved to the runner's folder.
-This report indicates the results of assertions made on the indicators recovered during the tests. The exhaustive list of these indicators is available [here](../indicateurs.md).
+This report indicates the results of assertions made on the indicators recovered during the tests. The exhaustive list of these indicators is available [here](./indicateurs.md).
 By default, no assertion is made on the indicators. To add one, it is necessary to specify the category and the name of the indicator, as well as one or more assertions to be verified. The list of available comparisons is as follows: ">", "=>", "==", "<=", "!=".
 
 An example of a test configuration:
@@ -252,7 +252,7 @@ We have made a contribution to this project, which consists in adding the writin
 
 **Dashboard**
 
-![dashboard_ecoindex](../media/dashboard_ecoindex.png)
+![dashboard_ecoindex](./media/dashboard_ecoindex.png)
 
 ### Yellow Lab Tools
 
@@ -340,7 +340,7 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 
 > Example of an initial dashboard
 
-![dashboard_conso_energetique](../media/dashboard_conso_energetique.png)
+![dashboard_conso_energetique](./media/dashboard_conso_energetique.png)
 
 Note that it will be necessary to go further in the way of exploiting this data:
 
@@ -360,7 +360,7 @@ We have not been able to quantify precisely the "noise" generated in a container
 
 ## Architecture
 
-![architecture](../media/architecture.png)
+![architecture](./media/architecture.png)
 
 **EcoIndex**
 
@@ -467,7 +467,7 @@ sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 The most interesting thing would be to converge on a single use of Selenium and therefore to make a contribution to the GreenIT CLI Analysis plugin to make it compatible with Selenium.
 
 * Static code analysis with a dedicated Sonar plugin
-![architecture_sonar](../media/architecture_sonar.png)
+![architecture_sonar](./media/architecture_sonar.png)
 Like the GreenIT CLI Analysis plugin, it is possible to perform the same type of analysis via a custom Sonar plugin. A first implementation is available on [this repository](https://github.com/cnumr/SonarQube)
 
 * Test bench
