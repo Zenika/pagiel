@@ -64,9 +64,9 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 - Cloner le dépot en ligne
 - Copier le fichier [`.env-default`](/.env-default) vers le fichier `.env`.
 - Changer les couples nom d'utilisateur/mot de passe si besoin.
-- Lancer `docker compose up`, cela lancera les conteneurs InfluxDB et Grafana qui sont prévus pour fonctionner en permanence.
+- Lancer `docker compose up`, cela lancera les conteneurs InfluxDB qui est prévu pour fonctionner en permanence.
 - Se connecter à influxdb (http://localhost:8086 par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
-- Exécuter le script `setup.sh`, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
+- Exécuter le script `setup.sh`, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`. Ce script va aussi démarrer le conteneur Grafana qui fonctionnera en permanence par la suite
 
 > Ce projet utilise des git submodules, ils sont utiles dans le cas ou l'on voudrait construire les images docker en local. Ils sont clonés par le script [setup-local.sh](../scripts/setup-local.sh).
 
@@ -199,6 +199,10 @@ Un exemple de configuration de tests :
         ">=": 2
         "<=": 5
 ```
+
+### Proxy
+
+Pour utiliser pagiel derrière un proxy, il faut renseigner les variables `HTTP_PROXY` et `HTTPS_PROXY` du fichier `.env`, et ajouter la variable d'environnement `DOCKER_COMPOSE_OPTIONS='--file docker-compose.yml --file scripts/docker-compose.proxy.yml'`.
 
 ## Outillage
 

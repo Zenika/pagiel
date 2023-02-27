@@ -23,6 +23,7 @@
   - [Standalone usage](#standalone-usage)
   - [Through CI/CD](#through-cicd)
   - [JUnit report](#junit-report)
+  - [Proxy](#proxy)
 - [Tools](#tools)
   - [Sitespeed.io](#sitespeedio)
   - [EcoIndex Green IT Scoring](#ecoindex-green-it-scoring)
@@ -65,9 +66,9 @@ Today, there are many tools for measuring environmental impacts. However, most o
 - Clone the repo online
 - Copy the `.env.example` file to the `.env` file
 - Change the username/password pairs
-- Launch `docker compose up`, this will launch the InfluxDB and Grafana containers which are designed to run permanently
-- Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<orgId>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
-- Run the setup.sh script. It will create some configuration files needed for the other containers from the `.env` file
+- Launch `docker-compose up`, this will launch the InfluxDB container which is designed to run permanently
+- Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<org id>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
+- Run the setup.sh script. It will create some configuration files needed for the other containers from the `.env` file. It will also start the Grafana container which will run permanantly afterward
 
 > This project uses git submodules, they are only useful if you want to build local docker images. They can be setup with the script [setup-local.sh](scripts/setup-local.sh).
 
@@ -193,6 +194,10 @@ An example of a test configuration:
         ">=": 2
         "<=": 5
  ```
+
+### Proxy
+
+To use pagiel behind a proxy, set the variable `HTTP_PROXY` and `HTTPS_PROXY` from the `.env` file, and the set the environnement variable `DOCKER_COMPOSE_OPTIONS='--file docker-compose.yml --file scripts/docker-compose.proxy.yml'`.
 
 ## Tools
 
