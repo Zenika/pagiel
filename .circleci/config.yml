@@ -1,0 +1,95 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@2.1.4
+
+jobs:
+  build-images:
+    docker:
+      - image: cimg/base:stable
+    parameters:
+      docker-password:
+        default: DOCKER_PASSWORD
+        description: |
+          Name of environment variable storing your Docker password
+        type: env_var_name
+      docker-username:
+        default: DOCKER_LOGIN
+        description: |
+          Name of environment variable storing your Docker username
+        type: env_var_name
+      tag:
+        default: $CIRCLE_SHA1
+        description: |
+          Image tag, defaults to the value of $CIRCLE_SHA1
+        type: string
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker/check:
+          docker-password: <<parameters.docker-password>>
+          docker-username: <<parameters.docker-username>>
+      - run:
+          name: Init Submodules
+          command : |
+            git submodule init &&
+            git submodule update
+
+      - docker/build:
+          docker-context: sitespeed/src
+          image: zenika/pagiel-sitespeed
+          dockerfile: sitespeed/src/Dockerfile
+          tag: <<parameters.tag>>,latest
+      - docker/push:
+          image: zenika/pagiel-sitespeed
+          tag: <<parameters.tag>>,latest
+
+      - docker/build:
+          docker-context: yellowLabTools/src
+          image: zenika/pagiel-yellowlabtools
+          dockerfile: yellowLabTools/src/Dockerfile
+          tag: <<parameters.tag>>,latest
+      - docker/push:
+          image: zenika/pagiel-yellowlabtools
+          tag: <<parameters.tag>>,latest
+
+      - docker/build:
+          docker-context: eco-index/GreenIT-analysis-cli
+          image: zenika/pagiel-greenit-analysis-cli
+          dockerfile: eco-index/GreenIT-analysis-cli/Dockerfile
+          tag: <<parameters.tag>>,latest
+      - docker/push:
+          image: zenika/pagiel-greenit-analysis-cli
+          tag: <<parameters.tag>>,latest
+
+      - docker/build:
+          docker-context: input/url-file-converter
+          image: zenika/pagiel-url-converter
+          dockerfile: input/url-file-converter/Dockerfile
+          tag: <<parameters.tag>>,latest
+      - docker/push:
+          image: zenika/pagiel-url-converter
+          tag: <<parameters.tag>>,latest
+          
+      - docker/build:
+          docker-context: reports
+          image: zenika/pagiel-report
+          dockerfile: reports/Dockerfile
+          tag: <<parameters.tag>>,latest
+      - docker/push:
+          image: zenika/pagiel-report
+          tag: <<parameters.tag>>,latest
+
+workflows:
+  workflow-build-images:
+    jobs:
+      - build-images:
+          docker-username: DOCKERHUB_USERNAME
+          docker-password: DOCKERHUB_PASS
+          context: docker-hub-zenika
+          tag: $CIRCLE_TAG
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+/
+            branches:
+              ignore: /.*/
