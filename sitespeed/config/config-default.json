@@ -7,7 +7,7 @@
         "enable": true
     },
     "browsertime": {
-        "iterations": 1,
+        "iterations": 3,
         "browser": "chrome"
     },
     "chrome": {
