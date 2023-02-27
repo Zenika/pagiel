@@ -13,6 +13,6 @@ robot/tests/generated-resource.resource
 smartwatts/config.json
 sitespeed/config/config.json
 .env
-reports/reports/*
-yellowLabTools/reports/*
+reports/reports/*.xml
+yellowLabTools/reports/*.json
 input/urls.yaml
