@@ -80,6 +80,15 @@ jobs:
           image: zenika/pagiel-report
           tag: <<parameters.tag>>,latest
 
+      - docker/build:
+          docker-context: robot
+          image: zenika/pagiel-robot-framework
+          dockerfile: robot/Dockerfile
+          tag: <<parameters.tag>>,latest
+      - docker/push:
+          image: zenika/pagiel-robot-framework
+          tag: <<parameters.tag>>,latest
+
 workflows:
   workflow-build-images:
     jobs:
