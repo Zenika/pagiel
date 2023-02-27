@@ -72,7 +72,7 @@ services:
       - preconso
 
   robot-chrome-test:
-    build: robot
+    image: ${ROBOT_IMAGE_VERSION}
     command: -v BROWSER:gc --outputdir /out /tests/*.robot
     container_name: robot-chrome-test
     volumes:
@@ -82,7 +82,7 @@ services:
       - conso
 
   eco-index:
-    build: eco-index/GreenIT-analysis-cli
+    image: ${GREENIT_ANALYSIS_IMAGE_VERSION}
     container_name: eco-index
     depends_on:
       - influxdb
@@ -97,7 +97,7 @@ services:
 
   sitespeed:
     container_name: sitespeed
-    build: sitespeed/src
+    image: ${SITESPEED_IMAGE_VERSION}
     shm_size: '1g'
     depends_on:
       - influxdb
@@ -111,8 +111,7 @@ services:
   
   yellowlabtools:
     container_name: yellowlabtools
-    build:
-      context: yellowLabTools/src
+    image: ${YELLOWLABTOOLS_IMAGE_VERSION}
     depends_on:
       - influxdb
     command: /input/urls-yellowlabtools.yaml --reporter influxdb --influxdb-hostname ${INFLUXDB_HOST} --influxdb-port ${INFLUXDB_PORT} --influxdb-org ${INFLUXDB_ORG_NAME} --influxdb-token ${INFLUXDB_TOKEN} --influxdb-bucket ${INFLUXDB_BUCKET_NAME} --influxdb-offenders
@@ -150,7 +149,7 @@ services:
   
   url-converter:
     container_name: url-converter
-    build: ./input/url-file-converter
+    image: ${URL_CONVERTER_IMAGE_VERSION}
     command: /home/urlconverter/urls.yaml
     volumes: 
       - ./input/urls.yaml:/home/urlconverter/urls.yaml:ro
@@ -162,7 +161,7 @@ services:
 
   report:
     container_name: report
-    build: ./reports
+    image: ${REPORT_IMAGE_VERSION}
     user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     depends_on:
       - influxdb
