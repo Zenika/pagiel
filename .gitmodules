@@ -1,9 +1,9 @@
 [submodule "yellowLabTools/src"]
 	path = yellowLabTools/src
-	url = git@github.com:Zenika/YellowLabTools.git
+	url = https://github.com/Zenika/YellowLabTools.git
 [submodule "eco-index/GreenIT-analysis-cli"]
 	path = eco-index/GreenIT-analysis-cli
-	url = https://github.com/cnumr/GreenIT-Analysis-cli
+	url = https://github.com/cnumr/GreenIT-Analysis-cli.git
 [submodule "sitespeed/src"]
 	path = sitespeed/src
-	url = git@github.com:Zenika/sitespeed.io.git
+	url = https://github.com/Zenika/sitespeed.io.git

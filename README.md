@@ -69,7 +69,7 @@ Today, there are many tools for measuring environmental impacts. However, most o
 - Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<orgId>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
 - Run the setup.sh script. It will create some configuration files needed for the other containers from the `.env` file
 
-> This project uses git submodules, they are cloned by the setup script
+> This project uses git submodules, they are only useful if you want to build local docker images. They can be setup with the script [setup-local.sh](scripts/setup-local.sh).
 
 ### Gitlab runner
 
@@ -137,7 +137,10 @@ This script has several options
 
 For the image test, it is necessary that the image is accessible online (it is always possible to connect to a private docker repository). For the docker-compose test, it is necessary that the project starts with a simple `docker-compose up`. To avoid risks of port overlap with those used by the project, a python script removes all `ports` attributes from the service definition. Also, in order for the project's containers to have access to the containers exposing the front-end, it is necessary that this one is on the `default` network, which will be redefined by the python script to connect to the project's network.
 
+> To use the images built localy, set the environnement variable `DOCKER_COMPOSE_OPTIONS='--file docker-compose.yml --file scripts/docker-compose-local.yml'`
+
 ### Through CI/CD
+
 
 Here is an example script of a gitlab pipeline:
 
