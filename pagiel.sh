@@ -1,6 +1,9 @@
 
 # sets the docker compose command used to launch the Docker stacks
 docker_compose_cmd=${DOCKER_COMPOSE_CMD:-docker compose}
+docker_compose_options=${DOCKER_COMPOSE_OPTIONS}
+docker_compose_pagiel="$docker_compose_cmd $docker_compose_options"
+
 
 # function
 
@@ -34,31 +37,31 @@ help() {
 # Powerapi section
 
 startPowerAPI () {
-    ${docker_compose_cmd} up -d smartwatts
-    ${docker_compose_cmd} up -d powerapi-hwpc-sensor
+    ${docker_compose_pagiel} up -d smartwatts
+    ${docker_compose_pagiel} up -d powerapi-hwpc-sensor
 }
 
 stopPowerAPI () {
-    ${docker_compose_cmd} stop smartwatts
-    ${docker_compose_cmd} stop powerapi-hwpc-sensor
+    ${docker_compose_pagiel} stop smartwatts
+    ${docker_compose_pagiel} stop powerapi-hwpc-sensor
 }
 
 # Selenium section
 startSelenium () {
-    ${docker_compose_cmd} up -d chrome
-    ${docker_compose_cmd} up -d selenium-hub
+    ${docker_compose_pagiel} up -d chrome
+    ${docker_compose_pagiel} up -d selenium-hub
 }
 
 stopSelenium () {
-    ${docker_compose_cmd} stop chrome
-    ${docker_compose_cmd} stop selenium-hub
+    ${docker_compose_pagiel} stop chrome
+    ${docker_compose_pagiel} stop selenium-hub
 }
 
 # Input file conversion for others tools
 convertInput() {
     errCode=0
     echo "Converting input file"
-    ${docker_compose_cmd} run --rm url-converter
+    ${docker_compose_pagiel} run --rm url-converter
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -69,7 +72,7 @@ convertInput() {
 
 convertInputDocker() {
     echo "Converting docker input file"
-    ${docker_compose_cmd} run --rm url-converter /home/urlconverter/urls.yaml --localContainerName $1 --localContainerPort $2
+    ${docker_compose_pagiel} run --rm url-converter /home/urlconverter/urls.yaml --localContainerName $1 --localContainerPort $2
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -103,7 +106,7 @@ stopDockerCompose(){ # dockerComposeFile
 
 # Test function
 testGreenITAnalysis() {
-    ${docker_compose_cmd} run --rm eco-index
+    ${docker_compose_pagiel} run --rm eco-index
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -113,7 +116,7 @@ testGreenITAnalysis() {
 }
 
 testSitespeed() {
-    ${docker_compose_cmd} run --rm sitespeed 
+    ${docker_compose_pagiel} run --rm sitespeed 
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -123,7 +126,7 @@ testSitespeed() {
 }
 
 testYellowLabTools() {
-    ${docker_compose_cmd} --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools 
+    ${docker_compose_pagiel} --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools 
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -133,7 +136,7 @@ testYellowLabTools() {
 }
 
 testsrobot() {
-    ${docker_compose_cmd} run --rm robot-chrome-test
+    ${docker_compose_pagiel} run --rm robot-chrome-test
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -145,7 +148,7 @@ testsrobot() {
 makeReport() {
     # Démarrage du conteneur de génération de raport
     echo "Start report generation"
-    ${docker_compose_cmd} run --rm report
+    ${docker_compose_pagiel} run --rm report
     errCode=$?
     if [ $errCode -ne 0 ];
     then

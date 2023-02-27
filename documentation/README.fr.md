@@ -68,7 +68,7 @@ Il existe aujourd'hui de nombreux outils de mesure d'impacts environnementaux. M
 - Se connecter à influxdb (http://localhost:8086 par défault) pour récupérer l'id de l'organisation (dans l'url suivant la connexion `http://localhost:8086/orgs/<org id>`) et le token de connexion (data -> API Token), et renseigner les variables d'environnement correspondantes
 - Exécuter le script `setup.sh`, il va créer certains fichiers de configuration nécessaires pour les autres conteneurs à partir du fichier `.env`.
 
-> Ce projet utilise des git submodules, ils sont clonés par le script [setup.sh](/setup.sh).
+> Ce projet utilise des git submodules, ils sont utiles dans le cas ou l'on voudrait construire les images docker en local. Ils sont clonés par le script [setup-local.sh](../scripts/setup-local.sh).
 
 ### Runner gitlab
 
@@ -141,6 +141,8 @@ Pour le test d'image, il nécessaire que l'image soit accessible en ligne (il es
 Pour le test de `docker compose`, il faut que le projet démarre avec un simple `docker compose up`.
 Pour éviter des risques de chevauchement de port avec ceux utilisés par le projet, un script Python supprime tout les attibuts `ports` de la définition des services.
 De même, afin que les conteneurs du projet aient accès au conteneur exposant le front-end, il est nécessaire que celui-ci soit sur le network `default`, qui sera redéfini par le script Python pour se connecter au réseau du projet.
+
+> Pour utiliser les images docker contruites en local, il faut ajouter la variable d'environnement `DOCKER_COMPOSE_OPTIONS='--file docker-compose.yml -file scripts/docker-compose-local.yml'`
 
 ### Via les CI/CD
 
