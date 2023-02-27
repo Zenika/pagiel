@@ -65,8 +65,8 @@ Today, there are many tools for measuring environmental impacts. However, most o
 - Clone the repo online
 - Copy the `.env.example` file to the `.env` file
 - Change the username/password pairs
-- Launch `docker-compose up`, this will launch the InfluxDB and Grafana containers which are designed to run permanently
-- Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<org id>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
+- Launch `docker compose up`, this will launch the InfluxDB and Grafana containers which are designed to run permanently
+- Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<orgId>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
 - Run the setup.sh script. It will create some configuration files needed for the other containers from the `.env` file
 
 > This project uses git submodules, they are cloned by the setup script
@@ -95,7 +95,7 @@ check_interval = 0
 
 ### Input files
 
-Build the file input/urls.yaml which lists the URLs to analyze. The file is in YAML format. (Warning: the `.yml` extension will not work)
+From the example file [input/urls.yaml-default](input/urls.yaml-default), build the file `input/urls.yaml` which lists the URLs to analyze. The file is in YAML format. (Warning: the `.yml` extension will not work)
 Its structure is as follows:
 
 | Paramètre           | Type   | Obligatoire | Description                                                          |
@@ -105,8 +105,7 @@ Its structure is as follows:
 | `waitForSelector`   | string | No          | Waits for the HTML element defined by the CSS selector to be visible |
 | `waitForXPath`      | string | No          | Waits for the HTML element defined by the XPath to be visible        |
 | `waitForNavigation` | string | No          | Waits for the end of the page loading. 4 possible values : load, domcontentloaded, networkidle0, networkidle2 |
-| `screenshot`        | string | No          | Take a screenshot of the page to analyze. The value to fill in is the name of the screenshot.
- The screenshot is taken even if the page is loading in error.                                                      |
+| `screenshot`        | string | No          | Take a screenshot of the page to analyze. The value to fill in is the name of the screenshot. The screenshot is taken even if the page is loading in error.                                                      |
 | `actions`           | list   | No          | Performs a series of actions before analyzing the page               |
 | `final_url`         | string | No          | Final URL of the page after loading                                  |
 | `cookie_btn`        | string | No          | Selector to close the cookie popup                                   |
@@ -168,13 +167,13 @@ Where:
 - The tag `eco` is the tag of the runner
 - The `cd` at the beginning of the script puts the runner in the project directory
 - We store in a variable the folder of the runner in order to copy the report
-- $URL contains the yaml file to use ([see here](#input-files))
+- $URL contains the yaml input file ([see here](#input-files))
 - $PROJECT_DIRECTORY is the folder where the project is installed on the runner's machine
 
 ### JUnit report
 
 A report in junit format is written if the `require` key is present on one of the tests to be performed. This report can be retrieved by the runner if it is moved to the runner's folder.
-This report indicates the results of assertions made on the indicators recovered during the tests. The exhaustive list of these indicators is available [here](../indicateurs.md).
+This report indicates the results of assertions made on the indicators recovered during the tests. The exhaustive list of these indicators is available [here](/indicateurs.md).
 By default, no assertion is made on the indicators. To add one, it is necessary to specify the category and the name of the indicator, as well as one or more assertions to be verified. The list of available comparisons is as follows: ">", "=>", "==", "<=", "!=".
 
 An example of a test configuration:
@@ -253,7 +252,7 @@ We have made a contribution to this project, which consists in adding the writin
 
 **Dashboard**
 
-![dashboard_ecoindex](../media/dashboard_ecoindex.png)
+![dashboard_ecoindex](/media/dashboard_ecoindex.png)
 
 ### Yellow Lab Tools
 
@@ -341,7 +340,7 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 
 > Example of an initial dashboard
 
-![dashboard_conso_energetique](../media/dashboard_conso_energetique.png)
+![dashboard_conso_energetique](/media/dashboard_conso_energetique.png)
 
 Note that it will be necessary to go further in the way of exploiting this data:
 
@@ -361,7 +360,7 @@ We have not been able to quantify precisely the "noise" generated in a container
 
 ## Architecture
 
-![architecture](../media/architecture.png)
+![architecture](/media/architecture.png)
 
 **EcoIndex**
 
@@ -468,7 +467,7 @@ sudo cgrulesengd -vvv --logfile=/var/log/cgrulesend.log
 The most interesting thing would be to converge on a single use of Selenium and therefore to make a contribution to the GreenIT CLI Analysis plugin to make it compatible with Selenium.
 
 * Static code analysis with a dedicated Sonar plugin
-![architecture_sonar](../media/architecture_sonar.png)
+![architecture_sonar](/media/architecture_sonar.png)
 Like the GreenIT CLI Analysis plugin, it is possible to perform the same type of analysis via a custom Sonar plugin. A first implementation is available on [this repository](https://github.com/cnumr/SonarQube)
 
 * Test bench
