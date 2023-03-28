@@ -176,9 +176,6 @@ cleanup() {
 
 trap cleanup EXIT
 
-currentDir=$(pwd | tr '[:upper:]' '[:lower:]')
-currentDir=${currentDir##*/}
-
 doPowerAPI=true
 doRobotFramework=true
 doGreenItAnalysis=true
@@ -189,7 +186,7 @@ dockerMode=default
 dockerContainerName=test-container
 dockerPort=80
 dockerComposeFile=""
-dockerNetwork=${currentDir}_default
+dockerNetwork=pagiel
 
 OPTS=$(getopt \
     --options "hPGSYRFdD" \

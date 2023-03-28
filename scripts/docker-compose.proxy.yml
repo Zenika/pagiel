@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  eco-index:
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      http_proxy: ${HTTP_PROXY}
+
+  sitespeed:
+    container_name: sitespeed
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      http_proxy: ${HTTP_PROXY}
+  
+  yellowlabtools:
+    container_name: yellowlabtools
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      http_proxy: ${HTTP_PROXY}
+  

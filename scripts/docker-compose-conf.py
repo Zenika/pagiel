@@ -16,7 +16,7 @@ def save_yaml_file(file_name: str, compose_dict: dict):
         yaml.dump(compose_dict, file)
 
 def add_pagiel_network(compose_dict, network_name):
-    compose_dict['networks'] = {'default': {'external': {'name': network_name}}}
+    compose_dict['networks'] = {'default': {'name': network_name}}
 
 def strip_services_args(compose_dict):
     for container_options in compose_dict['services'].values():

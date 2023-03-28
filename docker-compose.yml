@@ -17,6 +17,8 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG_NAME}
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET_NAME}
       - DOCKER_INFLUXDB_INIT_RETENTION=${INFLUXDB_RETENTION}
+    networks: 
+     - pagiel
       
   powerapi-hwpc-sensor:
     image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
@@ -30,6 +32,8 @@ services:
     command: --config-file /config.json
     profiles:
       - preconso
+    networks: 
+     - pagiel
 
   smartwatts:
     image: ${SMARTWATTS_IMAGE_VERSION}
@@ -42,6 +46,8 @@ services:
       - preconso
     volumes:
       - ./smartwatts/config.json:/config.json:ro
+    networks: 
+     - pagiel
 
   selenium-hub:
     image: ${SELENIUM_HUB_IMAGE_VERSION}
@@ -54,6 +60,8 @@ services:
       - "4444:4444"
     profiles:
       - preconso
+    networks: 
+     - pagiel
 
   chrome:
     image: ${SELENIUM_NODE_CHROME_IMAGE_VERSION}
@@ -70,6 +78,8 @@ services:
       - "6900:5900"
     profiles:
       - preconso
+    networks: 
+     - pagiel
 
   robot-chrome-test:
     image: ${ROBOT_IMAGE_VERSION}
@@ -80,6 +90,8 @@ services:
       - ./robot-results/gc:/out:rw
     profiles:
       - conso
+    networks: 
+     - pagiel
 
   eco-index:
     image: ${GREENIT_ANALYSIS_IMAGE_VERSION}
@@ -94,6 +106,8 @@ services:
       - TZ:Europe/Paris
     profiles:
       - test
+    networks: 
+     - pagiel
 
   sitespeed:
     container_name: sitespeed
@@ -108,6 +122,8 @@ services:
       - ./sitespeed/config/config.json:/sitespeed.io/config.json
     profiles:
       - test
+    networks: 
+     - pagiel
   
   yellowlabtools:
     container_name: yellowlabtools
@@ -122,6 +138,8 @@ services:
     privileged: true
     profiles:
       - test
+    networks: 
+     - pagiel
 
   grafana:
     container_name: grafana
@@ -140,12 +158,15 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_USERS_ALLOW_ORG_CREATE=false
-      - GF_INSTALL_PLUGINS=grafana-piechart-panel
       - INFLUXDB_ORG_ID=${INFLUXDB_ORG_ID}
       - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
       - INFLUXDB_BUCKET_NAME=${INFLUXDB_BUCKET_NAME}
       - INFLUXDB_HOST=${INFLUXDB_HOST}
       - INFLUXDB_PORT=${INFLUXDB_PORT}
+    profiles:
+      - display
+    networks: 
+     - pagiel
   
   url-converter:
     container_name: url-converter
@@ -158,6 +179,8 @@ services:
       - ./robot/tests/:/home/urlconverter/tests/:rw
     profiles:
       - pretest
+    networks: 
+     - pagiel
 
   report:
     container_name: report
@@ -178,6 +201,13 @@ services:
       - ./yellowLabTools/reports:/opt/report/offenders:ro
     profiles:
       - report
+    networks: 
+     - pagiel
+
+networks:
+  pagiel:
+    name: "pagiel"
+
 
 volumes:
   influxdb-storage:

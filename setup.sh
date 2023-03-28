@@ -26,3 +26,5 @@ host=${host#*=}
 # dealing with json is easier with python
 python3 scripts/smartwatts-conf.py $host $port $org $token $bucket
 python3 scripts/sitespeed-conf.py $host $port $org $token $bucket
+
+docker-compose up -d grafana
