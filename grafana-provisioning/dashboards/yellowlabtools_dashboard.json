@@ -76,7 +76,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssSize\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssSize\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -134,7 +134,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssCount\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssCount\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -192,7 +192,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssBreakpoints\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssBreakpoints\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -250,7 +250,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssInlineStyles\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssInlineStyles\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -308,7 +308,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssMobileFirst\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssMobileFirst\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -366,7 +366,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssParsingErrors\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssParsingErrors\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -424,7 +424,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"smallCssFiles\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"smallCssFiles\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -482,7 +482,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssSize\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cssSize\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -540,7 +540,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMaccesses\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMaccesses\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -598,7 +598,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"iframesCount\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"iframesCount\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -656,7 +656,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMelementsCount\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMelementsCount\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -714,7 +714,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMelementMaxDepth\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMelementMaxDepth\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -772,7 +772,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMidDuplicated\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"DOMidDuplicated\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -830,7 +830,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"lazyLoadableImagesBelowTheFold\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"lazyLoadableImagesBelowTheFold\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -888,7 +888,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"totalRequests\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"totalRequests\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -946,7 +946,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"domains\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"domains\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1004,7 +1004,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"notFound\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"notFound\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1062,7 +1062,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"identicalFiles\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"identicalFiles\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1120,7 +1120,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"emptyRequests\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"emptyRequests\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1178,7 +1178,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"hiddenImages\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"hiddenImages\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1236,7 +1236,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"eventsScrollBound\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"eventsScrollBound\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1294,7 +1294,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"scriptDuration\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"scriptDuration\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1352,7 +1352,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"jsErrors\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"jsErrors\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1410,7 +1410,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"documentWriteCalls\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"documentWriteCalls\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1468,7 +1468,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"synchronousXHR\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"synchronousXHR\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1526,7 +1526,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cachingNotSpecified\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cachingNotSpecified\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1584,7 +1584,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cachingDisabled\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cachingDisabled\")\n    |> last()",
           "refId": "A"
         }
       ],
@@ -1642,7 +1642,7 @@
             "type": "influxdb",
             "uid": "PC003803D09A91473"
           },
-          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabtools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cachingTooShort\")\n    |> last()",
+          "query": "from(bucket: v.defaultBucket)\n    |> range(start: $__from/1000, stop: $__to/1000)\n    |> filter(fn: (r) => r[\"_measurement\"] == \"YellowLabTools\")\n    |> filter(fn: (r) => r[\"name\"] == \"${pagename}\")\n    |> filter(fn: (r) => r[\"_field\"] == \"cachingTooShort\")\n    |> last()",
           "refId": "A"
         }
       ],
