@@ -251,6 +251,7 @@ fi
 
 if [ "$doRobotFramework" = true ] ; then
     startSelenium
+    sleep 1 # selenium needs 1s before robotframework can query it
     testsrobot
 fi
 
