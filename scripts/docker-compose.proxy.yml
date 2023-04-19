@@ -5,22 +5,37 @@ services:
     environment:
       HTTP_PROXY: ${HTTP_PROXY}
       HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
       https_proxy: ${HTTPS_PROXY}
       http_proxy: ${HTTP_PROXY}
+      no_proxy: ${no_proxy}
 
   sitespeed:
     container_name: sitespeed
     environment:
       HTTP_PROXY: ${HTTP_PROXY}
       HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
       https_proxy: ${HTTPS_PROXY}
       http_proxy: ${HTTP_PROXY}
+      no_proxy: ${no_proxy}
   
   yellowlabtools:
     container_name: yellowlabtools
     environment:
       HTTP_PROXY: ${HTTP_PROXY}
       HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
       https_proxy: ${HTTPS_PROXY}
       http_proxy: ${HTTP_PROXY}
+      no_proxy: ${no_proxy}
+  
+  chrome:
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      http_proxy: ${HTTP_PROXY}
+      no_proxy: ${no_proxy}
   
