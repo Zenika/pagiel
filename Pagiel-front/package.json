@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:watch": "vitest",
-    "test": "vitest run" 
+    "test": "vitest run"
   },
   "dependencies": {
     "sass": "^1.62.1",
@@ -21,6 +21,7 @@
     "@testing-library/vue": "^7.0.0",
     "@vitejs/plugin-vue": "^4.1.0",
     "jsdom": "^22.0.0",
+    "prettier": "2.8.8",
     "vite": "^4.3.2",
     "vitest": "^0.31.0"
   }
