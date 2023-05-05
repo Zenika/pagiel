@@ -1,0 +1,72 @@
+// Colors 
+$white:                     #FFFFFF;
+$black:                     #000000;
+$flush:                     #BF1D67;
+$disco:                     rgba(192, 29, 103, 0.25);
+$crimson:                   #EE2238;
+$venus:                     rgba(242, 242, 242, 0.4);
+$solidVenus:                rgba(242, 242, 242, 1);
+$codgray:                   #1E1E1E;
+$darkshadow:                rgba(0, 0, 0, 0.25);
+
+// Globals
+@mixin body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: $white;
+    background: $black;
+}
+
+// Title 
+@mixin h1 {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: $white;
+    text-align: center;
+}
+
+@mixin h2 {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: $white;
+    text-align: center;
+}
+
+// Pages
+@mixin section-app {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+//Input
+@mixin Form {
+    width: 40%;
+    min-width: 250px;
+    max-width: 700px;
+    background: $venus;
+    color: $white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+//Input
+@mixin input {
+    width: 80%;
+    background: $venus;
+    color: $solidVenus;
+    letter-spacing: 0.1rem;
+    font-weight: 400;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
