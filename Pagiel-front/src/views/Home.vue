@@ -9,3 +9,13 @@ import Form from "../components/Form.vue";
     <Form />
   </section>
 </template>
+
+
+<style lang="scss">
+section{
+  @include section-app
+}
+h1{
+  @include h1
+}
+</style>

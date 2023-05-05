@@ -9,4 +9,13 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./setupTest.js",
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "./src/assets/variables.scss";
+        `
+      }
+    }
+  }
 })

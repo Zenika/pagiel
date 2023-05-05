@@ -34,14 +34,26 @@ const addAnotherPage = () => {
 </script>
 
 <template>
-  <form>
+  <form class="form">
     <input v-model="url" type="text" placeholder="URL" />
     <input v-model="pageName" type="text" placeholder="Nom de la page" />
     <button type="button" @click="addAnotherPage">
       Mesurer une autre page
     </button>
     <ChipList v-if="pages.length > 0" :pages="pages" />
-
     <button type="submit" @click="analyzePages">Analyser</button>
   </form>
 </template>
+
+
+<style lang="scss"  scoped>
+button{
+  @include button;
+}
+.form{
+  @include Form;
+}
+input{
+  @include input;
+}
+</style>
