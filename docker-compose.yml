@@ -184,7 +184,7 @@ services:
 
   report:
     container_name: report
-    image: ${REPORT_IMAGE_VERSION}
+    build: ./reports
     user: "${RUNNER_USER_ID}:${RUNNER_GROUP_ID}"
     depends_on:
       - influxdb
@@ -195,6 +195,7 @@ services:
       - INFLUXDB_HOST=${INFLUXDB_HOST}
       - INFLUXDB_PORT=${INFLUXDB_PORT}
       - EXIT_CODE_FAIL=${EXIT_CODE_FAIL}
+      - REPORT_FORMAT="xml"
     volumes:
       - ./reports/reports:/opt/report/results/:rw
       - ./input/urls.yaml:/opt/report/urls.yaml:ro
@@ -212,8 +213,3 @@ volumes:
   influxdb-storage:
   report-storage:
   grafana-storage:
-  tmp-storage:
-    driver_opts:
-      type: none
-      device: ${PWD}/input-files
-      o: bind
