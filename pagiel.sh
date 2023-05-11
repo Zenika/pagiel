@@ -3,7 +3,7 @@
 docker_compose_cmd=${DOCKER_COMPOSE_CMD:-docker compose}
 docker_compose_options=${DOCKER_COMPOSE_OPTIONS}
 docker_compose_pagiel="$docker_compose_cmd $docker_compose_options"
-
+exportFormat="xml" 
 
 # function
 
@@ -146,9 +146,8 @@ testsrobot() {
 }
 
 makeReport() {
-    # Démarrage du conteneur de génération de raport
-    echo "Start report generation"
-    ${docker_compose_pagiel} run --rm report
+    # Démarrage du conteneur de génération de rapport
+    ${docker_compose_pagiel} run --rm -e REPORT_FORMAT=excel report
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -212,6 +211,7 @@ while [[ $# > 0 ]]; do
       -d) dockerMode=image;;
       -D) dockerMode=compose;;
       --docker-image) dockerImage=$2 && shift;;
+      --export-format) exportFormat=$2 && shift;;
       --docker-port) dockerPort=$2 && shift;;
       --docker-front-container) dockerContainerName=$2 && shift;;
       --docker-compose-file) dockerComposeFile=$2 && shift;;
@@ -222,6 +222,9 @@ while [[ $# > 0 ]]; do
    shift
 done
 
+if [ "$exportFormat" = "csv" ] ; then
+    exportFormat="csv"
+fi
 if [ "$doPowerAPI" = true ] ; then
     startPowerAPI
 fi
@@ -251,10 +254,10 @@ fi
 
 if [ "$doRobotFramework" = true ] ; then
     startSelenium
+    sleep 1 # selenium needs 1s before robotframework can query it
     testsrobot
 fi
 
 if [ "$doReport" = true ] ; then
     makeReport
 fi
-
