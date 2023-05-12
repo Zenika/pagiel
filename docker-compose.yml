@@ -6,7 +6,7 @@ services:
     container_name: influxdb
     restart: always
     ports:
-      - '8086:8086'
+      - "8086:8086"
     volumes:
       - influxdb-storage:/var/lib/influxdb2
       - ./influxdb/queries:/home/queries:rw
@@ -17,9 +17,9 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG_NAME}
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET_NAME}
       - DOCKER_INFLUXDB_INIT_RETENTION=${INFLUXDB_RETENTION}
-    networks: 
-     - pagiel
-      
+    networks:
+      - pagiel
+
   powerapi-hwpc-sensor:
     image: ${POWER_API_HWPC_SENSOR_IMAGE_VERSION}
     container_name: powerapi-hwpc-sensor
@@ -32,8 +32,8 @@ services:
     command: --config-file /config.json
     profiles:
       - preconso
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   smartwatts:
     image: ${SMARTWATTS_IMAGE_VERSION}
@@ -46,22 +46,22 @@ services:
       - preconso
     volumes:
       - ./smartwatts/config.json:/config.json:ro
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   selenium-hub:
     image: ${SELENIUM_HUB_IMAGE_VERSION}
     container_name: selenium-hub
     expose:
-      - 4444    
+      - 4444
     ports:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
     profiles:
       - preconso
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   chrome:
     image: ${SELENIUM_NODE_CHROME_IMAGE_VERSION}
@@ -78,8 +78,8 @@ services:
       - "6900:5900"
     profiles:
       - preconso
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   robot-chrome-test:
     image: ${ROBOT_IMAGE_VERSION}
@@ -90,8 +90,8 @@ services:
       - ./robot-results/gc:/out:rw
     profiles:
       - conso
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   eco-index:
     image: ${GREENIT_ANALYSIS_IMAGE_VERSION}
@@ -106,13 +106,13 @@ services:
       - TZ:Europe/Paris
     profiles:
       - test
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   sitespeed:
     container_name: sitespeed
     image: ${SITESPEED_IMAGE_VERSION}
-    shm_size: '1g'
+    shm_size: "1g"
     depends_on:
       - influxdb
     command: --config /sitespeed.io/config.json /input/urls.txt
@@ -122,9 +122,9 @@ services:
       - ./sitespeed/config/config.json:/sitespeed.io/config.json
     profiles:
       - test
-    networks: 
-     - pagiel
-  
+    networks:
+      - pagiel
+
   yellowlabtools:
     container_name: yellowlabtools
     image: ${YELLOWLABTOOLS_IMAGE_VERSION}
@@ -138,15 +138,15 @@ services:
     privileged: true
     profiles:
       - test
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   grafana:
     container_name: grafana
     image: ${GRAFANA_IMAGE_VERSION}
     restart: always
     ports:
-      - '3000:3000'
+      - "3000:3000"
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana-provisioning/:/etc/grafana/provisioning
@@ -165,22 +165,22 @@ services:
       - INFLUXDB_PORT=${INFLUXDB_PORT}
     profiles:
       - display
-    networks: 
-     - pagiel
-  
+    networks:
+      - pagiel
+
   url-converter:
     container_name: url-converter
     image: ${URL_CONVERTER_IMAGE_VERSION}
     command: /home/urlconverter/urls.yaml
-    volumes: 
+    volumes:
       - ./input/urls.yaml:/home/urlconverter/urls.yaml:ro
       - tmp-storage:/home/urlconverter/results:rw
       - ./input/templates/:/home/urlconverter/templates/:ro
       - ./robot/tests/:/home/urlconverter/tests/:rw
     profiles:
       - pretest
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
   report:
     container_name: report
@@ -201,16 +201,19 @@ services:
       - ./yellowLabTools/reports:/opt/report/offenders:ro
     profiles:
       - report
-    networks: 
-     - pagiel
+    networks:
+      - pagiel
 
 networks:
   pagiel:
     name: "pagiel"
-
 
 volumes:
   influxdb-storage:
   report-storage:
   grafana-storage:
   tmp-storage:
+    driver_opts:
+      type: none
+      device: ${PWD}/input-files
+      o: bind
