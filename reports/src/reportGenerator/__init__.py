@@ -174,7 +174,7 @@ class JunitReportGenerator:
         page_xml.set("failures", str(nb_page_failure))
         return (nb_page_test, nb_page_failure)
 
-    def generate_testsuites_xml(self, tests: dict) -> ElementTree:
+    def generate_testsuites_xml(self, tests: dict, output_file: str,timestamp: int) -> ElementTree:
         """
             Generate testsuites junit tag
         """
@@ -189,7 +189,11 @@ class JunitReportGenerator:
                 total_failure += nb_page_failure
         testsuites.set("tests", str(total_tests))
         testsuites.set("failures", str(total_failure))
-        return ElementTree(testsuites)
+        result_xml = ElementTree(testsuites)
+        result_xml.write(output_file)
+        result_xml.write(f"/opt/report/results/report-{timestamp}.xml")
+        print("test results written to /opt/report/results/report.xml")
+
     def export_to_csv(self, comparison_results: dict, output_file: str, timestamp: int):
         with open(output_file, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
@@ -214,9 +218,7 @@ def main(influxdb_client: InfluxClient, indicators_by_category: dict, offenders:
         if(environ["REPORT_FORMAT"] == "csv"):    
             junit_generator.export_to_csv(comparison_results,"/opt/report/results/report.csv",timestamp)
         else:
-            result_xml = junit_generator.generate_testsuites_xml(comparison_results)
-            result_xml.write("/opt/report/results/report.xml")
-            print("test results written to /opt/report/results/report.xml")
-            result_xml.write(f"/opt/report/results/report-{timestamp}.xml")
+            junit_generator.generate_testsuites_xml(comparison_results,"/opt/report/results/report.csv",timestamp)
+
             
     return indicator_comparator.some_failed
