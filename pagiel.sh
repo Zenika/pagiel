@@ -147,7 +147,7 @@ testsrobot() {
 
 makeReport() {
     # Démarrage du conteneur de génération de rapport
-    ${docker_compose_pagiel} run --rm -e REPORT_FORMAT=excel report
+    ${docker_compose_pagiel} run --rm report
     errCode=$?
     if [ $errCode -ne 0 ];
     then
