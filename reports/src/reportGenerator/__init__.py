@@ -212,7 +212,7 @@ def main(influxdb_client: InfluxClient, indicators_by_category: dict, offenders:
         timestamp = int(datetime.now().timestamp())
         junit_generator = JunitReportGenerator(offenders)
         if(environ["REPORT_FORMAT"] == "csv"):    
-            result_csv = junit_generator.export_to_csv(comparison_results,"/opt/report/results/report.csv",timestamp)
+            junit_generator.export_to_csv(comparison_results,"/opt/report/results/report.csv",timestamp)
         else:
             result_xml = junit_generator.generate_testsuites_xml(comparison_results)
             result_xml.write("/opt/report/results/report.xml")
