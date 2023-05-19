@@ -66,9 +66,30 @@ def save_robot_files(robot_folder: str, url_list: list):
     with open(robot_test_file_name, "a") as robot_test_file:
         robot_test_file.write("\n".join(robot_tests))
 
+def merge_configs(global_config, url_config):
+    if "require" in url_config:
+        merged_config = dict(global_config)
+        for key, value in url_config["require"].items():
+            if key in merged_config:
+                merged_config[key].update(value)
+            else:
+                merged_config[key] = value
+        return merged_config
+    else:
+        return global_config
+
 def process(args):
     with open(args.inputFile) as url_input_file:
         url_list = yaml.load(url_input_file, Loader=yaml.FullLoader)
+
+        global_config = {}
+        if "require" in url_list:
+            global_config = url_list["require"]
+            del url_list["require"]
+
+        for url in url_list:
+            merged_config = merge_configs(global_config, url)
+            url["require"] = merged_config
 
         if args.localContainerName:
             containerUrl = f"http://{args.localContainerName}:{args.localContainerPort}" if args.localContainerPort != 80 else f"http://{args.localContainerName}"
@@ -76,6 +97,7 @@ def process(args):
                 url["url"] = url["url"].replace("${containerName}", containerUrl, 1)
                 if final_url := url.get("final_url"):
                     url["final_url"] = final_url.replace("${containerName}", containerUrl, 1)
+
         eco_list = []
         yellowLabTools_list = []
         sitespeed_list = []
