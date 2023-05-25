@@ -69,34 +69,32 @@ def save_robot_files(robot_folder: str, url_list: list):
 def merge_configs(global_config, url_config):
     if "require" in url_config:
         merged_config = dict(global_config)
-        for key, value in url_config["require"].items():
-            if key in merged_config:
-                merged_config[key].update(value)
-            else:
-                merged_config[key] = value
+        for element in url_config["require"]:
+            if element in merged_config:
+                merged_config[element] = url_config["require"][element]
         return merged_config
     else:
         return global_config
-    
+        
 def buildTestList(url_list, config_key):
     test_list = []
     for url in url_list:
         if "exclude" not in url or config_key not in url["exclude"]:
             test_list.append(url)
     return test_list
-
+ 
 def process(args):
     with open(args.inputFile) as url_input_file:
         url_list = yaml.load(url_input_file, Loader=yaml.FullLoader)
-
         global_config = {}
         if "require" in url_list:
             global_config = url_list["require"]
             del url_list["require"]
+            for url in url_list["urls"]:
+                merged_config = merge_configs(global_config, url)
+                url["require"] = merged_config
 
-        for url in url_list:
-            merged_config = merge_configs(global_config, url)
-            url["require"] = merged_config
+            url_list = url_list["urls"]
 
         if args.localContainerName:
             containerUrl = f"http://{args.localContainerName}:{args.localContainerPort}" if args.localContainerPort != 80 else f"http://{args.localContainerName}"
@@ -109,10 +107,8 @@ def process(args):
         yellowLabTools_list = buildTestList(url_list, "yellowLabTools")
         sitespeed_list = buildTestList(url_list, "sitespeed")
         robot_list = buildTestList(url_list, "robot")
-
         save_yaml_file(args.ecoIndexFile, eco_list, GREENIT_INPUT_FILE_ARGS)
         save_yaml_file(args.yellowLabToolsFile, yellowLabTools_list, YELLOWLABTOOLS_INPUT_FILE_ARGS)
-
         with open(args.sitespeedFile, 'w') as sitespeed_urls:
             sitespeed_urls.write("\n".join([f'{url["url"]} {url["name"]}' for url in sitespeed_list]))
 
