@@ -1,8 +1,13 @@
 from typing import Any, Dict
 from xml.etree.cElementTree import SubElement, Element, ElementTree
 from json import load as loadJson
+import csv
 from datetime import datetime
 from collections import defaultdict
+from os import environ
+import argparse
+import shutil
+import os
 
 from yaml import load as yamlload, FullLoader
 
@@ -169,7 +174,7 @@ class JunitReportGenerator:
         page_xml.set("failures", str(nb_page_failure))
         return (nb_page_test, nb_page_failure)
 
-    def generate_testsuites_xml(self, tests: dict) -> ElementTree:
+    def generate_testsuites_xml(self, tests: dict, output_file: str,timestamp: int) -> ElementTree:
         """
             Generate testsuites junit tag
         """
@@ -184,18 +189,36 @@ class JunitReportGenerator:
                 total_failure += nb_page_failure
         testsuites.set("tests", str(total_tests))
         testsuites.set("failures", str(total_failure))
-        return ElementTree(testsuites)
+        result_xml = ElementTree(testsuites)
+        result_xml.write(output_file)
+        result_xml.write(f"/opt/report/results/report-{timestamp}.xml")
+        print("test results written to /opt/report/results/report.xml")
+
+    def export_to_csv(self, comparison_results: dict, output_file: str, timestamp: int):
+        with open(output_file, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(['Test Name', 'Category', 'Indicator', 'Comparison', 'Expected', 'Value', 'Offenders', 'Result'])
+            for test_name, test_results in comparison_results.items():
+                for category_name, category_results in test_results.items():
+                    for indicator, indic_results in category_results.items():
+                        for comparison, result in indic_results.items():
+                            row = [test_name, category_name, indicator, comparison, result['expected'], result['value'], result.get('path', ''), result['result']]
+                            writer.writerow(row)
+        dst_file = f'/opt/report/results/report-{timestamp}.csv'
+        shutil.copy(output_file, dst_file)
+        print(f"Exported results to {output_file} in CSV format.")
 
 def main(influxdb_client: InfluxClient, indicators_by_category: dict, offenders: list) -> bool:
     url_list = load_yaml_data_file("/opt/report/urls.yaml")
     indicator_comparator = IndicatorComparator(influxdb_client, indicators_by_category)
     comparison_results = indicator_comparator.test_url_list(url_list)
-
     if len(comparison_results) > 0:
         timestamp = int(datetime.now().timestamp())
-
         junit_generator = JunitReportGenerator(offenders)
-        result_xml = junit_generator.generate_testsuites_xml(comparison_results)
-        result_xml.write("/opt/report/results/report.xml")
-        result_xml.write(f"/opt/report/results/report-{timestamp}.xml")
+        if(environ["REPORT_FORMAT"] == "csv"):    
+            junit_generator.export_to_csv(comparison_results,"/opt/report/results/report.csv",timestamp)
+        else:
+            junit_generator.generate_testsuites_xml(comparison_results,"/opt/report/results/report.csv",timestamp)
+
+            
     return indicator_comparator.some_failed
