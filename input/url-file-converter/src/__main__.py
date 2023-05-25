@@ -77,6 +77,13 @@ def merge_configs(global_config, url_config):
         return merged_config
     else:
         return global_config
+    
+def buildTestList(url_list, config_key):
+    test_list = []
+    for url in url_list:
+        if "exclude" not in url or config_key not in url["exclude"]:
+            test_list.append(url)
+    return test_list
 
 def process(args):
     with open(args.inputFile) as url_input_file:
@@ -98,20 +105,11 @@ def process(args):
                 if final_url := url.get("final_url"):
                     url["final_url"] = final_url.replace("${containerName}", containerUrl, 1)
 
-        eco_list = []
-        yellowLabTools_list = []
-        sitespeed_list = []
-        robot_list = []
-        for url in url_list:
-            if "exclude" in url:
-                if "ecoIndex" not in url["exclude"]:
-                    eco_list.append(url)
-                if "yellowLabTools" not in url["exclude"]:
-                    yellowLabTools_list.append(url)
-                if "sitespeed" not in url["exclude"]:
-                    sitespeed_list.append(url)
-                if "robot" not in url["exclude"]:
-                    robot_list.append(url)
+        eco_list = buildTestList(url_list, "ecoIndex")
+        yellowLabTools_list = buildTestList(url_list, "yellowLabTools")
+        sitespeed_list = buildTestList(url_list, "sitespeed")
+        robot_list = buildTestList(url_list, "robot")
+
         save_yaml_file(args.ecoIndexFile, eco_list, GREENIT_INPUT_FILE_ARGS)
         save_yaml_file(args.yellowLabToolsFile, yellowLabTools_list, YELLOWLABTOOLS_INPUT_FILE_ARGS)
 
