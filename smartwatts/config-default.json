@@ -1,29 +1,29 @@
 {
-    "verbose": true,
-    "stream": true,
-    "input": {
-        "puller": {
-            "type": "socket",
-            "uri": "hwpc_sensor",
-            "model": "HWPCReport",
-            "port": 8080
-        }
-    },
-    "output": {
-        "pusher_power": {
-            "type": "influxdb2",
-            "model": "PowerReport",
-            "uri": "",
-            "port": 0,
-            "db": "",
-            "org": "",
-            "token": ""
-        }
-    },
-    "cpu-frequency-base": 19,
-    "cpu-frequency-min": 4,
-    "cpu-frequency-max": 42,
-    "cpu-error-threshold": 2.0,
-    "disable-dram-formula": true,
-    "sensor-report-sampling-interval": 1000
+  "verbose": true,
+  "stream": true,
+  "input": {
+    "puller": {
+      "type": "socket",
+      "uri": "hwpc_sensor",
+      "model": "HWPCReport",
+      "port": 8080
+    }
+  },
+  "output": {
+    "pusher_power": {
+      "type": "influxdb2",
+      "model": "PowerReport",
+      "uri": "",
+      "port": 0,
+      "db": "",
+      "org": "",
+      "token": ""
+    }
+  },
+  "cpu-frequency-base": 19,
+  "cpu-frequency-min": 4,
+  "cpu-frequency-max": 42,
+  "cpu-error-threshold": 2.0,
+  "disable-dram-formula": true,
+  "sensor-report-sampling-interval": 1000
 }
