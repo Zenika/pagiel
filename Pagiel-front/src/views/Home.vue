@@ -10,12 +10,14 @@ import Form from "../components/Form.vue";
   </section>
 </template>
 
-
 <style lang="scss">
-section{
-  @include section-app
+section {
+  @include section-app;
 }
-h1{
-  @include h1
+h1 {
+  @include h1;
+}
+h2 {
+  @include h2;
 }
 </style>

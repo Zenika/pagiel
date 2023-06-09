@@ -1,23 +1,21 @@
 <script setup>
 import Chip from "./Chip.vue";
-const props = defineProps(["pages"]);
+const props = defineProps(["webPages"]);
 </script>
 
 <template>
   <ul>
     <Chip
-      v-for="(page, index) in props.pages"
+      v-for="(page, index) in webPages"
       :text="page.name"
       :key="index"
-      @handleDelete="pages.splice(index, 1)"
+      @handleDelete="webPages.splice(index, 1)"
     ></Chip>
   </ul>
 </template>
 
-<style>
+<style lang="scss" scoped>
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  @include chipList;
 }
 </style>

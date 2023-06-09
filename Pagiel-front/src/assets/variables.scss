@@ -1,91 +1,137 @@
-// Colors 
-$white:                     #FFFFFF;
-$black:                     #000000;
-$flush:                     #BF1D67;
-$disco:                     rgba(192, 29, 103, 0.25);
-$crimson:                   #EE2238;
-$venus:                     rgba(242, 242, 242, 0.4);
-$solidVenus:                rgba(242, 242, 242, 1);
-$codgray:                   #1E1E1E;
-$darkshadow:                rgba(0, 0, 0, 0.25);
+$white: #ffffff;
+$black: #000000;
+$green: rgb(25, 209, 161);
+$darkBackground: rgb(17, 24, 39);
+$darkForm: rgb(31, 41, 55);
+$grey: rgb(104, 105, 107);
 
-// Globals
 @mixin body {
-    font-family: "Nunito", sans-serif;
-    color: $white;
-    background: $black;
+  font-family: "Nunito", sans-serif;
+  color: $white;
+  background: $darkBackground;
 }
 
-// Title 
 @mixin h1 {
-    font-weight: 700;
-    font-size: 50px;
-    color: $white;
-    text-align: center;
-}
-@mixin h2 {  
-    font-size: 45px;
-    font-weight: 700;
-    color: $white;
-    text-align: center;
+  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: $green;
+  text-align: center;
 }
 
-// Pages
+@mixin h2 {
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  color: $white;
+  text-align: center;
+}
+
 @mixin section-app {
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
 }
 
-// Pages
 @mixin button {
-    width: 100%;
-    margin : 10px;
-    height: 50px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: none;
-    width: 30%;
-    align-items: center;
+  width: clamp(15rem, 75%, 20rem);
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  margin: 1rem 0 0.5rem 0;
+  background-color: $darkBackground;
+  font-size: 1rem;
+
+  &:disabled {
+    background-color: $grey;
+    color: gray;
+    cursor: not-allowed;
+  }
 }
 
-//Input
-@mixin Form {
-    width: 40%;
-    min-width: 200px;
-    height: 40%;
-    background: $venus;
-    color: $white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    text-align: center;
-    border: none;
-    border-radius: 15px;
-    padding: 25px;
+@mixin button-green {
+  width: clamp(15rem, 75%, 20rem);
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  margin-top: 0.5rem;
+  background-color: $green;
+  font-size: 1rem;
+  &:disabled {
+    background-color: $grey;
+    color: gray;
+    cursor: not-allowed;
+  }
 }
 
-//Input
+@mixin form {
+  background: $darkForm;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px 20px;
+  width: clamp(15em, 75%, 40em);
+}
+
 @mixin input {
-    width: 60%;
-    height: 50px;
-    font-size: 16px;
-    background: $solidVenus;
-    color: $black;
-    margin:10px;
-    letter-spacing: 0.1rem;
-    font-weight: 400;
-    border: none;
-    border-radius: 8px;
-    padding-left: 15px;
-    cursor: text;
-    outline: none;
+  width: clamp(15rem, 75%, 30rem);
+  margin: 0.5rem;
+  height: 50px;
+  font-size: 1rem;
+  background: $darkBackground;
+  color: $white;
+  letter-spacing: 0.1rem;
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding-left: 20px;
+  cursor: text;
 }
 
+@mixin chip {
+  display: inline-block;
+  margin-right: 2px;
+  padding: 0 10px;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  border-radius: 25px;
+  background-color: $darkBackground;
+
+  & p {
+    float: left;
+    margin: 0;
+    font-size: small;
+  }
+
+  & .deleteBtn {
+    padding-left: 15px;
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+@mixin chipList {
+  margin: 10px;
+  padding: 0;
+}

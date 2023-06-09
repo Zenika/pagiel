@@ -1,0 +1,12 @@
+- url: test.com
+  name: test
+  require:
+    eco:
+      ecoindex:
+        '>=': 80
+    images:
+      lazyLoadableImagesBelowTheFold:
+        '==': 0
+    DOM:
+      DOMelementMaxDepth:
+        '<=': 20

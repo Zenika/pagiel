@@ -1,59 +1,115 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 import ChipList from "./ChipList.vue";
 
-const pages = ref([
-  { name: "Page 1", url: "https://www.google.com" },
-  { name: "Page 2", url: "https://www.google.com" },
-]);
+const webPages = ref([]);
 const pageName = ref("");
 const url = ref("");
+const submissionError = ref(false);
 
-const analyzePages = () => {
-  console.log(
-    "TODO : créer le fichier urls.yaml ici et appeler ensuite le pagiel.sh"
-  );
-};
+watch(pageName, () => {
+  if (submissionError.value) {
+    submissionError.value = false;
+  }
+});
+
+const areBothInputsFilled = computed(() => {
+  return pageName.value !== "" && url.value !== "";
+});
+
+const areBothInputsEmpty = computed(() => {
+  return pageName.value === "" && url.value === "";
+});
+
+const isAnalysisPossible = computed(() => {
+  if (areBothInputsFilled.value) return true;
+  else if (areBothInputsEmpty.value) return webPages.value.length > 0;
+  else return false;
+});
 
 const pageAlreadyExists = (newPage) => {
-  return pages.value.some((page) => page.name === newPage.name);
+  return webPages.value.some((page) => page.name === newPage.name);
 };
 
-const addAnotherPage = () => {
+const addNewWebPage = () => {
   const newPage = { name: pageName.value, url: url.value };
-  if (
-    !pageAlreadyExists(newPage) &&
-    pageName.value !== "" &&
-    url.value !== ""
-  ) {
-    pages.value.push(newPage);
+  if (!pageAlreadyExists(newPage)) {
+    webPages.value.push(newPage);
     url.value = "";
     pageName.value = "";
+  } else {
+    submissionError.value = true;
+  }
+};
+
+const analyzeWebPages = () => {
+  if (isAnalysisPossible) {
+    if (areBothInputsFilled.value)
+      webPages.value.push({ name: pageName.value, url: url.value });
+
+    fetch("http://localhost:5000/process-url", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(webPages.value),
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 };
 </script>
 
 <template>
-  <form class="form">
-    <input v-model="url" type="text" placeholder="URL" />
-    <input v-model="pageName" type="text" placeholder="Nom de la page" />
-    <button type="button" @click="addAnotherPage">
-      Mesurer une autre page
+  <form>
+    <input v-model="url" type="text" placeholder="URL" autofocus />
+    <span v-if="submissionError">Nom déjà existant</span>
+    <input
+      :class="{ error: submissionError }"
+      v-model="pageName"
+      type="text"
+      placeholder="Nom de la page"
+    />
+    <button
+      type="button"
+      :disabled="!areBothInputsFilled"
+      @click="addNewWebPage"
+    >
+      Ajouter une autre page
     </button>
-    <ChipList v-if="pages.length > 0" :pages="pages" />
-    <button type="submit" @click="analyzePages">Analyser</button>
+
+    <button
+      class="submit-button"
+      type="submit"
+      @click="analyzeWebPages"
+      :disabled="!isAnalysisPossible"
+    >
+      Analyser
+    </button>
+    <ChipList v-if="webPages.length > 0" :webPages="webPages" />
   </form>
 </template>
 
-
-<style lang="scss"  scoped>
-button{
+<style lang="scss" scoped>
+button {
   @include button;
 }
-.form{
-  @include Form;
+form {
+  @include form;
 }
-input{
+input {
   @include input;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+span {
+  font-style: italic;
+  color: red;
+}
+.submit-button {
+  @include button-green;
 }
 </style>
