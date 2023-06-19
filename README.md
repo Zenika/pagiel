@@ -18,6 +18,7 @@
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
   - [GitLab runner](#gitlab-runner)
+  - [Helm Charts](#helm-charts)
 - [Usage](#usage)
   - [Input files](#input-files)
   - [Standalone usage](#standalone-usage)
@@ -91,6 +92,12 @@ check_interval = 0
   token = "token"
   executor = "shell"
 ```
+### Helm charts
+
+Using Helm3, you can try to deploy helm charts in your kubernetes cluster (1.21+)
+
+    - helm dependency update  
+    - helm upgrade -i pagiel-platform . -f values.yaml --set commons.image.credentials.password=${REGISTRY_PASSWORD} --set commons.image.credentials.username=${REGISTRY_USER}
 
 ## Usage
 

@@ -1,0 +1,11 @@
+{{ if .Values.deployment.configmap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "defaults.fullname" . }}
+  labels:
+    {{- include "defaults.labels" . | nindent 4 }}
+data:
+  url.yaml: |-
+{{ .Files.Get "url.yaml" | indent 4 }}
+{{- end }}

@@ -1,0 +1,49 @@
+global:
+  deploy:
+    ecoindex: true
+    influxdb: true
+  image:
+    imagePullSecrets: registry-secret
+  #External service usage to permit using an external influxdb instead a statefullset
+  externalServices:
+    influxdb:
+      name: influxdb-endpoint  
+
+commons:
+  image:
+    registry: registry.hostname.fr
+    #Overloaded in gitlabci
+    credentials: {}
+    #  password: user
+    #  username: password
+  externalServices:
+    influxdb:
+      url: <service name>.<namespace name>b.svc.cluster.local
+     
+ecoindex:
+  image:
+    fullnameOverride: "zenika/pagiel-greenit-analysis-cli:2.0.0"
+
+influxdb2:
+  adminUser:
+    organization: "influxdata"
+    bucket: "default"
+    user: "admin"
+    retention_policy: "0s"
+    ## Leave empty to generate a random password and token.
+    ## Or fill any of these values to use fixed values.
+    password: ""
+    token: "MySuperToken"
+  persistence:
+    enabled: false
+  ingress:
+    enabled: true
+    className: nginx
+    hostname: influxdb-project.<subdomain>.fr
+    annotations:
+      ingress.kubernetes.io/force-ssl-redirect: 'true'
+  serviceAccount:
+    create: false
+  image:
+    imagePullSecrets: registry-secret
+

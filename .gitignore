@@ -16,3 +16,7 @@ sitespeed/config/config.json
 reports/reports/*.xml
 yellowLabTools/reports/*.json
 input/urls.yaml
+
+#exclude charts where dependences are imported
+charts/*
+Charts.lock

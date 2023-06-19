@@ -1,0 +1,10 @@
+#Helm variable for generate the common needs
+
+
+#Imagepull secrets configuration
+imagePullSecrets: registry-secret
+registry: default
+
+credentials:
+  password: user
+  username: password

@@ -1,0 +1,9 @@
+- name: Look at us
+  url: https://www.zenika.fr/
+  waitForNavigation:
+    networkidle0: true
+- name: Find a green it job ?
+  url: https://jobs.zenika.com/
+  waitForNavigation:
+    networkidle0: true
+
