@@ -261,3 +261,4 @@ fi
 if [ "$doReport" = true ] ; then
     makeReport
 fi
+

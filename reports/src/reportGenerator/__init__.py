@@ -174,7 +174,7 @@ class JunitReportGenerator:
         page_xml.set("failures", str(nb_page_failure))
         return (nb_page_test, nb_page_failure)
 
-    def generate_testsuites_xml(self, tests: dict) -> ElementTree:
+    def generate_testsuites_xml(self, tests: dict, output_file: str,timestamp: int) -> ElementTree:
         """
             Generate testsuites junit tag
         """
@@ -190,6 +190,7 @@ class JunitReportGenerator:
         testsuites.set("tests", str(total_tests))
         testsuites.set("failures", str(total_failure))
         return ElementTree(testsuites)
+
     def export_to_csv(self, comparison_results: dict, output_file: str, timestamp: int):
         with open(output_file, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
