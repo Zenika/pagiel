@@ -109,22 +109,6 @@ def process(args):
         robot_list = buildTestList(url_list, "robot")
         save_yaml_file(args.ecoIndexFile, eco_list, GREENIT_INPUT_FILE_ARGS)
         save_yaml_file(args.yellowLabToolsFile, yellowLabTools_list, YELLOWLABTOOLS_INPUT_FILE_ARGS)
-        eco_list = []
-        yellowLabTools_list = []
-        sitespeed_list = []
-        robot_list = []
-        for url in url_list:
-            if "exclude" in url:
-                if "ecoIndex" not in url["exclude"]:
-                    eco_list.append(url)
-                if "yellowLabTools" not in url["exclude"]:
-                    yellowLabTools_list.append(url)
-                if "sitespeed" not in url["exclude"]:
-                    sitespeed_list.append(url)
-                if "robot" not in url["exclude"]:
-                    robot_list.append(url)
-        save_yaml_file(args.ecoIndexFile, eco_list, GREENIT_INPUT_FILE_ARGS)
-        save_yaml_file(args.yellowLabToolsFile, yellowLabTools_list, YELLOWLABTOOLS_INPUT_FILE_ARGS)
 
         with open(args.sitespeedFile, 'w') as sitespeed_urls:
             sitespeed_urls.write("\n".join([f'{url["url"]} {url["name"]}' for url in sitespeed_list]))
