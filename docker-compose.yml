@@ -213,4 +213,3 @@ volumes:
   influxdb-storage:
   report-storage:
   grafana-storage:
-  tmp-storage:
