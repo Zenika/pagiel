@@ -1,6 +1,6 @@
 # Power API
 
-## HWPC Sensor - Monitor ubuntu 
+## HWPC Sensor - Monitor ubuntu
 
 sudo docker run --privileged --net=host --name powerapi-sensor-ubuntu --privileged -td \
 -v /sys:/sys \
@@ -11,23 +11,23 @@ powerapi/hwpc-sensor \
 -n "ubuntu-sensor" \
 -s "rapl" -o -e RAPL_ENERGY_PKG
 
-* to write in csv 
+* to write in csv
 -U /reporting powerapi/hwpc-sensor \
 
 ## HWPC Sensor - Monitor ubuntu + firefox
 
-1. create cgroup : 
+1. create cgroup :
 
 sudo apt-get install cgroup-bin
 
 sudo cgcreate -g perf_event:firefox_cgroup
-sudo cgclassify -g perf_event:firefox_cgroup 6846 
+sudo cgclassify -g perf_event:firefox_cgroup 6846
 
 sudo cgcreate -g perf_event:mongodb_container_cgroup
 > retrieve pid of mongodb docker container
-sudo docker top mongodb 
+sudo docker top mongodb
 
-sudo cgclassify -g perf_event:mongodb_container_cgroup 26167 
+sudo cgclassify -g perf_event:mongodb_container_cgroup 26167
 
 
 2. create docker container
@@ -43,15 +43,15 @@ docker run --net=host --privileged --name hwpc-sensor -d \
 -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" \
 -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
 
-docker run --net=host --privileged --name hwpc-sensor -d 
--v /sys:/sys 
--v /var/lib/docker/containers:/var/lib/docker/containers:ro 
--v /tmp/powerapi-sensor-reporting-firefox:/reporting powerapi/hwpc-sensor:latest 
--n "hwpc-sensor" 
--r "mongodb" -U "mongodb://172.17.0.2:27017" -D "powerapi" -C "data" 
--s "rapl" -o -e "RAPL_ENERGY_PKG" 
--s "msr" -e "TSC" -e "APERF" -e "MPERF" 
--c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" 
+docker run --net=host --privileged --name hwpc-sensor -d
+-v /sys:/sys
+-v /var/lib/docker/containers:/var/lib/docker/containers:ro
+-v /tmp/powerapi-sensor-reporting-firefox:/reporting powerapi/hwpc-sensor:latest
+-n "hwpc-sensor"
+-r "mongodb" -U "mongodb://172.17.0.2:27017" -D "powerapi" -C "data"
+-s "rapl" -o -e "RAPL_ENERGY_PKG"
+-s "msr" -e "TSC" -e "APERF" -e "MPERF"
+-c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P"
 -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
 
 * to write in csv
@@ -62,7 +62,7 @@ docker exec -it front-vue /bin/sh
 
 
 
-## Formula 
+## Formula
 
 sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formula \
             -s \
@@ -81,13 +81,10 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 
 > to output in influx :             --output influxdb --uri 172.17.0.2 --port 8086 --db powerapi --name grafana_output \
 
-* To retrieve cpu info 
+* To retrieve cpu info
 
 lscpu
 
 min ratio : 400mhz / 10
-max ratio : 4000mhz / 10 
+max ratio : 4000mhz / 10
 base ratio : 1800mhz / 10
-
-
-

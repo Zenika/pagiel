@@ -5,7 +5,7 @@ stages:
 
 eco test:
   stage: eco
-  tags: 
+  tags:
     - eco
   # no need to clone repo for online target
   variables:
@@ -17,4 +17,3 @@ eco test:
     - cat $URLS > ./input/urls.yaml
     # start process
     - ./parcours.sh
-

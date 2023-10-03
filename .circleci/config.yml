@@ -70,7 +70,7 @@ jobs:
       - docker/push:
           image: zenika/pagiel-url-converter
           tag: <<parameters.tag>>,latest
-          
+
       - docker/build:
           docker-context: reports
           image: zenika/pagiel-report

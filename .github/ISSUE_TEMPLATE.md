@@ -1,10 +1,10 @@
-- En tant que : 
-- je veux : 
-- afin de : 
+- En tant que :
+- je veux :
+- afin de :
 
 ### How to Demo
 
-- 
+-
 
 ### Tâches
 
@@ -13,5 +13,3 @@
 - [ ] (ci/cd)
 - [ ] (doc)
 - [ ] (tests)
-
-
