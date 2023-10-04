@@ -49,6 +49,8 @@ app.post("/start", (req, res) => {
     scriptArgs.push("--docker-compose-file");
     scriptArgs.push(options.dockerComposeFile);
   }
+  console.log("Pagiel is launched");
+  console.log("Requête: ../pagiel.sh", ...scriptArgs);
   res.status(200).send("Pagiel is launched");
 
   execFile("bash", ["../pagiel.sh", ...scriptArgs], (error, stdout, stderr) => {
