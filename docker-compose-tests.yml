@@ -3,7 +3,7 @@ version: "3.3"
 services:
   report-test:
     container_name: report-test
-    build: 
+    build:
       context: reports/
       dockerfile: Dockerfile-test
     environment:

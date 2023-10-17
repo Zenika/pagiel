@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # check if files exist
 if [ ! -f .env ]
 then

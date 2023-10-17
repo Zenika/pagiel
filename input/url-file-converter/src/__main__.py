@@ -5,7 +5,7 @@ import argparse
 
 RESOURCE_FILES = "/home/urlconverter/templates/{file}"
 
-GREENIT_INPUT_FILE_ARGS = ["url", "name", "waitForSelector", "waitForXPath", "waitforNavigation", "screenshot", "actions"] 
+GREENIT_INPUT_FILE_ARGS = ["url", "name", "waitForSelector", "waitForXPath", "waitforNavigation", "screenshot", "actions"]
 YELLOWLABTOOLS_INPUT_FILE_ARGS = ["url", "name", "device"]
 
 ROBOT_RESOURCE_TEMPLATE = """
@@ -60,7 +60,7 @@ def save_robot_files(robot_folder: str, url_list: list):
     shutil.copyfile(RESOURCE_FILES.format(file="resource.resource"), robot_resource_file_name)
     with open(robot_resource_file_name, "a") as robot_resource_file:
         robot_resource_file.write("\n".join(robot_resources))
-    
+
     robot_test_file_name = os.path.join(robot_folder, "generated-ping.robot")
     shutil.copyfile(RESOURCE_FILES.format(file="tests.robot"), robot_test_file_name)
     with open(robot_test_file_name, "a") as robot_test_file:

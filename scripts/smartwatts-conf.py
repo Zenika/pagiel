@@ -16,7 +16,7 @@ try:
     # trying to read the default config file
     with open('smartwatts/config-default.json', encoding='utf8') as smartwatts_default_config_file:
         json_config = json.load(smartwatts_default_config_file)
-            
+
     # customize the config
     json_config['output']['pusher_power']['uri'] = f'http://{host}'
     json_config['output']['pusher_power']['port'] = port

@@ -64,7 +64,7 @@ class IndicatorComparator:
 
         for comparison_mode, expected_value in comparisons.items():
             res[f"{comparison_mode} {expected_value}"] = self.compare(comparison_mode, expected_value, indicator_value)
-            
+
             if not res[f"{comparison_mode} {expected_value}"]["result"]:
                 if path := indicators_details.get("path", ""):
                     res[f"{comparison_mode} {expected_value}"]["path"] = path
@@ -76,7 +76,7 @@ class IndicatorComparator:
     def test_category(self, test: dict, category: str, indicators: dict) -> dict:
         if category not in self.indicators_by_category:
             raise CategoryException(category)
-        
+
         print(f"--- Catégorie {category} ---")
         res = defaultdict(dict)
 
@@ -125,7 +125,7 @@ class JunitReportGenerator:
             if type(offender_value) == dict:
                 offender_value = offender_value.values()
             return ",\n".join(map_display_offender(value) for value in offender_value)
-        
+
         if "+" in key:
             key1, key2 = key.split("+")
             return f"{self.display_offender(offender_value[key1], [])} {self.display_offender(offender_value[key2], remaining_path)}"
@@ -151,7 +151,7 @@ class JunitReportGenerator:
         if not result["result"]:
             if result.get("path"):
                 offenders = self.get_offender_for(test_name, indicator, result["path"].split("."))
-            else: 
+            else:
                 offenders = ""
             SubElement(indic_xml, "failure").text = f"Valeur attendue : {result['expected']}\nValeur obtenue : {result['value']}\n{offenders}"
         return result["result"]
@@ -215,10 +215,10 @@ def main(influxdb_client: InfluxClient, indicators_by_category: dict, offenders:
     if len(comparison_results) > 0:
         timestamp = int(datetime.now().timestamp())
         junit_generator = JunitReportGenerator(offenders)
-        if(environ["REPORT_FORMAT"] == "csv"):    
+        if(environ["REPORT_FORMAT"] == "csv"):
             junit_generator.export_to_csv(comparison_results,"/opt/report/results/report.csv",timestamp)
         else:
             junit_generator.generate_testsuites_xml(comparison_results,"/opt/report/results/report.csv",timestamp)
 
-            
+
     return indicator_comparator.some_failed
