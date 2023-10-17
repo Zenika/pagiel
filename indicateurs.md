@@ -23,7 +23,7 @@ Nombre de noeuds insérés
 Type : entier
 
 ## DOMmutationsAttributes
-Nombre de changement d'attribut de node 
+Nombre de changement d'attribut de node
 
 Type : entier
 
@@ -43,7 +43,7 @@ Nombre de requêtes sur le DOM
 Type : entier
 
 ## DOMqueriesAvoidable
-Nombre de requêtes sur le DOM répétées 
+Nombre de requêtes sur le DOM répétées
 
 Type : entier
 
@@ -234,7 +234,7 @@ Nombre de fichier qui pourrait bénéficier de l'en-tête Cache-Control: immutab
 Type : entier
 
 ## oldCachingHeaders
-Nombre de réponse avec les en-têtes de cache HTTP 1.0 (Expires et Pragma) 
+Nombre de réponse avec les en-têtes de cache HTTP 1.0 (Expires et Pragma)
 
 Type : entier
 
@@ -1159,7 +1159,7 @@ Volume d'autre type de fichier chargé (bytes)
 Type : entier
 
 ## performanceTimingConnect
-Temps nécessaire pour se connecter au serveur 
+Temps nécessaire pour se connecter au serveur
 
 Type : entier
 
@@ -1243,4 +1243,3 @@ Type : entier
 Nombre de fichier de police web
 
 Type : entier
-

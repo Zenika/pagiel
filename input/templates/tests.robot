@@ -6,4 +6,3 @@ Documentation     A test suite which load different web pages.
 Resource          generated-resource.resource
 
 *** Test Cases ***
-

@@ -8,10 +8,10 @@ def get_influxdb_timestamp(date):
 def generateInfluxQuery(bucket, start, stop, measurement, field, tags=[], last = False):
     tag_query = [f'|> filter(fn: (r) => r["{key}"] == "{value}")' for key, value in tags.items()]
     new_line = "\n"
-    return f"""from(bucket: "{bucket}") 
-|> range(start: {get_influxdb_timestamp(start)}, stop: {get_influxdb_timestamp(stop)}) 
+    return f"""from(bucket: "{bucket}")
+|> range(start: {get_influxdb_timestamp(start)}, stop: {get_influxdb_timestamp(stop)})
 |> filter(fn: (r) => r._measurement == "{measurement}" and r._field == "{field}")
-{new_line.join(tag_query)} 
+{new_line.join(tag_query)}
 {"|> last()" if last else ''}"""
 
 class InfluxClient:
@@ -32,10 +32,10 @@ class InfluxClient:
                 tags[key] = page
         flux_query = generateInfluxQuery(self.bucket, yesterday, now, measurement, field, tags=tags, last=last)
         return [row for table in self.query_api.query(flux_query) for row in table.records]
-    
+
     def query_last(self, measurement, field, page, tags):
         return self.query(measurement, field, page, tags, True)
-    
+
     def query_last_value(self, measurement, field, page, tags):
         return self.query_last(measurement, field, page, tags)[0]["_value"]
 

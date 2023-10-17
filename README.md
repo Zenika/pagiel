@@ -148,7 +148,7 @@ Here is an example script of a gitlab pipeline:
 ```yaml
 eco test:
   stage: eco
-  tags: 
+  tags:
     - eco
   variables:
     GIT_STRATEGY: none
@@ -161,7 +161,7 @@ eco test:
   artifacts:
     when: always
     reports:
-      junit: 
+      junit:
         - report.xml
 ```
 
@@ -225,7 +225,7 @@ docker run --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.10.3 https
 > Example of its use in a CI, it will be necessary to pass the configuration of the output endpoint, here graphite.
 
 ```console
-docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" \ 
+docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" \
     sitespeedio/sitespeed.io:16.10.3 https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome \
     --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
 ```
@@ -291,15 +291,15 @@ RAPL exposes consumption data in the form of a value key: `Timestamp (ns) / joul
 **Integration**
 
 ```console
-docker run --net=host --privileged --name hwpc-sensor -d 
-    -v /sys:/sys 
-    -v /var/lib/docker/containers:/var/lib/docker/containers:ro 
-    -v /tmp/powerapi-sensor-reporting-firefox:/reporting powerapi/hwpc-sensor:latest 
-    -n "hwpc-sensor" 
-    -r "mongodb" -U "mongodb://172.17.0.2:27017" -D "powerapi" -C "data" 
-    -s "rapl" -o -e "RAPL_ENERGY_PKG" 
-    -s "msr" -e "TSC" -e "APERF" -e "MPERF" 
-    -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" 
+docker run --net=host --privileged --name hwpc-sensor -d
+    -v /sys:/sys
+    -v /var/lib/docker/containers:/var/lib/docker/containers:ro
+    -v /tmp/powerapi-sensor-reporting-firefox:/reporting powerapi/hwpc-sensor:latest
+    -n "hwpc-sensor"
+    -r "mongodb" -U "mongodb://172.17.0.2:27017" -D "powerapi" -C "data"
+    -s "rapl" -o -e "RAPL_ENERGY_PKG"
+    -s "msr" -e "TSC" -e "APERF" -e "MPERF"
+    -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P"
     -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
 ```
 
@@ -309,7 +309,7 @@ docker run --net=host --privileged --name hwpc-sensor -d
 
 **Description & integration**
 
-It is necessary to provide information about the CPU (which has been monitored by HWPC) in order to perform the conversion. 
+It is necessary to provide information about the CPU (which has been monitored by HWPC) in order to perform the conversion.
 [HWPC documentation](https://powerapi-ng.github.io/hwpc-sensor.html)
 
 This information is as follows:
@@ -354,7 +354,7 @@ Note that it will be necessary to go further in the way of exploiting this data:
 
 - First, it may be relevant to correlate the measurements made over time and the execution of the Robot Framework tests
 - In a second step, it will be necessary to perform an integration type calculation (in Grafana) according to the duration of the tests, with the idea of having a unique value instead of a curve
-  
+
 ### Selenium & Robot Framework
 
 To measure the energy consumption of a browser, we have chosen to use the Selenium framework.

@@ -1,9 +1,10 @@
+#!/bin/sh
 
 # sets the docker compose command used to launch the Docker stacks
 docker_compose_cmd=${DOCKER_COMPOSE_CMD:-docker compose}
 docker_compose_options=${DOCKER_COMPOSE_OPTIONS}
 docker_compose_pagiel="$docker_compose_cmd $docker_compose_options"
-exportFormat="xml" 
+exportFormat="xml"
 
 # function
 
@@ -83,7 +84,7 @@ convertInputDocker() {
 
 # Docker section
 
-# Single image 
+# Single image
 startContainer() { # dockerImage containerName dockerNetwork
     docker pull $1
     docker container run --rm -d --name $2 --network $3 $1
@@ -116,7 +117,7 @@ testGreenITAnalysis() {
 }
 
 testSitespeed() {
-    ${docker_compose_pagiel} run --rm sitespeed 
+    ${docker_compose_pagiel} run --rm sitespeed
     errCode=$?
     if [ $errCode -ne 0 ];
     then
@@ -126,7 +127,7 @@ testSitespeed() {
 }
 
 testYellowLabTools() {
-    ${docker_compose_pagiel} --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools 
+    ${docker_compose_pagiel} --profile test up --abort-on-container-exit --exit-code-from yellowlabtools yellowlabtools
     errCode=$?
     if [ $errCode -ne 0 ];
     then

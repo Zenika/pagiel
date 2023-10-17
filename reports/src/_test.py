@@ -27,18 +27,18 @@ class TestOffenderPath(TestCase):
 class TestInfluxDB(TestCase):
     def __init__(self, method_name: str = ...) -> None:
         super().__init__(method_name)
-        self.influxdb_client = InfluxClient(f'http://{environ["INFLUXDB_HOST"]}:{environ["INFLUXDB_PORT"]}', 
+        self.influxdb_client = InfluxClient(f'http://{environ["INFLUXDB_HOST"]}:{environ["INFLUXDB_PORT"]}',
             org=environ["INFLUXDB_ORG_NAME"], token=environ["INFLUXDB_TOKEN"], bucket=environ["INFLUXDB_BUCKET_NAME"])
-        
+
     def test_influxdb(self):
         """
         Test every endpoint from InfluxDB
         """
         for category, category_dict in INDICATORS_BY_CATEGORY.items():
             for indicator, indicator_detail in category_dict.items():
-                query_result = self.influxdb_client.query_last(indicator_detail["Measurement"], 
-                                indicator_detail["Field"], 
-                                URLS_TEST[0]["name"], 
+                query_result = self.influxdb_client.query_last(indicator_detail["Measurement"],
+                                indicator_detail["Field"],
+                                URLS_TEST[0]["name"],
                                 indicator_detail["Tags"].copy())
                 if(len(query_result) == 0):
                     print(indicator)

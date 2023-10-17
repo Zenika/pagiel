@@ -151,7 +151,7 @@ Voici un exemple de script d'une pipeline gitlab :
 ```yaml
 eco test:
   stage: eco
-  tags: 
+  tags:
     - eco
   variables:
     GIT_STRATEGY: none
@@ -164,7 +164,7 @@ eco test:
   artifacts:
     when: always
     reports:
-      junit: 
+      junit:
         - report.xml
 ```
 
@@ -230,7 +230,7 @@ docker run --rm -v "$(pwd):/sitespeed.io" sitespeedio/sitespeed.io:16.10.3 https
 > Exemple de son usage dans une CI, il faudra passer la configuration du endpoint de sortie, ici graphite.
 
 ```sh
-docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" \ 
+docker run --name sitespeed --network=eco-platform-analyzer_epa-network --shm-size=1g --rm -v "$(pwd):/sitespeed.io" \
     sitespeedio/sitespeed.io:16.10.3 https://www.arkea.com/ --cpu --sustainable.enable --axe.enable -b chrome \
     --graphite.host graphite --graphite.port 2003 --graphite.auth user:password --graphite.username guest --graphite.password guest
 ```
@@ -271,7 +271,7 @@ Nous avons pour l'occasion réalisée une contribution sur ce projet, qui consis
 
 > Monitoring et analyse de code dans un navigateur
 
-Utilisation du projet Yellow Lab Tools pour récupérer une grande quantitée de métrique permettant de remonter aux causes des problèmes reportés par les projets précédents. 
+Utilisation du projet Yellow Lab Tools pour récupérer une grande quantitée de métrique permettant de remonter aux causes des problèmes reportés par les projets précédents.
 Cet outil collecte des métriques sur des sujets aussi variés que la complexité du DOM, une analyse du JS et du CSS, le cache configuré, etc.
 
 ### Mesure de la consommation énergétique
@@ -297,15 +297,15 @@ Ces données sont ensuite poussées au choix dans une base mongo ou dans un fich
 **Intégration**
 
 ```sh
-docker run --net=host --privileged --name hwpc-sensor -d 
-    -v /sys:/sys 
-    -v /var/lib/docker/containers:/var/lib/docker/containers:ro 
-    -v /tmp/powerapi-sensor-reporting-firefox:/reporting powerapi/hwpc-sensor:latest 
-    -n "hwpc-sensor" 
-    -r "mongodb" -U "mongodb://172.17.0.2:27017" -D "powerapi" -C "data" 
-    -s "rapl" -o -e "RAPL_ENERGY_PKG" 
-    -s "msr" -e "TSC" -e "APERF" -e "MPERF" 
-    -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P" 
+docker run --net=host --privileged --name hwpc-sensor -d
+    -v /sys:/sys
+    -v /var/lib/docker/containers:/var/lib/docker/containers:ro
+    -v /tmp/powerapi-sensor-reporting-firefox:/reporting powerapi/hwpc-sensor:latest
+    -n "hwpc-sensor"
+    -r "mongodb" -U "mongodb://172.17.0.2:27017" -D "powerapi" -C "data"
+    -s "rapl" -o -e "RAPL_ENERGY_PKG"
+    -s "msr" -e "TSC" -e "APERF" -e "MPERF"
+    -c "core" -e "CPU_CLK_THREAD_UNHALTED:REF_P" -e "CPU_CLK_THREAD_UNHALTED:THREAD_P"
     -e "LLC_MISSES" -e "INSTRUCTIONS_RETIRED"
 ```
 
@@ -315,7 +315,7 @@ docker run --net=host --privileged --name hwpc-sensor -d
 
 **Description & intégration**
 
-Il est nécessaire de fournir des informations à propos du CPU (lequel a été monitoré par HWPC) afin de réaliser la conversion. 
+Il est nécessaire de fournir des informations à propos du CPU (lequel a été monitoré par HWPC) afin de réaliser la conversion.
 [Documentation HWPC](https://powerapi-ng.github.io/hwpc-sensor.html)
 
 Ces informations sont les suivantes :
@@ -365,7 +365,7 @@ sudo docker run -td --net=host --name powerapi-formula powerapi/smartwatts-formu
 
 Pour la mesure de consommation énergétique d'un browser, nous avons retenu l'utilisation du framework Selenium.
 Selenium expose un mécanisme de hub et de node afin de paralléliser les executions de tests et ce sur différents navigateurs.
-Les tests sont pilotés par Robot Framework, celui-ci va permettre de programmer la simulation de parcours utilisateur, 
+Les tests sont pilotés par Robot Framework, celui-ci va permettre de programmer la simulation de parcours utilisateur,
 les mesures de consommation énergétique seront réalisées en arrière-plan par écoute du PID des nodes par HWPC.
 
 Il est toutefois envisageable de monitorer avec HWPC le PID d'un browser installé directement sur la machine.

@@ -3,17 +3,17 @@ version: "3.3"
 services:
   robot-chrome-test:
     build: robot
-    
+
   eco-index:
     build: eco-index/GreenIT-analysis-cli
 
   sitespeed:
     build: sitespeed/src
-  
+
   yellowlabtools:
     build:
       context: yellowLabTools/services
-      
+
   url-converter:
     build: ./input/url-file-converter
 

@@ -12,7 +12,7 @@ if __name__ == "__main__":
             exit_code_fail = int(exit_code_variable)
         except ValueError:
             exit_code_fail = 0
-    try: 
+    try:
         some_failed = main(INFLUXDB_CLIENT, INDICATORS_BY_CATEGORY, OFFENDERS)
         exit(0 if not some_failed else exit_code_fail)
     except Exception as e:
