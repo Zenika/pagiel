@@ -1,0 +1,18 @@
+apiVersion: v2
+name: greenIT
+appVersion: "1.0"
+description: "greenIT metrics collector"
+version: 1.0.0
+type: application
+dependencies:
+  - name: commons 
+    version: ~1.0.0
+    repository: "file://depcharts/commons"
+  - name: ecoindex 
+    version: ~1.0.0
+    repository: "file://depcharts/ecoindex"
+    condition: global.deploy.ecoindex
+  - name: influxdb2
+    version: 2.1.0
+    repository: "file://depcharts/influxdb2"
+    condition: global.deploy.influxdb

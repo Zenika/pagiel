@@ -1,0 +1,170 @@
+{{- if .Values.deployment.enabled -}}
+{{ $livenessMode := .Values.deployment.liveness.mode | default "TCP" | upper }}
+{{ $readinessMode := .Values.deployment.readiness.mode | default "TCP" | upper }}
+{{- $releaseName := include "defaults.fullname" . -}}
+# Ajout de la configuration Volumes dans la key Default de additionnal_volumes utilisée par la value_php
+{{ $_ := set .Values.deployment.additionnal_volumes "default"  .Values.deployment.volumes }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "defaults.fullname" . }}
+  labels:
+    {{- include "defaults.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+{{ toYaml .Values.deployment.updateStrategy | indent 4 }}
+  selector:
+    matchLabels:
+      {{- include "defaults.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.deployment.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "defaults.selectorLabels" . | nindent 8 }}
+    spec:
+      volumes:
+        - name: domaine-ca
+          configMap:
+            name: domaine-ca
+            defaultMode: 420      
+      {{- if .Values.deployment.configmap.enabled }}
+        - name: configmap
+          configMap:
+            name: {{ template "defaults.fullname" . }}
+      {{- end }}
+      {{- range  $key := .Values.deployment.additionnal_volumes }}
+      {{- range  $key }}
+        - name: {{ .name}}
+      {{- with .definition }}
+        {{- toYaml . | nindent 10 }}           
+      {{- end }}
+      {{- end }}
+      {{- end }}
+      {{- if .Values.deployment.storage.enabled }}
+        - name: pvc-{{ include "defaults.fullname" . }}
+          persistentVolumeClaim:
+            claimName: pvc-{{ include "defaults.fullname" . }}
+      {{- end }}
+      imagePullSecrets:
+      {{- if .Values.global.image.imagePullSecrets }}
+        - name: {{.Values.global.image.imagePullSecrets}}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ .Values.deployment.serviceAccountName }} 
+      securityContext:
+        {{- toYaml .Values.deployment.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "defaults.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.deployment.securityContext | nindent 12 }}
+      {{- if .Values.image.fullnameOverride }}
+          image: "{{ .Values.image.fullnameOverride }}"
+      {{ else if .Values.image.fullname }}
+          image: "{{ .Values.image.fullname }}"
+      {{- else }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}" 
+      {{- end }}
+      {{- if .Values.image.args }}
+          args:
+      {{- range .Values.image.args }}
+             - {{ . | quote -}}
+      {{- end }}
+      {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.internalPort }}
+              protocol: TCP
+          env:
+            {{- range $key, $value := .Values.deployment.extraEnv }}
+            - name: "{{ $key }}"
+              value: "{{ $value }}"
+            {{- end }}
+          {{- range $key, $value := .Values.deployment.secrets }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "defaults.fullname" $ }}
+                  key: {{ $key | quote }}
+          {{- end }}
+          volumeMounts:
+            - name: domaine-ca
+              mountPath: /etc/ssl/certs/ca.crt
+              subPath: ca.crt            
+          {{- if .Values.deployment.configmap.enabled }}
+            - name: configmap
+              mountPath: {{ .Values.deployment.configmap.mountPath }}
+          {{- end }}
+          {{- range  $volumes := .Values.deployment.additionnal_volumes }}
+          {{- range  $volume := $volumes }}
+          {{- range $mount := $volume.mounts}}
+            - name: {{ $volume.name}}
+          {{- toYaml . | nindent 14 }} 
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.storage.enabled }}
+            - name: pvc-{{ include "defaults.fullname" . }}
+              mountPath:  {{.Values.deployment.storage.path }}
+          {{- end }}
+          {{- if .Values.deployment.liveness.enabled }}
+          livenessProbe:
+            {{- if eq $livenessMode "CMD" }}
+            exec:
+               command:
+               {{- range .Values.deployment.liveness.command }}
+                 - {{ . -}}
+               {{- end }}
+            {{- else }} 
+            {{- if eq $livenessMode "TCP" }}
+            tcpSocket:
+            {{- else }}
+            httpGet:
+              path: {{ .Values.deployment.liveness.path | default "/"}}
+            {{- end }}
+              port: {{ .Values.deployment.liveness.port | default "http"}}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.deployment.liveness.initialDelaySeconds }}
+          {{- end }}
+          {{- if .Values.ingress.enabled }}
+          readinessProbe:
+            {{- if eq $readinessMode "CMD" }}
+            exec:
+               command:
+               {{- range .Values.deployment.readiness.command }}
+                 - {{ . -}}
+               {{- end }}
+            {{- else }} 
+            {{- if eq $readinessMode "TCP" }}
+            tcpSocket:
+            {{- else }}
+            httpGet:
+              path: {{ .Values.deployment.readiness.path | default "/"}}
+            {{- end }}
+              port: {{ .Values.deployment.readiness.port | default "http"}}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.deployment.readiness.initialDelaySeconds }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.deployment.resources | nindent 12 }}
+      {{- with .Values.deployment.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deployment.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

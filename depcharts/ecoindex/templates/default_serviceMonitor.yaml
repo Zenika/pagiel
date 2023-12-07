@@ -1,0 +1,23 @@
+{{- if .Values.servicemonitor.enabled -}}
+{{- $fullName := include "defaults.fullname" . -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $fullName }}
+  labels:
+    prometheus: kube-prometheus
+    {{- include "defaults.labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - interval: 30s
+      path: {{ .Values.servicemonitor.metricsPath }}
+      targetPort: http
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+       {{- include "defaults.selectorLabels" . | nindent 6 }}
+{{- end }}
+
