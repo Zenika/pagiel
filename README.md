@@ -69,6 +69,10 @@ Today, there are many tools for measuring environmental impacts. However, most o
 - Launch `docker-compose up`, this will launch the InfluxDB container which is designed to run permanently
 - Connect to influxdb (by default: `http://localhost:8086`) to get the organization id (in the url following the connection `http://localhost:8086/orgs/<org id>`) and the connection token (data -> API Token), and fill in the corresponding environment variables
 - Run the setup.sh script. It will create some configuration files needed for the other containers from the `.env` file. It will also start the Grafana container which will run permanantly afterward
+- Check that the file `sitespeed/config/config.json` contains a `influxdb.org` entry (change organization to org)
+- Configure the url to check and the parameters un `input/urls.yaml`
+- Run `pagiel.sh` to lauch the tests
+- Go to `http://localhost:3000` to see the metrics dashboard
 
 > This project uses git submodules, they are only useful if you want to build local docker images. They can be setup with the script [setup-local.sh](scripts/setup-local.sh).
 
